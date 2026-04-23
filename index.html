@@ -16,16 +16,21 @@
     --bg-primary: #ffffff;
     --bg-secondary: #f1efe8;
     --bg-info: #E6F1FB;
+    --bg-warning: #FFF8EC;
     --text-primary: #1a1a1a;
     --text-secondary: #5F5E5A;
     --text-tertiary: #888780;
     --text-info: #0C447C;
+    --text-warning: #7A4A00;
     --border-tertiary: rgba(0,0,0,0.1);
     --border-secondary: rgba(0,0,0,0.2);
     --border-info: #378ADD;
+    --border-warning: #F0B429;
     --success: #639922;
     --success-light: #97C459;
     --danger: #E24B4A;
+    --partial: #E07B39;
+    --partial-light: #F5A96A;
     --pill-p-bg: #EEEDFE; --pill-p-tx: #26215C;
     --pill-c-bg: #E1F5EE; --pill-c-tx: #04342C;
     --pill-f-bg: #FAEEDA; --pill-f-tx: #412402;
@@ -39,12 +44,15 @@
       --bg-primary: #26251f;
       --bg-secondary: #2f2e28;
       --bg-info: #0C447C;
+      --bg-warning: #3A2800;
       --text-primary: #f0ebe0;
       --text-secondary: #b4b2a9;
       --text-tertiary: #888780;
       --text-info: #B5D4F4;
+      --text-warning: #FAC775;
       --border-tertiary: rgba(255,255,255,0.12);
       --border-secondary: rgba(255,255,255,0.22);
+      --border-warning: #C07A00;
       --pill-p-bg: #3C3489; --pill-p-tx: #CECBF6;
       --pill-c-bg: #085041; --pill-c-tx: #9FE1CB;
       --pill-f-bg: #633806; --pill-f-tx: #FAC775;
@@ -66,237 +74,285 @@
   h1 { font-size: 22px; font-weight: 500; margin: 0 0 4px; }
   .subtitle { font-size: 13px; color: var(--text-secondary); margin: 0; }
 
-  /* Sticky tracker at top */
   .tracker {
-    position: sticky;
-    top: 8px;
-    z-index: 10;
+    position: sticky; top: 8px; z-index: 10;
     background: var(--bg-primary);
     border: 0.5px solid var(--border-tertiary);
     border-radius: var(--radius-lg);
-    padding: 14px 16px;
-    margin-bottom: 1rem;
+    padding: 14px 16px; margin-bottom: 1rem;
   }
-  .tracker-head {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 12px;
-  }
-  .tracker-label {
-    font-size: 11px; color: var(--text-tertiary);
-    text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500;
-  }
-  .reset-btn {
-    font-size: 12px; color: var(--text-secondary);
-    background: none; border: none; cursor: pointer; padding: 4px 8px;
-    font-family: inherit; border-radius: 6px;
-  }
-  .reset-btn:hover, .reset-btn:active { background: var(--bg-secondary); }
-  .tracker-grid {
-    display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
-  }
+  .tracker-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .tracker-label { font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; }
+  .reset-btn { font-size: 12px; color: var(--text-secondary); background: none; border: none; cursor: pointer; padding: 4px 8px; font-family: inherit; border-radius: 6px; }
+  .reset-btn:hover { background: var(--bg-secondary); }
+  .tracker-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
   .metric { min-width: 0; }
-  .metric-label {
-    font-size: 10px; color: var(--text-tertiary);
-    text-transform: uppercase; letter-spacing: 0.4px; margin: 0 0 3px;
-    font-weight: 500;
-  }
-  .metric-val {
-    font-size: 14px; font-weight: 500; margin: 0 0 5px;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
+  .metric-label { font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.4px; margin: 0 0 3px; font-weight: 500; }
+  .metric-val { font-size: 14px; font-weight: 500; margin: 0 0 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .metric-val .target { color: var(--text-tertiary); font-weight: 400; font-size: 12px; }
-  .bar {
-    height: 4px; background: var(--bg-secondary);
-    border-radius: 2px; overflow: hidden;
-  }
-  .bar-fill {
-    height: 100%; width: 0%;
-    transition: width 0.25s ease, background 0.25s ease;
-    border-radius: 2px;
-  }
+  .bar { height: 4px; background: var(--bg-secondary); border-radius: 2px; overflow: hidden; }
+  .bar-fill { height: 100%; width: 0%; transition: width 0.25s ease, background 0.25s ease; border-radius: 2px; }
   .bar-fill.cal { background: var(--text-secondary); }
   .bar-fill.p { background: var(--pill-p-tx); }
   .bar-fill.c { background: var(--pill-c-tx); }
   .bar-fill.f { background: var(--pill-f-tx); }
   .bar-fill.fib { background: var(--pill-fib-tx); }
   .bar-fill.over { background: var(--danger) !important; }
-  .over-note {
-    font-size: 10px; color: var(--danger); margin-top: 2px;
-    font-weight: 500;
-  }
+  .over-note { font-size: 10px; color: var(--danger); margin-top: 2px; font-weight: 500; }
   @media (max-width: 420px) {
     .metric-val { font-size: 12px; }
     .metric-val .target { font-size: 10px; }
     .metric-label { font-size: 9px; }
   }
 
-  /* Day panels */
   .day-panel { display: none; }
   .day-panel.active { display: block; }
 
-  /* Meal row */
   .meal-row {
     background: var(--bg-primary);
     border: 0.5px solid var(--border-tertiary);
     border-radius: var(--radius-lg);
-    padding: 14px 16px;
-    margin-bottom: 10px;
+    padding: 14px 16px; margin-bottom: 10px;
     transition: border-color 0.2s, background 0.2s;
   }
-  .meal-row.checked {
-    border-color: var(--success);
-  }
+  .meal-row.checked { border-color: var(--success); }
+  .meal-row.partial { border-color: var(--partial); }
   @media (prefers-color-scheme: dark) {
     .meal-row.checked { border-color: var(--success-light); }
+    .meal-row.partial { border-color: var(--partial-light); }
   }
-  .meal-header {
-    display: flex; align-items: flex-start; gap: 10px;
-    margin-bottom: 6px;
-  }
-  .check-wrap {
-    flex: 0 0 auto;
-    padding-top: 2px;
-    position: relative;
-  }
+  .meal-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 6px; }
+  .check-wrap { flex: 0 0 auto; padding-top: 2px; position: relative; }
   .check {
     width: 22px; height: 22px;
     border: 1.5px solid var(--border-secondary);
-    border-radius: 5px;
-    background: transparent;
-    cursor: pointer;
-    position: relative;
-    display: block;
+    border-radius: 5px; background: transparent;
+    cursor: pointer; position: relative; display: block;
     transition: all 0.15s;
   }
   .check:hover { border-color: var(--success); }
-  input[type="checkbox"] {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-    width: 0; height: 0;
-  }
-  input[type="checkbox"]:checked + .check {
-    background: var(--success);
-    border-color: var(--success);
-  }
+  input[type="checkbox"] { position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0; }
+  input[type="checkbox"]:checked + .check { background: var(--success); border-color: var(--success); }
   input[type="checkbox"]:checked + .check::after {
-    content: "";
-    position: absolute;
-    left: 6px; top: 2px;
-    width: 6px; height: 11px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
+    content: ""; position: absolute; left: 6px; top: 2px;
+    width: 6px; height: 11px; border: solid white;
+    border-width: 0 2px 2px 0; transform: rotate(45deg);
+  }
+  .check.partial-check { border-color: var(--partial); }
+  .check.partial-check::after {
+    content: ""; position: absolute; left: 4px; top: 10px;
+    width: 12px; height: 2px; background: var(--partial); border-radius: 1px;
   }
   @media (prefers-color-scheme: dark) {
-    input[type="checkbox"]:checked + .check {
-      background: var(--success-light);
-      border-color: var(--success-light);
-    }
+    input[type="checkbox"]:checked + .check { background: var(--success-light); border-color: var(--success-light); }
   }
+
   .meal-info { flex: 1; min-width: 0; }
-  .meal-info-top {
-    display: flex; justify-content: space-between;
-    align-items: baseline; gap: 8px;
-  }
-  .meal-time {
-    font-size: 10px; color: var(--text-tertiary);
-    text-transform: uppercase; letter-spacing: 0.5px;
-    font-weight: 500;
-  }
+  .meal-info-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .meal-time { font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; }
   .meal-title { font-size: 15px; font-weight: 500; margin: 2px 0 0; }
-  .meal-cal {
-    font-size: 13px; color: var(--text-secondary);
-    font-weight: 500; white-space: nowrap; flex: 0 0 auto;
-  }
-  .meal-desc {
-    font-size: 13px; color: var(--text-secondary);
-    margin: 4px 0 10px; line-height: 1.55;
-    transition: opacity 0.2s;
-  }
+  .meal-cal { font-size: 13px; color: var(--text-secondary); font-weight: 500; white-space: nowrap; flex: 0 0 auto; }
+  .meal-desc { font-size: 13px; color: var(--text-secondary); margin: 4px 0 10px; line-height: 1.55; transition: opacity 0.2s; }
   .meal-row.checked .meal-desc { opacity: 0.65; }
-  .alt-line {
-    font-size: 12px; color: var(--text-info);
-    margin: 4px 0 10px; line-height: 1.5;
-    padding: 8px 10px;
-    background: var(--bg-info);
+  .meal-row.partial .meal-desc { opacity: 0.8; }
+
+  /* Skip items panel */
+  .skip-panel {
+    background: var(--bg-warning);
+    border: 0.5px solid var(--border-warning);
     border-radius: var(--radius-md);
+    padding: 10px 12px;
+    margin: 0 0 10px;
+    display: none;
+  }
+  .skip-panel.open { display: block; }
+  .skip-panel-title { font-size: 11px; font-weight: 500; color: var(--text-warning); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 8px; }
+  .skip-items { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skip-item {
+    font-size: 12px; padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border-warning);
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+    display: inline-flex; align-items: center; gap: 5px;
+  }
+  .skip-item .item-cal {
+    font-size: 10px; color: var(--text-tertiary); font-weight: 400;
+  }
+  .skip-item.skipped {
+    background: var(--partial);
+    border-color: var(--partial);
+    color: white;
+    text-decoration: line-through;
+    opacity: 0.85;
+  }
+  .skip-item.skipped .item-cal { color: rgba(255,255,255,0.85); }
+  .skip-done-btn {
+    margin-top: 8px; width: 100%;
+    padding: 7px; font-size: 12px; font-weight: 500;
+    background: var(--partial); color: white;
+    border: none; border-radius: var(--radius-md);
+    cursor: pointer; font-family: inherit;
+  }
+  .partial-badge {
+    font-size: 10px; color: var(--partial);
+    font-weight: 500; margin-top: 3px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .skip-item.skipped { background: var(--partial-light); border-color: var(--partial-light); color: #1a1a18; }
+    .skip-item.skipped .item-cal { color: rgba(26,26,24,0.8); }
+    .skip-done-btn { background: var(--partial-light); color: #1a1a18; }
+  }
+
+  .alt-line {
+    font-size: 12px; color: var(--text-info); margin: 4px 0 10px; line-height: 1.5;
+    padding: 8px 10px; background: var(--bg-info); border-radius: var(--radius-md);
   }
   .recipe-line {
-    font-size: 12px; color: var(--text-primary);
-    margin: 4px 0 10px; line-height: 1.5;
-    padding: 8px 10px;
-    background: var(--bg-secondary);
-    border-radius: var(--radius-md);
+    font-size: 12px; color: var(--text-primary); margin: 4px 0 10px; line-height: 1.5;
+    padding: 8px 10px; background: var(--bg-secondary); border-radius: var(--radius-md);
     border-left: 2px solid var(--border-secondary);
   }
-  .bottom-row {
-    display: flex; justify-content: space-between;
-    align-items: center; gap: 8px; flex-wrap: wrap;
-    margin-top: 6px;
-  }
+  .bottom-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
   .macro-pills { display: flex; gap: 6px; flex-wrap: wrap; }
-  .pill {
-    font-size: 11px; padding: 3px 9px;
-    border-radius: var(--radius-md);
-    font-weight: 500;
-  }
+  .pill { font-size: 11px; padding: 3px 9px; border-radius: var(--radius-md); font-weight: 500; }
   .pill-p { background: var(--pill-p-bg); color: var(--pill-p-tx); }
   .pill-c { background: var(--pill-c-bg); color: var(--pill-c-tx); }
   .pill-f { background: var(--pill-f-bg); color: var(--pill-f-tx); }
   .pill-fib { background: var(--pill-fib-bg); color: var(--pill-fib-tx); }
 
+  /* Meal action buttons */
+  .meal-actions { display: flex; gap: 6px; margin-top: 10px; }
+  .meal-action-btn {
+    font-size: 11px; padding: 5px 10px;
+    border-radius: var(--radius-md);
+    border: 0.5px solid var(--border-tertiary);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    cursor: pointer; font-family: inherit; font-weight: 500;
+    transition: all 0.15s;
+  }
+  .meal-action-btn:hover { border-color: var(--border-secondary); color: var(--text-primary); }
+  .meal-action-btn.partial-btn { color: var(--partial); border-color: var(--border-warning); background: var(--bg-warning); }
+  .meal-action-btn.edit-btn { color: var(--text-info); border-color: var(--border-info); background: var(--bg-info); }
+
   details.groc { font-size: 12px; }
   details.groc summary {
-    cursor: pointer; color: var(--text-secondary);
-    padding: 4px 10px;
-    border: 0.5px solid var(--border-tertiary);
-    border-radius: var(--radius-md);
-    background: var(--bg-primary);
-    font-weight: 500;
-    list-style: none; user-select: none;
-    display: inline-flex; align-items: center; gap: 4px;
+    cursor: pointer; color: var(--text-secondary); padding: 4px 10px;
+    border: 0.5px solid var(--border-tertiary); border-radius: var(--radius-md);
+    background: var(--bg-primary); font-weight: 500; list-style: none;
+    user-select: none; display: inline-flex; align-items: center; gap: 4px;
   }
   details.groc summary::-webkit-details-marker { display: none; }
-  details.groc summary::after {
-    content: "\25BE"; font-size: 10px;
-    transition: transform 0.15s;
-  }
+  details.groc summary::after { content: "\25BE"; font-size: 10px; transition: transform 0.15s; }
   details.groc[open] summary::after { transform: rotate(180deg); }
   .groc-content {
-    margin-top: 8px; padding: 10px 12px;
-    background: var(--bg-secondary);
-    border-radius: var(--radius-md);
-    font-size: 12px; color: var(--text-primary);
-    line-height: 1.6;
-    border-left: 2px solid var(--border-secondary);
+    margin-top: 8px; padding: 10px 12px; background: var(--bg-secondary);
+    border-radius: var(--radius-md); font-size: 12px; color: var(--text-primary);
+    line-height: 1.6; border-left: 2px solid var(--border-secondary);
   }
 
   .day-totals {
-    background: var(--bg-secondary);
-    border-radius: var(--radius-md);
+    background: var(--bg-secondary); border-radius: var(--radius-md);
     padding: 12px 14px; margin-top: 14px;
     display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
   }
-  .tot-label {
-    font-size: 10px; color: var(--text-tertiary);
-    margin: 0; text-transform: uppercase; letter-spacing: 0.4px;
-    font-weight: 500;
-  }
+  .tot-label { font-size: 10px; color: var(--text-tertiary); margin: 0; text-transform: uppercase; letter-spacing: 0.4px; font-weight: 500; }
   .tot-val { font-size: 14px; font-weight: 500; margin: 2px 0 0; }
-  .note-box {
-    font-size: 12px; color: var(--text-secondary);
-    background: var(--bg-info);
-    padding: 10px 12px;
+  .note-box { font-size: 12px; color: var(--text-secondary); background: var(--bg-info); padding: 10px 12px; border-radius: var(--radius-md); margin-top: 10px; line-height: 1.55; }
+
+  /* Add meal button */
+  .add-meal-btn {
+    width: 100%; margin-top: 8px; padding: 12px;
+    font-size: 13px; font-weight: 500;
+    background: var(--bg-primary);
+    border: 1px dashed var(--border-secondary);
+    border-radius: var(--radius-lg);
+    color: var(--text-secondary);
+    cursor: pointer; font-family: inherit;
+    transition: all 0.15s;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .add-meal-btn:hover { background: var(--bg-secondary); color: var(--text-primary); border-style: solid; }
+
+  /* Modal overlay */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5); z-index: 100;
+    align-items: flex-end; justify-content: center;
+    padding: 0;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--bg-primary);
+    border-radius: 20px 20px 0 0;
+    padding: 20px 20px calc(env(safe-area-inset-bottom) + 20px);
+    width: 100%; max-width: 760px;
+    max-height: 90vh; overflow-y: auto;
+    animation: slideUp 0.25s ease;
+  }
+  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  .modal-handle { width: 36px; height: 4px; background: var(--border-secondary); border-radius: 2px; margin: 0 auto 16px; }
+  .modal-title { font-size: 17px; font-weight: 500; margin: 0 0 16px; }
+  .modal-label { font-size: 12px; font-weight: 500; color: var(--text-secondary); margin: 0 0 6px; text-transform: uppercase; letter-spacing: 0.4px; }
+  .modal-input {
+    width: 100%; padding: 10px 12px; font-size: 14px;
+    background: var(--bg-secondary); border: 0.5px solid var(--border-tertiary);
+    border-radius: var(--radius-md); color: var(--text-primary);
+    font-family: inherit; outline: none; margin-bottom: 12px;
+    transition: border-color 0.15s;
+  }
+  .modal-input:focus { border-color: var(--border-info); }
+  .modal-input::placeholder { color: var(--text-tertiary); }
+  .modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .modal-row-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .modal-row-5 .modal-input { margin-bottom: 0; }
+  .modal-macro-label { font-size: 11px; color: var(--text-tertiary); text-align: center; margin: 4px 0 12px; }
+
+  .ai-estimate-btn {
+    width: 100%; padding: 11px;
+    font-size: 13px; font-weight: 500;
+    background: var(--bg-info); color: var(--text-info);
+    border: 0.5px solid var(--border-info);
     border-radius: var(--radius-md);
-    margin-top: 10px; line-height: 1.55;
+    cursor: pointer; font-family: inherit;
+    margin-bottom: 12px; transition: opacity 0.15s;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .ai-estimate-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .ai-status {
+    font-size: 12px; color: var(--text-secondary);
+    text-align: center; margin-bottom: 10px; min-height: 18px;
+  }
+  .ai-status.error { color: var(--danger); }
+
+  .modal-actions { display: flex; gap: 8px; margin-top: 4px; }
+  .modal-cancel {
+    flex: 1; padding: 12px; font-size: 14px; font-weight: 500;
+    background: var(--bg-secondary); color: var(--text-secondary);
+    border: none; border-radius: var(--radius-lg);
+    cursor: pointer; font-family: inherit;
+  }
+  .modal-save {
+    flex: 2; padding: 12px; font-size: 14px; font-weight: 500;
+    background: var(--success); color: white;
+    border: none; border-radius: var(--radius-lg);
+    cursor: pointer; font-family: inherit;
+    transition: opacity 0.15s;
+  }
+  .modal-save:disabled { opacity: 0.5; cursor: not-allowed; }
+  @media (prefers-color-scheme: dark) {
+    .modal-save { background: var(--success-light); color: #1a1a18; }
   }
 
-  /* Bottom docked day tabs */
+  /* Edit meal modal */
+  .edit-modal .modal-title { font-size: 15px; }
+
   .day-tabs {
-    position: fixed;
-    left: 0; right: 0; bottom: 0;
-    z-index: 20;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
     display: flex; justify-content: center; gap: 4px;
     padding: 10px 10px calc(env(safe-area-inset-bottom) + 10px);
     background: color-mix(in srgb, var(--bg-page) 92%, transparent);
@@ -304,33 +360,18 @@
     -webkit-backdrop-filter: saturate(180%) blur(12px);
     border-top: 0.5px solid var(--border-tertiary);
   }
-  .day-tabs-inner {
-    display: flex; gap: 4px;
-    max-width: 760px; width: 100%;
-    justify-content: space-between;
-  }
+  .day-tabs-inner { display: flex; gap: 4px; max-width: 760px; width: 100%; justify-content: space-between; }
   .day-tab {
-    flex: 1; min-width: 0;
-    padding: 10px 4px; font-size: 13px; font-weight: 500;
-    background: transparent;
-    border: 0.5px solid var(--border-tertiary);
-    border-radius: var(--radius-md);
-    cursor: pointer; color: var(--text-secondary);
-    font-family: inherit;
-    display: flex; flex-direction: column; align-items: center;
-    gap: 2px;
+    flex: 1; min-width: 0; padding: 10px 4px; font-size: 13px; font-weight: 500;
+    background: transparent; border: 0.5px solid var(--border-tertiary);
+    border-radius: var(--radius-md); cursor: pointer; color: var(--text-secondary);
+    font-family: inherit; display: flex; flex-direction: column; align-items: center; gap: 2px;
     transition: all 0.15s;
   }
-  .day-tab .progress-dot {
-    width: 5px; height: 5px; border-radius: 50%;
-    background: var(--border-tertiary);
-    transition: background 0.2s;
-  }
+  .day-tab .progress-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--border-tertiary); transition: background 0.2s; }
   .day-tab.has-checks .progress-dot { background: var(--success); }
-  .day-tab.active {
-    background: var(--bg-info); color: var(--text-info);
-    border-color: var(--border-info);
-  }
+  .day-tab.has-partial .progress-dot { background: var(--partial); }
+  .day-tab.active { background: var(--bg-info); color: var(--text-info); border-color: var(--border-info); }
   .day-tab.active.has-checks .progress-dot { background: var(--text-info); }
 </style>
 </head>
@@ -358,154 +399,477 @@
   <div class="day-tabs-inner" id="tabs"></div>
 </nav>
 
+<!-- Add Meal Modal -->
+<div class="modal-overlay" id="addMealModal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <p class="modal-title">Add a meal</p>
+
+    <p class="modal-label">Meal name</p>
+    <input type="text" class="modal-input" id="newMealTitle" placeholder="e.g. Dal rice + curd">
+
+    <p class="modal-label">Description (ingredients)</p>
+    <input type="text" class="modal-input" id="newMealDesc" placeholder="e.g. Yellow dal, brown rice, cucumber raita">
+
+    <p class="modal-label">Time / label</p>
+    <div class="modal-row">
+      <input type="text" class="modal-input" id="newMealTime" placeholder="e.g. 3pm · Snack">
+      <input type="number" class="modal-input" id="newMealCal" placeholder="Calories">
+    </div>
+
+    <button class="ai-estimate-btn" id="aiEstimateBtn">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 1.5a6.5 6.5 0 110 13 6.5 6.5 0 010-13zm0 2a1 1 0 00-1 1v3.586L7.707 8.793a1 1 0 10-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 10-1.414-1.414L11 10.086V6.5a1 1 0 00-1-1z"/></svg>
+      Estimate nutrition with AI
+    </button>
+    <p class="ai-status" id="aiStatus"></p>
+
+    <p class="modal-label">Macros (edit if needed)</p>
+    <div class="modal-row-5">
+      <input type="number" class="modal-input" id="newMealP" placeholder="P (g)">
+      <input type="number" class="modal-input" id="newMealC" placeholder="C (g)">
+      <input type="number" class="modal-input" id="newMealF" placeholder="F (g)">
+      <input type="number" class="modal-input" id="newMealFib" placeholder="Fib (g)">
+      <input type="number" class="modal-input" id="newMealCal2" placeholder="Cal" style="display:none">
+    </div>
+    <p class="modal-macro-label">Protein · Carbs · Fat · Fiber</p>
+
+    <div class="modal-actions">
+      <button class="modal-cancel" id="addMealCancel">Cancel</button>
+      <button class="modal-save" id="addMealSave">Add meal</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Meal Modal -->
+<div class="modal-overlay" id="editMealModal">
+  <div class="modal edit-modal">
+    <div class="modal-handle"></div>
+    <p class="modal-title" id="editMealModalTitle">Edit meal</p>
+
+    <p class="modal-label">Meal name</p>
+    <input type="text" class="modal-input" id="editMealTitle" placeholder="Meal name">
+
+    <p class="modal-label">Description</p>
+    <input type="text" class="modal-input" id="editMealDesc" placeholder="Ingredients / description">
+
+    <p class="modal-label">Time / label</p>
+    <div class="modal-row">
+      <input type="text" class="modal-input" id="editMealTime" placeholder="e.g. 3pm · Snack">
+      <input type="number" class="modal-input" id="editMealCal" placeholder="Calories">
+    </div>
+
+    <button class="ai-estimate-btn" id="editAiEstimateBtn">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 1.5a6.5 6.5 0 110 13 6.5 6.5 0 010-13zm0 2a1 1 0 00-1 1v3.586L7.707 8.793a1 1 0 10-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 10-1.414-1.414L11 10.086V6.5a1 1 0 00-1-1z"/></svg>
+      Re-estimate nutrition with AI
+    </button>
+    <p class="ai-status" id="editAiStatus"></p>
+
+    <p class="modal-label">Macros</p>
+    <div class="modal-row-5">
+      <input type="number" class="modal-input" id="editMealP" placeholder="P (g)">
+      <input type="number" class="modal-input" id="editMealC" placeholder="C (g)">
+      <input type="number" class="modal-input" id="editMealF" placeholder="F (g)">
+      <input type="number" class="modal-input" id="editMealFib" placeholder="Fib (g)">
+    </div>
+    <p class="modal-macro-label">Protein · Carbs · Fat · Fiber</p>
+
+    <div class="modal-actions">
+      <button class="modal-cancel" id="editMealCancel">Cancel</button>
+      <button class="modal-save" id="editMealSave">Save changes</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const TARGETS = { cal: 1450, p: 100, c: 180, f: 35, fib: 25 };
 const DAY_NAMES = { mon:'Monday', tue:'Tuesday', wed:'Wednesday', thu:'Thursday', fri:'Friday', sat:'Saturday', sun:'Sunday' };
 const DAY_SHORT = { mon:'Mon', tue:'Tue', wed:'Wed', thu:'Thu', fri:'Fri', sat:'Sat', sun:'Sun' };
 const DAY_ORDER = ['mon','tue','wed','thu','fri','sat','sun'];
 
+/* ----------------------------------------------------------------
+   Each `items` entry now carries per-item macros: {n, cal, p, c, f, fib}
+   - n: display name
+   - cal/p/c/f/fib: realistic one-serving values for that component
+   Partial-meal math now SUMS the macros of items you actually ate,
+   so skipping a 0-cal black coffee removes 0 cal (not a proportional share).
+   ---------------------------------------------------------------- */
+
 const MEAL_PLAN = {
   mon: {
     meals: [
-      { id:'mon-1', time:'7–8am · Pre-meal', title:'Coffee + chia water', cal:60, p:2, c:4, f:3, fib:4,
-        desc:'Black coffee with 1 tsp chia seeds soaked 10 min in warm water.' },
-      { id:'mon-2', time:'1–2pm · Meal 1', title:'Chicken spaghetti + salad', cal:520, p:42, c:60, f:10, fib:10,
+      { id:'mon-1', time:'7–8am · Pre-meal', title:'Coffee + chia water',
+        desc:'Black coffee with 1 tsp chia seeds soaked 10 min in warm water.',
+        items:[
+          { n:'Black coffee',  cal:0,  p:0, c:0, f:0, fib:0 },
+          { n:'Chia seeds',    cal:60, p:2, c:4, f:3, fib:4 }
+        ] },
+      { id:'mon-2', time:'1–2pm · Meal 1', title:'Chicken spaghetti + salad',
         desc:'Grilled chicken breast (lemon, pepper, garlic) tossed with whole wheat spaghetti in olive oil, zucchini, bell pepper, spinach. Side salad.',
+        items:[
+          { n:'Grilled chicken',     cal:200, p:35, c:0,  f:6, fib:0 },
+          { n:'Whole wheat spaghetti', cal:220, p:8,  c:44, f:2, fib:6 },
+          { n:'Sautéed veggies',     cal:70,  p:2,  c:10, f:2, fib:3 },
+          { n:'Side salad',          cal:30,  p:1,  c:5,  f:0, fib:2 }
+        ],
         zomato:'Grilled chicken breast (150g) from FreshMenu, EatFit, Salad Days. No butter, no cream.',
         groceries:'120g raw chicken breast · 60g dry whole wheat spaghetti · 5ml olive oil · 80g zucchini · 60g bell pepper · 40g spinach · 80g cucumber · 70g tomato · 1 lemon · garlic, black pepper, salt' },
-      { id:'mon-3', time:'4–5pm · Snack', title:'Makhana chaat + coconut water', cal:180, p:4, c:30, f:3, fib:4,
-        desc:'Roasted makhana with cucumber, tomato, coriander, lemon, chaat masala.' },
-      { id:'mon-4', time:'6–6:30pm · Pre-workout', title:'Apple + plant protein', cal:200, p:26, c:22, f:2, fib:5,
-        desc:'Medium apple with skin + Nutrabay plant protein in water.' },
-      { id:'mon-5', time:'8–8:30pm · Meal 2', title:'Moong dal chilla + curd', cal:490, p:32, c:52, f:14, fib:12,
-        desc:'2 moong dal chillas stuffed with sautéed paneer, onion, capsicum, coriander. Curd with jeera + flaxseed on the side.' }
+      { id:'mon-3', time:'4–5pm · Snack', title:'Makhana chaat + coconut water',
+        desc:'Roasted makhana with cucumber, tomato, coriander, lemon, chaat masala.',
+        items:[
+          { n:'Makhana chaat',  cal:130, p:3, c:22, f:3, fib:3 },
+          { n:'Coconut water',  cal:50,  p:1, c:8,  f:0, fib:1 }
+        ] },
+      { id:'mon-4', time:'6–6:30pm · Pre-workout', title:'Apple + plant protein',
+        desc:'Medium apple with skin + Nutrabay plant protein in water.',
+        items:[
+          { n:'Apple',              cal:80,  p:1,  c:21, f:0, fib:4 },
+          { n:'Plant protein shake', cal:120, p:25, c:1,  f:2, fib:1 }
+        ] },
+      { id:'mon-5', time:'8–8:30pm · Meal 2', title:'Moong dal chilla + curd',
+        desc:'2 moong dal chillas stuffed with sautéed paneer, onion, capsicum, coriander. Curd with jeera + flaxseed on the side.',
+        items:[
+          { n:'Moong dal chilla (x2)',  cal:240, p:14, c:32, f:5, fib:7 },
+          { n:'Paneer filling',         cal:150, p:12, c:4,  f:9, fib:2 },
+          { n:'Curd with flaxseed',     cal:100, p:6,  c:16, f:0, fib:3 }
+        ] }
     ],
-    totals:{cal:1450,p:106,c:168,f:32,fib:35},
     note:'Weight training day. Take B12 + multivitamin with meal 1.'
   },
   tue: {
     meals: [
-      { id:'tue-1', time:'7–8am · Pre-meal', title:'Coffee + soaked almonds', cal:80, p:3, c:3, f:6, fib:2,
-        desc:'Black coffee + 6 overnight-soaked almonds, peel off skins.' },
-      { id:'tue-2', time:'1–2pm · Meal 1', title:'Kala chana + rice + raita', cal:520, p:26, c:76, f:10, fib:14,
-        desc:'Kala chana curry (tomato-onion-ginger), rice, sautéed palak, cucumber raita.' },
-      { id:'tue-3', time:'4–5pm · Snack', title:'Fruit + protein shake', cal:220, p:26, c:22, f:2, fib:5,
-        desc:'1 scoop plant protein + 1 small pear or apple.' },
-      { id:'tue-4', time:'6pm · Pre-dinner', title:'Cucumber + hummus', cal:120, p:5, c:14, f:5, fib:5,
-        desc:'150g cucumber sticks with 45g chickpea hummus.' },
-      { id:'tue-5', time:'8–8:30pm · Meal 2', title:'Egg bhurji + dosa + salad', cal:510, p:26, c:52, f:18, fib:8,
-        desc:'3 whole eggs scrambled with onion, tomato, spinach in olive oil. 1 dosa cooked in a little ghee (~70g cooked weight). Side: fresh cucumber-tomato-onion salad with lemon, rock salt, coriander.' }
+      { id:'tue-1', time:'7–8am · Pre-meal', title:'Coffee + soaked almonds',
+        desc:'Black coffee + 6 overnight-soaked almonds, peel off skins.',
+        items:[
+          { n:'Black coffee',     cal:0,  p:0, c:0, f:0, fib:0 },
+          { n:'Soaked almonds',   cal:80, p:3, c:3, f:6, fib:2 }
+        ] },
+      { id:'tue-2', time:'1–2pm · Meal 1', title:'Kala chana + rice + raita',
+        desc:'Kala chana curry (tomato-onion-ginger), rice, sautéed palak, cucumber raita.',
+        items:[
+          { n:'Kala chana curry',  cal:200, p:12, c:28, f:5, fib:9 },
+          { n:'Rice',              cal:200, p:4,  c:42, f:1, fib:1 },
+          { n:'Sautéed palak',     cal:60,  p:3,  c:4,  f:3, fib:3 },
+          { n:'Cucumber raita',    cal:60,  p:7,  c:2,  f:1, fib:1 }
+        ] },
+      { id:'tue-3', time:'4–5pm · Snack', title:'Fruit + protein shake',
+        desc:'1 scoop plant protein + 1 small pear or apple.',
+        items:[
+          { n:'Protein shake',    cal:120, p:25, c:1,  f:2, fib:1 },
+          { n:'Fruit (pear/apple)', cal:100, p:1,  c:21, f:0, fib:4 }
+        ] },
+      { id:'tue-4', time:'6pm · Pre-dinner', title:'Cucumber + hummus',
+        desc:'150g cucumber sticks with 45g chickpea hummus.',
+        items:[
+          { n:'Cucumber sticks',  cal:20,  p:1, c:4,  f:0, fib:2 },
+          { n:'Hummus',           cal:100, p:4, c:10, f:5, fib:3 }
+        ] },
+      { id:'tue-5', time:'8–8:30pm · Meal 2', title:'Egg bhurji + dosa + salad',
+        desc:'3 whole eggs scrambled with onion, tomato, spinach in olive oil. 1 dosa cooked in a little ghee. Side: fresh cucumber-tomato-onion salad.',
+        items:[
+          { n:'Egg bhurji (3 eggs)', cal:260, p:20, c:6,  f:16, fib:2 },
+          { n:'Dosa',                cal:210, p:5,  c:40, f:2,  fib:2 },
+          { n:'Kachumber salad',     cal:40,  p:1,  c:6,  f:0,  fib:4 }
+        ] }
     ],
-    totals:{cal:1450,p:86,c:167,f:41,fib:34},
     note:'Steps/run day. Kachumber adds the crunch with more fiber variety.'
   },
   wed: {
     meals: [
-      { id:'wed-1', time:'7–8am · Pre-meal', title:'Coffee + chia pudding shot', cal:90, p:4, c:7, f:5, fib:5,
-        desc:'Black coffee + chia soaked overnight in low-fat milk with cinnamon.' },
-      { id:'wed-2', time:'1–2pm · Meal 1', title:'Rajma chawal + salad + egg', cal:520, p:28, c:72, f:10, fib:15,
-        desc:'Rajma in minimal-oil gravy, brown rice, kachumber, 1 boiled egg.' },
-      { id:'wed-3', time:'4–5pm · Snack', title:'Roasted chana + orange', cal:180, p:9, c:30, f:2, fib:8,
-        desc:'30g dry-roasted split chickpeas (bhuna chana) with chaat masala + 1 medium orange.' },
-      { id:'wed-4', time:'6–6:30pm · Pre-workout', title:'Banana + protein', cal:200, p:25, c:23, f:2, fib:3,
-        desc:'Plant protein in water + 1 small banana.' },
-      { id:'wed-5', time:'8–8:30pm · Meal 2', title:'Tandoori chicken + mixed veg + roti', cal:460, p:40, c:40, f:13, fib:9,
-        desc:'Tandoori chicken (yogurt-marinated), grilled mixed veg (capsicum, broccoli, mushroom, onion) in olive oil, mint chutney, 1 small wheat roti (~30g cooked).',
+      { id:'wed-1', time:'7–8am · Pre-meal', title:'Coffee + chia pudding shot',
+        desc:'Black coffee + chia soaked overnight in low-fat milk with cinnamon.',
+        items:[
+          { n:'Black coffee',  cal:0,  p:0, c:0, f:0, fib:0 },
+          { n:'Chia pudding',  cal:90, p:4, c:7, f:5, fib:5 }
+        ] },
+      { id:'wed-2', time:'1–2pm · Meal 1', title:'Rajma chawal + salad + egg',
+        desc:'Rajma in minimal-oil gravy, brown rice, kachumber, 1 boiled egg.',
+        items:[
+          { n:'Rajma curry',  cal:210, p:13, c:28, f:6, fib:10 },
+          { n:'Brown rice',   cal:180, p:4,  c:38, f:1, fib:2 },
+          { n:'Kachumber',    cal:50,  p:1,  c:7,  f:1, fib:3 },
+          { n:'Boiled egg',   cal:80,  p:7,  c:1,  f:5, fib:0 }
+        ] },
+      { id:'wed-3', time:'4–5pm · Snack', title:'Roasted chana + orange',
+        desc:'30g dry-roasted split chickpeas (bhuna chana) with chaat masala + 1 medium orange.',
+        items:[
+          { n:'Roasted chana', cal:110, p:7, c:18, f:2, fib:5 },
+          { n:'Orange',        cal:70,  p:1, c:16, f:0, fib:3 }
+        ] },
+      { id:'wed-4', time:'6–6:30pm · Pre-workout', title:'Banana + protein',
+        desc:'Plant protein in water + 1 small banana.',
+        items:[
+          { n:'Protein shake', cal:120, p:25, c:1,  f:2, fib:1 },
+          { n:'Banana',        cal:90,  p:1,  c:22, f:0, fib:2 }
+        ] },
+      { id:'wed-5', time:'8–8:30pm · Meal 2', title:'Tandoori chicken + mixed veg + roti',
+        desc:'Tandoori chicken (yogurt-marinated), grilled mixed veg (capsicum, broccoli, mushroom, onion) in olive oil, mint chutney, 1 small wheat roti.',
+        items:[
+          { n:'Tandoori chicken',  cal:220, p:32, c:4,  f:8, fib:1 },
+          { n:'Grilled mixed veg', cal:90,  p:4,  c:12, f:3, fib:5 },
+          { n:'Wheat roti',        cal:120, p:3,  c:22, f:2, fib:3 },
+          { n:'Mint chutney',      cal:30,  p:1,  c:2,  f:0, fib:0 }
+        ],
         zomato:'Tandoori chicken half-plate from Barbeque Nation, Absolute BBQ, Pind Balluchi. No butter.' }
     ],
-    totals:{cal:1450,p:106,c:172,f:32,fib:40},
     note:'Weight training day. D3 weekly dose with dinner for fat absorption.'
   },
   thu: {
     meals: [
-      { id:'thu-1', time:'7–8am · Pre-meal', title:'Coffee + flaxseed water', cal:60, p:2, c:3, f:4, fib:3,
-        desc:'Black coffee + ground flaxseed in warm water with lemon.' },
-      { id:'thu-2', time:'1–2pm · Meal 1', title:'Paneer bhurji + 2 dosas + curd', cal:540, p:32, c:58, f:18, fib:6,
-        desc:'Paneer bhurji (onion, tomato, capsicum). 2 plain dosas (~70g cooked each, pan-cooked in little ghee). Fresh curd with jeera + black salt, mint-coriander chutney.' },
-      { id:'thu-3', time:'4–5pm · Snack', title:'Cornflakes + milk', cal:200, p:9, c:30, f:4, fib:3,
-        desc:'30g cornflakes + 150ml low-fat or lactose-free milk + 1 tsp pumpkin seeds.' },
-      { id:'thu-4', time:'6pm · Pre-dinner', title:'Protein shake + apple', cal:200, p:26, c:22, f:2, fib:5,
-        desc:'1 scoop plant protein + 1 medium apple.' },
-      { id:'thu-5', time:'8–8:30pm · Meal 2', title:'Chickpea + egg salad bowl', cal:450, p:30, c:50, f:14, fib:14,
-        desc:'Boiled chickpeas + cucumber, tomato, onion, pomegranate, coriander, lemon, olive oil, 2 boiled eggs on top, sunflower seeds.' }
+      { id:'thu-1', time:'7–8am · Pre-meal', title:'Coffee + flaxseed water',
+        desc:'Black coffee + ground flaxseed in warm water with lemon.',
+        items:[
+          { n:'Black coffee',     cal:0,  p:0, c:0, f:0, fib:0 },
+          { n:'Flaxseed water',   cal:60, p:2, c:3, f:4, fib:3 }
+        ] },
+      { id:'thu-2', time:'1–2pm · Meal 1', title:'Paneer bhurji + 2 dosas + curd',
+        desc:'Paneer bhurji (onion, tomato, capsicum). 2 plain dosas. Fresh curd with jeera + black salt, mint-coriander chutney.',
+        items:[
+          { n:'Paneer bhurji',     cal:200, p:14, c:6,  f:13, fib:2 },
+          { n:'Dosa (x2)',         cal:260, p:7,  c:46, f:4,  fib:2 },
+          { n:'Curd with jeera',   cal:60,  p:7,  c:4,  f:1,  fib:0 },
+          { n:'Chutney',           cal:20,  p:1,  c:2,  f:0,  fib:2 }
+        ] },
+      { id:'thu-3', time:'4–5pm · Snack', title:'Cornflakes + milk',
+        desc:'30g cornflakes + 150ml low-fat or lactose-free milk + 1 tsp pumpkin seeds.',
+        items:[
+          { n:'Cornflakes',     cal:110, p:2, c:25, f:0, fib:1 },
+          { n:'Milk',           cal:70,  p:6, c:9,  f:2, fib:0 },
+          { n:'Pumpkin seeds',  cal:40,  p:2, c:1,  f:3, fib:1 }
+        ] },
+      { id:'thu-4', time:'6pm · Pre-dinner', title:'Protein shake + apple',
+        desc:'1 scoop plant protein + 1 medium apple.',
+        items:[
+          { n:'Protein shake', cal:120, p:25, c:1,  f:2, fib:1 },
+          { n:'Apple',         cal:80,  p:1,  c:21, f:0, fib:4 }
+        ] },
+      { id:'thu-5', time:'8–8:30pm · Meal 2', title:'Chickpea + egg salad bowl',
+        desc:'Boiled chickpeas + cucumber, tomato, onion, pomegranate, coriander, lemon, olive oil, 2 boiled eggs, sunflower seeds.',
+        items:[
+          { n:'Boiled chickpeas', cal:180, p:10, c:30, f:3, fib:8 },
+          { n:'Salad veggies',    cal:60,  p:2,  c:12, f:0, fib:4 },
+          { n:'Boiled eggs (x2)', cal:160, p:14, c:2,  f:10, fib:0 },
+          { n:'Sunflower seeds',  cal:50,  p:2,  c:2,  f:4, fib:1 }
+        ] }
     ],
-    totals:{cal:1450,p:99,c:163,f:42,fib:31},
     note:'Rest or light cardio day. Salad dinner is easy on digestion before bed.'
   },
   fri: {
     meals: [
-      { id:'fri-1', time:'7–8am · Pre-meal', title:'Coffee + chia water', cal:60, p:2, c:4, f:3, fib:4,
-        desc:'Black coffee with 1 tsp chia seeds soaked 10 min in warm water.' },
-      { id:'fri-2', time:'1–2pm · Meal 1', title:'Chicken tikka wrap + kachumber', cal:510, p:42, c:48, f:14, fib:8,
-        desc:'Chicken tikka (curd-marinated, grilled) rolled in 1 wheat roti (~40g cooked) with hung curd spread, shredded cabbage, onion, capsicum, mint chutney. Side: kachumber.',
+      { id:'fri-1', time:'7–8am · Pre-meal', title:'Coffee + chia water',
+        desc:'Black coffee with 1 tsp chia seeds soaked 10 min in warm water.',
+        items:[
+          { n:'Black coffee', cal:0,  p:0, c:0, f:0, fib:0 },
+          { n:'Chia water',   cal:60, p:2, c:4, f:3, fib:4 }
+        ] },
+      { id:'fri-2', time:'1–2pm · Meal 1', title:'Chicken tikka wrap + kachumber',
+        desc:'Chicken tikka (curd-marinated, grilled) rolled in 1 wheat roti with hung curd spread, shredded cabbage, onion, capsicum, mint chutney. Side: kachumber.',
+        items:[
+          { n:'Chicken tikka wrap',  cal:400, p:36, c:36, f:12, fib:4 },
+          { n:'Hung curd spread',    cal:60,  p:5,  c:4,  f:2,  fib:0 },
+          { n:'Kachumber salad',     cal:50,  p:1,  c:8,  f:0,  fib:4 }
+        ],
         recipe:'Hung curd recipe: Take 150g full/low-fat curd, line a strainer with muslin cloth, pour curd in, tie it up, hang over a bowl in the fridge 4–6 hours (or overnight). Whey drips out, leaving thick creamy hung curd — ~60g from 150g input. Store in fridge up to 3 days.',
         zomato:'Chicken tikka from Behrouz, Faasos, or tandoor places. No butter/cream. Cook wraps at home.' },
-      { id:'fri-3', time:'4–5pm · Snack', title:'Makhana + coconut water', cal:180, p:4, c:28, f:5, fib:5,
-        desc:'25g ghee-roasted makhana with rock salt + 200ml coconut water + 1 tsp chia.' },
-      { id:'fri-4', time:'6–6:30pm · Pre-workout', title:'Dates + protein', cal:200, p:25, c:22, f:2, fib:3,
-        desc:'1 scoop plant protein + 2 medjool dates.' },
-      { id:'fri-5', time:'8–8:30pm · Meal 2', title:'Aloo tikki + kala chana chaat', cal:500, p:25, c:75, f:10, fib:12,
-        desc:'2 baked aloo tikkis (~120g total, brushed with oil, not fried) on kala chana chaat with cucumber, tomato, onion, coriander, lemon. Hung curd on top + tamarind-mint chutney.' }
+      { id:'fri-3', time:'4–5pm · Snack', title:'Makhana + coconut water',
+        desc:'25g ghee-roasted makhana with rock salt + 200ml coconut water + 1 tsp chia.',
+        items:[
+          { n:'Roasted makhana', cal:130, p:3, c:22, f:4, fib:3 },
+          { n:'Coconut water',   cal:50,  p:1, c:6,  f:1, fib:2 }
+        ] },
+      { id:'fri-4', time:'6–6:30pm · Pre-workout', title:'Dates + protein',
+        desc:'1 scoop plant protein + 2 medjool dates.',
+        items:[
+          { n:'Protein shake', cal:120, p:25, c:1,  f:2, fib:1 },
+          { n:'Medjool dates', cal:80,  p:0,  c:21, f:0, fib:2 }
+        ] },
+      { id:'fri-5', time:'8–8:30pm · Meal 2', title:'Aloo tikki + kala chana chaat',
+        desc:'2 baked aloo tikkis on kala chana chaat with cucumber, tomato, onion, coriander, lemon. Hung curd on top + tamarind-mint chutney.',
+        items:[
+          { n:'Aloo tikki (x2)',   cal:220, p:5,  c:36, f:6, fib:4 },
+          { n:'Kala chana chaat',  cal:180, p:14, c:28, f:3, fib:7 },
+          { n:'Hung curd',         cal:70,  p:6,  c:6,  f:1, fib:0 },
+          { n:'Chutney',           cal:30,  p:0,  c:5,  f:0, fib:1 }
+        ] }
     ],
-    totals:{cal:1450,p:98,c:177,f:34,fib:32},
     note:'Weight training day. Friday\u2019s chaat-style dinner \u2014 built clean.'
   },
   sat: {
     meals: [
-      { id:'sat-1', time:'7–8am · Pre-dance', title:'Coffee + banana', cal:110, p:2, c:20, f:2, fib:4,
-        desc:'Black coffee + ½ small banana with 1 tsp chia.' },
-      { id:'sat-2', time:'10:30am · Post-dance', title:'Protein shake', cal:130, p:25, c:3, f:2, fib:1,
-        desc:'1 scoop Nutrabay plant protein in 200ml water.' },
-      { id:'sat-3', time:'1–2pm · Meal 1', title:'Aloo tikki + dal + curd', cal:510, p:26, c:68, f:14, fib:9,
-        desc:'2 baked aloo tikkis (~120g total), yellow dal tadka (moong/arhar), fresh curd, tomato chutney, 2 boiled egg whites on side.' },
-      { id:'sat-4', time:'5pm · Snack', title:'Curd + fruit + seeds', cal:180, p:9, c:20, f:7, fib:5,
-        desc:'150g fresh curd + 100g chopped seasonal fruit (apple, papaya, or watermelon) + 1 tsp pumpkin + 1 tsp flaxseed.' },
-      { id:'sat-5', time:'8–8:30pm · Meal 2', title:'Dal + broccoli stir-fry + rice', cal:520, p:26, c:68, f:12, fib:13,
-        desc:'Mixed dal (moong + masoor), rice, broccoli stir-fry with garlic (1 tsp oil), curd, salad.' }
+      { id:'sat-1', time:'7–8am · Pre-dance', title:'Coffee + banana',
+        desc:'Black coffee + ½ small banana with 1 tsp chia.',
+        items:[
+          { n:'Black coffee', cal:0,  p:0, c:0,  f:0, fib:0 },
+          { n:'Banana',       cal:60, p:1, c:15, f:0, fib:2 },
+          { n:'Chia',         cal:50, p:1, c:5,  f:2, fib:2 }
+        ] },
+      { id:'sat-2', time:'10:30am · Post-dance', title:'Protein shake',
+        desc:'1 scoop Nutrabay plant protein in 200ml water.',
+        items:[
+          { n:'Protein shake', cal:130, p:25, c:3, f:2, fib:1 }
+        ] },
+      { id:'sat-3', time:'1–2pm · Meal 1', title:'Aloo tikki + dal + curd',
+        desc:'2 baked aloo tikkis, yellow dal tadka (moong/arhar), fresh curd, tomato chutney, 2 boiled egg whites.',
+        items:[
+          { n:'Aloo tikki (x2)',     cal:220, p:5,  c:36, f:6, fib:4 },
+          { n:'Yellow dal tadka',    cal:170, p:11, c:22, f:4, fib:4 },
+          { n:'Curd',                cal:60,  p:6,  c:6,  f:1, fib:0 },
+          { n:'Boiled egg whites',   cal:35,  p:7,  c:0,  f:0, fib:0 },
+          { n:'Tomato chutney',      cal:25,  p:1,  c:4,  f:1, fib:1 }
+        ] },
+      { id:'sat-4', time:'5pm · Snack', title:'Curd + fruit + seeds',
+        desc:'150g fresh curd + 100g chopped seasonal fruit + 1 tsp pumpkin + 1 tsp flaxseed.',
+        items:[
+          { n:'Curd',            cal:90, p:7, c:8,  f:2, fib:0 },
+          { n:'Seasonal fruit',  cal:50, p:1, c:12, f:0, fib:3 },
+          { n:'Seeds mix',       cal:40, p:1, c:0,  f:3, fib:2 }
+        ] },
+      { id:'sat-5', time:'8–8:30pm · Meal 2', title:'Dal + broccoli stir-fry + rice',
+        desc:'Mixed dal (moong + masoor), rice, broccoli stir-fry with garlic (1 tsp oil), curd, salad.',
+        items:[
+          { n:'Mixed dal',          cal:180, p:12, c:22, f:4, fib:5 },
+          { n:'Rice',               cal:200, p:4,  c:42, f:1, fib:1 },
+          { n:'Broccoli stir-fry',  cal:80,  p:4,  c:6,  f:5, fib:3 },
+          { n:'Curd',               cal:40,  p:4,  c:4,  f:1, fib:0 },
+          { n:'Salad',              cal:20,  p:2,  c:0,  f:1, fib:4 }
+        ] }
     ],
-    totals:{cal:1450,p:88,c:179,f:37,fib:32},
     note:'Dance day. Post-dance protein + sufficient carbs = proper recovery.'
   },
   sun: {
     meals: [
-      { id:'sun-1', time:'7–8am · Pre-dance', title:'Coffee + dates', cal:110, p:1, c:24, f:0, fib:2,
-        desc:'Black coffee + 2 medjool dates.' },
-      { id:'sun-2', time:'10:30am · Post-dance', title:'Protein + fruit', cal:160, p:25, c:12, f:2, fib:3,
-        desc:'1 scoop plant protein + 100g seasonal fruit (watermelon, papaya, mango, or apple).' },
-      { id:'sun-3', time:'1–2pm · Meal 1', title:'Chicken + aloo tikki bowl', cal:500, p:45, c:50, f:14, fib:9,
-        desc:'Grilled chicken over mixed greens, rice, 2 baked aloo tikkis (~120g total), cucumber, cherry tomato, olive oil-lemon dressing, sunflower seeds.',
+      { id:'sun-1', time:'7–8am · Pre-dance', title:'Coffee + dates',
+        desc:'Black coffee + 2 medjool dates.',
+        items:[
+          { n:'Black coffee',  cal:0,   p:0, c:0,  f:0, fib:0 },
+          { n:'Medjool dates', cal:110, p:1, c:24, f:0, fib:2 }
+        ] },
+      { id:'sun-2', time:'10:30am · Post-dance', title:'Protein + fruit',
+        desc:'1 scoop plant protein + 100g seasonal fruit (watermelon, papaya, mango, or apple).',
+        items:[
+          { n:'Protein shake',   cal:120, p:25, c:1,  f:2, fib:1 },
+          { n:'Seasonal fruit',  cal:40,  p:0,  c:11, f:0, fib:2 }
+        ] },
+      { id:'sun-3', time:'1–2pm · Meal 1', title:'Chicken + aloo tikki bowl',
+        desc:'Grilled chicken over mixed greens, rice, 2 baked aloo tikkis, cucumber, cherry tomato, olive oil-lemon dressing, sunflower seeds.',
+        items:[
+          { n:'Grilled chicken',  cal:200, p:35, c:0,  f:6, fib:0 },
+          { n:'Rice',             cal:160, p:3,  c:34, f:1, fib:1 },
+          { n:'Aloo tikki (x2)',  cal:80,  p:3,  c:12, f:3, fib:4 },
+          { n:'Mixed greens',     cal:30,  p:2,  c:3,  f:0, fib:3 },
+          { n:'Dressing',         cal:30,  p:2,  c:1,  f:4, fib:1 }
+        ],
         zomato:'Grilled chicken salad bowl from EatFit, Salad Days, FreshMenu.' },
-      { id:'sun-4', time:'5pm · Snack', title:'Cucumber sticks + curd dip', cal:130, p:8, c:12, f:5, fib:4,
-        desc:'Cucumber + carrot sticks with hung curd dip (garlic, mint, black pepper, lemon). Light snack before dinner.' },
-      { id:'sun-5', time:'8–8:30pm · Meal 2', title:'Egg curry + rice + palak', cal:550, p:28, c:60, f:16, fib:9,
-        desc:'3 hard-boiled eggs in tomato-onion-ginger curry, rice, sautéed spinach with garlic, cucumber raita.' }
+      { id:'sun-4', time:'5pm · Snack', title:'Cucumber sticks + curd dip',
+        desc:'Cucumber + carrot sticks with hung curd dip (garlic, mint, black pepper, lemon).',
+        items:[
+          { n:'Cucumber sticks', cal:20, p:1, c:4, f:0, fib:2 },
+          { n:'Carrot sticks',   cal:30, p:1, c:6, f:0, fib:2 },
+          { n:'Hung curd dip',   cal:80, p:6, c:2, f:5, fib:0 }
+        ] },
+      { id:'sun-5', time:'8–8:30pm · Meal 2', title:'Egg curry + rice + palak',
+        desc:'3 hard-boiled eggs in tomato-onion-ginger curry, rice, sautéed spinach with garlic, cucumber raita.',
+        items:[
+          { n:'Egg curry (3 eggs)', cal:260, p:20, c:8,  f:16, fib:2 },
+          { n:'Rice',               cal:200, p:4,  c:42, f:1,  fib:1 },
+          { n:'Sautéed palak',      cal:50,  p:2,  c:5,  f:2,  fib:3 },
+          { n:'Cucumber raita',     cal:40,  p:2,  c:5,  f:1,  fib:3 }
+        ] }
     ],
-    totals:{cal:1450,p:107,c:158,f:37,fib:27},
     note:'Dance day. 10-min walk after dinner for digestion.'
   }
 };
 
-let currentDay = 'mon';
+/* ---------- derive meal-level totals from items (single source of truth) ---------- */
+function computeMealTotals(meal) {
+  const t = { cal:0, p:0, c:0, f:0, fib:0 };
+  (meal.items || []).forEach(it => {
+    t.cal += it.cal || 0; t.p += it.p || 0; t.c += it.c || 0; t.f += it.f || 0; t.fib += it.fib || 0;
+  });
+  return t;
+}
 
+function applyDerivedMacros(meal) {
+  const t = computeMealTotals(meal);
+  meal.cal = t.cal; meal.p = t.p; meal.c = t.c; meal.f = t.f; meal.fib = t.fib;
+}
+
+function applyDerivedDayTotals(day) {
+  const tot = { cal:0, p:0, c:0, f:0, fib:0 };
+  MEAL_PLAN[day].meals.forEach(m => {
+    applyDerivedMacros(m);
+    tot.cal += m.cal; tot.p += m.p; tot.c += m.c; tot.f += m.f; tot.fib += m.fib;
+  });
+  MEAL_PLAN[day].totals = tot;
+}
+
+DAY_ORDER.forEach(applyDerivedDayTotals);
+
+let currentDay = 'mon';
+let editingMealId = null;
+
+/* ---------- storage helpers ---------- */
+function getCustomMeals(day) {
+  try { return JSON.parse(localStorage.getItem('mealPlan_custom_' + day) || '[]'); } catch { return []; }
+}
+function setCustomMeals(day, meals) {
+  try { localStorage.setItem('mealPlan_custom_' + day, JSON.stringify(meals)); } catch {}
+}
 function getCheckedIds(day) {
-  try {
-    const raw = localStorage.getItem('mealPlan_checked_' + day);
-    return raw ? JSON.parse(raw) : [];
-  } catch { return []; }
+  try { return JSON.parse(localStorage.getItem('mealPlan_checked_' + day) || '[]'); } catch { return []; }
 }
 function setCheckedIds(day, ids) {
   try { localStorage.setItem('mealPlan_checked_' + day, JSON.stringify(ids)); } catch {}
+}
+function getSkippedItems(day) {
+  try { return JSON.parse(localStorage.getItem('mealPlan_skipped_' + day) || '{}'); } catch { return {}; }
+}
+function setSkippedItems(day, data) {
+  try { localStorage.setItem('mealPlan_skipped_' + day, JSON.stringify(data)); } catch {}
+}
+
+function getMealsForDay(day) {
+  const base = MEAL_PLAN[day].meals;
+  const custom = getCustomMeals(day);
+  return [...base, ...custom];
 }
 
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 
+/* ---------- correct partial-meal math (sum actually-eaten item macros) ---------- */
+function computeEffectiveMacros(meal, skippedIdxs) {
+  const items = meal.items || [];
+  if (!skippedIdxs || skippedIdxs.length === 0 || items.length === 0) {
+    return { cal: meal.cal, p: meal.p, c: meal.c, f: meal.f, fib: meal.fib };
+  }
+  const skipped = new Set(skippedIdxs);
+  const t = { cal:0, p:0, c:0, f:0, fib:0 };
+  items.forEach((it, idx) => {
+    if (skipped.has(idx)) return;
+    // backward-compat: if an item is a plain string, treat as 0 macros
+    if (typeof it !== 'object' || it === null) return;
+    t.cal += it.cal || 0; t.p += it.p || 0; t.c += it.c || 0; t.f += it.f || 0; t.fib += it.fib || 0;
+  });
+  return t;
+}
+
+/* ---------- helpers that tolerate both object-items and legacy string-items ---------- */
+function itemLabel(it) {
+  return typeof it === 'string' ? it : (it && it.n ? it.n : '');
+}
+function itemCal(it) {
+  return (typeof it === 'object' && it !== null) ? (it.cal || 0) : 0;
+}
+
 function renderTabs() {
   const tabs = document.getElementById('tabs');
   tabs.innerHTML = DAY_ORDER.map(day => {
-    const hasChecks = getCheckedIds(day).length > 0;
-    return `<button class="day-tab${day === currentDay ? ' active' : ''}${hasChecks ? ' has-checks' : ''}" data-day="${day}">
+    const checkedIds = getCheckedIds(day);
+    const skipped = getSkippedItems(day);
+    const hasChecks = checkedIds.length > 0;
+    const hasPartial = Object.keys(skipped).length > 0;
+    return `<button class="day-tab${day === currentDay ? ' active' : ''}${hasChecks ? ' has-checks' : ''}${!hasChecks && hasPartial ? ' has-partial' : ''}" data-day="${day}">
       <span>${DAY_SHORT[day]}</span>
       <span class="progress-dot"></span>
     </button>`;
@@ -515,44 +879,83 @@ function renderTabs() {
   });
 }
 
+function renderMealRow(m, checkedIds, skippedData) {
+  const checked = checkedIds.includes(m.id);
+  const skippedIdxs = skippedData[m.id] || [];
+  const isPartial = skippedIdxs.length > 0 && !checked;
+  const effective = computeEffectiveMacros(m, isPartial ? skippedIdxs : []);
+  const calDisplay = isPartial ? effective.cal : m.cal;
+
+  const items = m.items || [];
+  const itemsHtml = items.length ? items.map((item, idx) => {
+    const isSkipped = skippedIdxs.includes(idx);
+    const label = itemLabel(item);
+    const cal = itemCal(item);
+    return `<button type="button" class="skip-item${isSkipped ? ' skipped' : ''}" data-meal-id="${m.id}" data-item-idx="${idx}">${escapeHtml(label)}<span class="item-cal">${cal} cal</span></button>`;
+  }).join('') : '';
+
+  const skipPanelId = `skip-${m.id}`;
+
+  return `<div class="meal-row${checked ? ' checked' : ''}${isPartial ? ' partial' : ''}" data-meal-id="${m.id}">
+    <div class="meal-header">
+      <label class="check-wrap">
+        <input type="checkbox" ${checked ? 'checked' : ''} data-meal-id="${m.id}">
+        <span class="check${isPartial && !checked ? ' partial-check' : ''}"></span>
+      </label>
+      <div class="meal-info">
+        <div class="meal-info-top">
+          <div>
+            <div class="meal-time">${escapeHtml(m.time)}</div>
+            <div class="meal-title">${escapeHtml(m.title)}</div>
+          </div>
+          <div class="meal-cal">${calDisplay} cal${isPartial ? ' <span style="color:var(--partial);font-size:11px">partial</span>' : ''}</div>
+        </div>
+      </div>
+    </div>
+    <p class="meal-desc">${escapeHtml(m.desc)}</p>
+    ${m.recipe ? `<div class="recipe-line"><strong>Recipe:</strong> ${escapeHtml(m.recipe.replace(/^Hung curd recipe: /, ''))}</div>` : ''}
+    ${m.zomato ? `<div class="alt-line"><strong>Zomato alt:</strong> ${escapeHtml(m.zomato)}</div>` : ''}
+
+    ${itemsHtml ? `<div class="skip-panel${isPartial ? ' open' : ''}" id="${skipPanelId}">
+      <div class="skip-panel-title">Tap items you skipped</div>
+      <div class="skip-items">${itemsHtml}</div>
+      <button type="button" class="skip-done-btn" data-meal-id="${m.id}">Done — log partial meal</button>
+    </div>` : ''}
+
+    <div class="bottom-row">
+      <div class="macro-pills">
+        <span class="pill pill-p">${isPartial ? effective.p : m.p}g P</span>
+        <span class="pill pill-c">${isPartial ? effective.c : m.c}g C</span>
+        <span class="pill pill-f">${isPartial ? effective.f : m.f}g F</span>
+        <span class="pill pill-fib">${isPartial ? effective.fib : m.fib}g fiber</span>
+      </div>
+      ${m.groceries ? `<details class="groc"><summary>Groceries</summary><div class="groc-content">${escapeHtml(m.groceries)}</div></details>` : ''}
+    </div>
+    ${itemsHtml ? `<div class="meal-actions">
+      <button type="button" class="meal-action-btn partial-btn" data-toggle-skip="${m.id}">
+        ${isPartial ? 'Edit skipped' : 'Ate part of this'}
+      </button>
+      <button type="button" class="meal-action-btn edit-btn" data-edit-meal="${m.id}">Edit meal</button>
+    </div>` : `<div class="meal-actions">
+      <button type="button" class="meal-action-btn edit-btn" data-edit-meal="${m.id}">Edit meal</button>
+    </div>`}
+  </div>`;
+}
+
 function renderPanel(day) {
   const plan = MEAL_PLAN[day];
   const checkedIds = getCheckedIds(day);
-  const mealsHtml = plan.meals.map(m => {
-    const checked = checkedIds.includes(m.id);
-    return `<div class="meal-row${checked ? ' checked' : ''}" data-meal-id="${m.id}">
-      <div class="meal-header">
-        <label class="check-wrap">
-          <input type="checkbox" ${checked ? 'checked' : ''} data-meal-id="${m.id}">
-          <span class="check"></span>
-        </label>
-        <div class="meal-info">
-          <div class="meal-info-top">
-            <div>
-              <div class="meal-time">${escapeHtml(m.time)}</div>
-              <div class="meal-title">${escapeHtml(m.title)}</div>
-            </div>
-            <div class="meal-cal">${m.cal} cal</div>
-          </div>
-        </div>
-      </div>
-      <p class="meal-desc">${escapeHtml(m.desc)}</p>
-      ${m.recipe ? `<div class="recipe-line"><strong>Recipe:</strong> ${escapeHtml(m.recipe.replace(/^Hung curd recipe: /, ''))}</div>` : ''}
-      ${m.zomato ? `<div class="alt-line"><strong>Zomato alt:</strong> ${escapeHtml(m.zomato)}</div>` : ''}
-      <div class="bottom-row">
-        <div class="macro-pills">
-          <span class="pill pill-p">${m.p}g P</span>
-          <span class="pill pill-c">${m.c}g C</span>
-          <span class="pill pill-f">${m.f}g F</span>
-          <span class="pill pill-fib">${m.fib}g fiber</span>
-        </div>
-        ${m.groceries ? `<details class="groc"><summary>Groceries</summary><div class="groc-content">${escapeHtml(m.groceries)}</div></details>` : ''}
-      </div>
-    </div>`;
-  }).join('');
+  const skippedData = getSkippedItems(day);
+  const allMeals = getMealsForDay(day);
+
+  const mealsHtml = allMeals.map(m => renderMealRow(m, checkedIds, skippedData)).join('');
 
   return `<div class="day-panel active" id="panel-${day}">
     ${mealsHtml}
+    <button type="button" class="add-meal-btn" id="addMealBtn">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/></svg>
+      Add a meal
+    </button>
     <div class="day-totals">
       <div><p class="tot-label">Calories</p><p class="tot-val">${plan.totals.cal.toLocaleString()}</p></div>
       <div><p class="tot-label">Protein</p><p class="tot-val">${plan.totals.p}g</p></div>
@@ -566,39 +969,377 @@ function renderPanel(day) {
 
 function renderPanels() {
   document.getElementById('panels').innerHTML = renderPanel(currentDay);
-  attachCheckboxHandlers();
+  attachHandlers();
 }
 
-function attachCheckboxHandlers() {
+function attachHandlers() {
   document.querySelectorAll('input[type="checkbox"][data-meal-id]').forEach(cb => {
     cb.addEventListener('change', (e) => {
       const mealId = e.target.dataset.mealId;
       let ids = getCheckedIds(currentDay);
       if (e.target.checked) {
         if (!ids.includes(mealId)) ids.push(mealId);
+        const skipped = getSkippedItems(currentDay);
+        delete skipped[mealId];
+        setSkippedItems(currentDay, skipped);
       } else {
         ids = ids.filter(i => i !== mealId);
       }
       setCheckedIds(currentDay, ids);
-      const row = e.target.closest('.meal-row');
-      if (row) row.classList.toggle('checked', e.target.checked);
+      renderPanels();
       renderTracker();
       renderTabs();
     });
   });
+
+  document.querySelectorAll('[data-toggle-skip]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mealId = btn.dataset.toggleSkip;
+      const panel = document.getElementById('skip-' + mealId);
+      if (panel) panel.classList.toggle('open');
+    });
+  });
+
+  document.querySelectorAll('.skip-item').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mealId = btn.dataset.mealId;
+      const idx = parseInt(btn.dataset.itemIdx);
+      const skipped = getSkippedItems(currentDay);
+      if (!skipped[mealId]) skipped[mealId] = [];
+      if (skipped[mealId].includes(idx)) {
+        skipped[mealId] = skipped[mealId].filter(i => i !== idx);
+        if (skipped[mealId].length === 0) delete skipped[mealId];
+      } else {
+        skipped[mealId].push(idx);
+      }
+      setSkippedItems(currentDay, skipped);
+      btn.classList.toggle('skipped');
+      const row = btn.closest('.meal-row');
+      if (row) {
+        const allMeals = getMealsForDay(currentDay);
+        const meal = allMeals.find(m => m.id === mealId);
+        const currentSkipped = getSkippedItems(currentDay);
+        const skippedIdxs = currentSkipped[mealId] || [];
+        if (meal) {
+          const eff = computeEffectiveMacros(meal, skippedIdxs);
+          const calEl = row.querySelector('.meal-cal');
+          if (calEl) calEl.innerHTML = eff.cal + ' cal <span style="color:var(--partial);font-size:11px">partial</span>';
+          const pills = row.querySelectorAll('.macro-pills .pill');
+          if (pills[0]) pills[0].textContent = eff.p + 'g P';
+          if (pills[1]) pills[1].textContent = eff.c + 'g C';
+          if (pills[2]) pills[2].textContent = eff.f + 'g F';
+          if (pills[3]) pills[3].textContent = eff.fib + 'g fiber';
+        }
+      }
+      renderTracker();
+    });
+  });
+
+  document.querySelectorAll('.skip-done-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mealId = btn.dataset.mealId;
+      const skipped = getSkippedItems(currentDay);
+      const panel = document.getElementById('skip-' + mealId);
+      if (skipped[mealId] && skipped[mealId].length > 0) {
+        if (panel) panel.classList.remove('open');
+        renderPanels();
+        renderTracker();
+        renderTabs();
+      } else {
+        if (panel) panel.classList.remove('open');
+      }
+    });
+  });
+
+  const addBtn = document.getElementById('addMealBtn');
+  if (addBtn) addBtn.addEventListener('click', openAddModal);
+
+  document.querySelectorAll('[data-edit-meal]').forEach(btn => {
+    btn.addEventListener('click', () => openEditModal(btn.dataset.editMeal));
+  });
 }
 
+/* ---------- ADD MEAL MODAL ---------- */
+function openAddModal() {
+  ['newMealTitle','newMealDesc','newMealTime','newMealCal','newMealP','newMealC','newMealF','newMealFib'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('aiStatus').textContent = '';
+  document.getElementById('addMealModal').classList.add('open');
+}
+
+document.getElementById('addMealCancel').addEventListener('click', () => {
+  document.getElementById('addMealModal').classList.remove('open');
+});
+
+document.getElementById('addMealModal').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('addMealModal'))
+    document.getElementById('addMealModal').classList.remove('open');
+});
+
+document.getElementById('aiEstimateBtn').addEventListener('click', async () => {
+  const title = document.getElementById('newMealTitle').value.trim();
+  const desc = document.getElementById('newMealDesc').value.trim();
+  if (!title && !desc) {
+    document.getElementById('aiStatus').textContent = 'Enter meal name or description first.';
+    document.getElementById('aiStatus').className = 'ai-status error';
+    return;
+  }
+  await runAiEstimate(title, desc, 'aiEstimateBtn', 'aiStatus', {
+    calId: 'newMealCal', pId: 'newMealP', cId: 'newMealC', fId: 'newMealF', fibId: 'newMealFib'
+  });
+});
+
+document.getElementById('addMealSave').addEventListener('click', () => {
+  const title = document.getElementById('newMealTitle').value.trim();
+  const desc = document.getElementById('newMealDesc').value.trim();
+  const time = document.getElementById('newMealTime').value.trim() || 'Added meal';
+  const cal = parseInt(document.getElementById('newMealCal').value) || 0;
+  const p = parseInt(document.getElementById('newMealP').value) || 0;
+  const c = parseInt(document.getElementById('newMealC').value) || 0;
+  const f = parseInt(document.getElementById('newMealF').value) || 0;
+  const fib = parseInt(document.getElementById('newMealFib').value) || 0;
+
+  if (!title) {
+    document.getElementById('aiStatus').textContent = 'Please enter a meal name.';
+    document.getElementById('aiStatus').className = 'ai-status error';
+    return;
+  }
+
+  // Build item list from description. For a custom add, we don't know per-item macros,
+  // so we lump all macros onto a single "whole meal" item to keep the partial-meal math
+  // internally consistent (skipping everything = 0 cal, checking = full cal).
+  const parts = desc ? desc.split(',').map(s => s.trim()).filter(Boolean) : [];
+  let items;
+  if (parts.length <= 1) {
+    items = [{ n: parts[0] || title, cal, p, c, f, fib }];
+  } else {
+    // Distribute evenly across parts so user at least sees per-item cal hints.
+    // (They can Edit later to refine.)
+    const share = (v) => Math.round(v / parts.length);
+    items = parts.map(n => ({ n, cal: share(cal), p: share(p), c: share(c), f: share(f), fib: share(fib) }));
+    // Fix rounding drift by dumping remainder into the first item
+    const sum = k => items.reduce((a, it) => a + it[k], 0);
+    items[0].cal += (cal - sum('cal'));
+    items[0].p   += (p   - sum('p'));
+    items[0].c   += (c   - sum('c'));
+    items[0].f   += (f   - sum('f'));
+    items[0].fib += (fib - sum('fib'));
+  }
+
+  const newMeal = {
+    id: 'custom-' + Date.now(),
+    time, title, desc, cal, p, c, f, fib,
+    items,
+    isCustom: true
+  };
+
+  const customs = getCustomMeals(currentDay);
+  customs.push(newMeal);
+  setCustomMeals(currentDay, customs);
+
+  document.getElementById('addMealModal').classList.remove('open');
+  renderPanels();
+  renderTracker();
+  renderTabs();
+});
+
+/* ---------- EDIT MEAL MODAL ---------- */
+function openEditModal(mealId) {
+  editingMealId = mealId;
+  const allMeals = getMealsForDay(currentDay);
+  const meal = allMeals.find(m => m.id === mealId);
+  if (!meal) return;
+
+  document.getElementById('editMealModalTitle').textContent = 'Edit: ' + meal.title;
+  document.getElementById('editMealTitle').value = meal.title;
+  document.getElementById('editMealDesc').value = meal.desc || '';
+  document.getElementById('editMealTime').value = meal.time || '';
+  document.getElementById('editMealCal').value = meal.cal || '';
+  document.getElementById('editMealP').value = meal.p || '';
+  document.getElementById('editMealC').value = meal.c || '';
+  document.getElementById('editMealF').value = meal.f || '';
+  document.getElementById('editMealFib').value = meal.fib || '';
+  document.getElementById('editAiStatus').textContent = '';
+  document.getElementById('editMealModal').classList.add('open');
+}
+
+document.getElementById('editMealCancel').addEventListener('click', () => {
+  document.getElementById('editMealModal').classList.remove('open');
+  editingMealId = null;
+});
+
+document.getElementById('editMealModal').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('editMealModal')) {
+    document.getElementById('editMealModal').classList.remove('open');
+    editingMealId = null;
+  }
+});
+
+document.getElementById('editAiEstimateBtn').addEventListener('click', async () => {
+  const title = document.getElementById('editMealTitle').value.trim();
+  const desc = document.getElementById('editMealDesc').value.trim();
+  if (!title && !desc) {
+    document.getElementById('editAiStatus').textContent = 'Enter meal name or description first.';
+    document.getElementById('editAiStatus').className = 'ai-status error';
+    return;
+  }
+  await runAiEstimate(title, desc, 'editAiEstimateBtn', 'editAiStatus', {
+    calId: 'editMealCal', pId: 'editMealP', cId: 'editMealC', fId: 'editMealF', fibId: 'editMealFib'
+  });
+});
+
+document.getElementById('editMealSave').addEventListener('click', () => {
+  if (!editingMealId) return;
+  const title = document.getElementById('editMealTitle').value.trim();
+  const desc = document.getElementById('editMealDesc').value.trim();
+  const time = document.getElementById('editMealTime').value.trim();
+  const cal = parseInt(document.getElementById('editMealCal').value) || 0;
+  const p = parseInt(document.getElementById('editMealP').value) || 0;
+  const c = parseInt(document.getElementById('editMealC').value) || 0;
+  const f = parseInt(document.getElementById('editMealF').value) || 0;
+  const fib = parseInt(document.getElementById('editMealFib').value) || 0;
+
+  // Find existing meal so we can preserve its items if possible
+  const allMeals = getMealsForDay(currentDay);
+  const existing = allMeals.find(m => m.id === editingMealId);
+  const prevItems = existing && existing.items ? existing.items : [];
+
+  // Rebuild items from new description, keeping per-item macros when names match;
+  // otherwise fall back to even distribution.
+  const parts = desc ? desc.split(',').map(s => s.trim()).filter(Boolean) : [];
+  let newItems;
+  if (parts.length === 0) {
+    newItems = [{ n: title, cal, p, c, f, fib }];
+  } else {
+    // Try to preserve prev items if same count and all names still line up
+    const sameCount = parts.length === prevItems.length;
+    const prevMatched = sameCount && parts.every((name, i) => {
+      const prev = prevItems[i];
+      return prev && itemLabel(prev).toLowerCase() === name.toLowerCase();
+    });
+    if (prevMatched) {
+      // user didn't rewrite description — keep per-item macros but scale to new totals
+      const prevTotal = prevItems.reduce((a, it) => a + (it.cal || 0), 0);
+      const scale = (key, newVal) => {
+        const prevSum = prevItems.reduce((a, it) => a + (it[key] || 0), 0);
+        return prevSum > 0 ? (newVal / prevSum) : 0;
+      };
+      const sCal = scale('cal', cal), sP = scale('p', p), sC = scale('c', c), sF = scale('f', f), sFib = scale('fib', fib);
+      newItems = prevItems.map(it => ({
+        n: itemLabel(it),
+        cal: Math.round((it.cal || 0) * sCal),
+        p:   Math.round((it.p   || 0) * sP),
+        c:   Math.round((it.c   || 0) * sC),
+        f:   Math.round((it.f   || 0) * sF),
+        fib: Math.round((it.fib || 0) * sFib),
+      }));
+    } else {
+      const share = (v) => Math.round(v / parts.length);
+      newItems = parts.map(n => ({ n, cal: share(cal), p: share(p), c: share(c), f: share(f), fib: share(fib) }));
+    }
+    // Fix rounding drift
+    const sum = k => newItems.reduce((a, it) => a + it[k], 0);
+    newItems[0].cal += (cal - sum('cal'));
+    newItems[0].p   += (p   - sum('p'));
+    newItems[0].c   += (c   - sum('c'));
+    newItems[0].f   += (f   - sum('f'));
+    newItems[0].fib += (fib - sum('fib'));
+  }
+
+  const customs = getCustomMeals(currentDay);
+  const customIdx = customs.findIndex(m => m.id === editingMealId);
+
+  const patch = { title, desc, time, cal, p, c, f, fib, items: newItems };
+
+  if (customIdx !== -1) {
+    customs[customIdx] = { ...customs[customIdx], ...patch };
+    setCustomMeals(currentDay, customs);
+  } else {
+    const overrides = JSON.parse(localStorage.getItem('mealPlan_overrides_' + currentDay) || '{}');
+    overrides[editingMealId] = patch;
+    localStorage.setItem('mealPlan_overrides_' + currentDay, JSON.stringify(overrides));
+    const baseMeal = MEAL_PLAN[currentDay].meals.find(m => m.id === editingMealId);
+    if (baseMeal) Object.assign(baseMeal, patch);
+  }
+
+  // Re-derive day totals in case macros changed
+  applyDerivedDayTotals(currentDay);
+
+  document.getElementById('editMealModal').classList.remove('open');
+  editingMealId = null;
+  renderPanels();
+  renderTracker();
+});
+
+/* ---------- AI ESTIMATION ---------- */
+async function runAiEstimate(title, desc, btnId, statusId, fields) {
+  const btn = document.getElementById(btnId);
+  const status = document.getElementById(statusId);
+  btn.disabled = true;
+  status.textContent = 'Estimating nutrition…';
+  status.className = 'ai-status';
+
+  try {
+    const prompt = `You are a nutrition expert. Estimate the nutritional values for this Indian meal as typically served for one person.
+
+Meal: ${title}
+${desc ? `Description: ${desc}` : ''}
+
+Respond ONLY with a JSON object (no markdown, no extra text):
+{"cal": number, "p": number, "c": number, "f": number, "fib": number}
+
+Where: cal=calories, p=protein(g), c=carbs(g), f=fat(g), fib=fiber(g)
+Use realistic Indian home-cooked or restaurant portions.`;
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 200,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    const data = await response.json();
+    const text = data.content?.map(b => b.text || '').join('') || '';
+    const clean = text.replace(/```json|```/g, '').trim();
+    const parsed = JSON.parse(clean);
+
+    document.getElementById(fields.calId).value = parsed.cal || '';
+    document.getElementById(fields.pId).value = parsed.p || '';
+    document.getElementById(fields.cId).value = parsed.c || '';
+    document.getElementById(fields.fId).value = parsed.f || '';
+    document.getElementById(fields.fibId).value = parsed.fib || '';
+
+    status.textContent = `Estimated: ${parsed.cal} cal · ${parsed.p}g P · ${parsed.c}g C · ${parsed.f}g F · ${parsed.fib}g fiber`;
+    status.className = 'ai-status';
+  } catch (err) {
+    status.textContent = 'Could not estimate — please enter manually.';
+    status.className = 'ai-status error';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+/* ---------- TRACKER ---------- */
 function computeConsumed(day) {
   const ids = getCheckedIds(day);
-  const plan = MEAL_PLAN[day];
+  const skippedData = getSkippedItems(day);
+  const allMeals = getMealsForDay(day);
   const totals = { cal:0, p:0, c:0, f:0, fib:0 };
-  plan.meals.forEach(m => {
+
+  allMeals.forEach(m => {
     if (ids.includes(m.id)) {
-      totals.cal += m.cal;
-      totals.p += m.p;
-      totals.c += m.c;
-      totals.f += m.f;
-      totals.fib += m.fib;
+      totals.cal += m.cal; totals.p += m.p; totals.c += m.c; totals.f += m.f; totals.fib += m.fib;
+    } else if (skippedData[m.id] && skippedData[m.id].length > 0 && m.items && m.items.length > 0) {
+      const skippedCount = skippedData[m.id].length;
+      const totalItems = m.items.length;
+      if (skippedCount < totalItems) {
+        const eff = computeEffectiveMacros(m, skippedData[m.id]);
+        totals.cal += eff.cal; totals.p += eff.p; totals.c += eff.c; totals.f += eff.f; totals.fib += eff.fib;
+      }
     }
   });
   return totals;
@@ -609,24 +1350,24 @@ function renderTracker() {
   document.getElementById('trackerDayLabel').textContent = DAY_NAMES[currentDay] + "'s progress";
 
   const metrics = [
-    { key:'cal', label:'Calories', cls:'cal', value:consumed.cal, target:TARGETS.cal, unit:'', fmt: v => v.toLocaleString() },
+    { key:'cal', label:'Calories', cls:'cal', value:consumed.cal, target:TARGETS.cal, fmt: v => v.toLocaleString() },
     { key:'p',   label:'Protein',  cls:'p',   value:consumed.p,   target:TARGETS.p,   unit:'g' },
     { key:'c',   label:'Carbs',    cls:'c',   value:consumed.c,   target:TARGETS.c,   unit:'g' },
     { key:'f',   label:'Fat',      cls:'f',   value:consumed.f,   target:TARGETS.f,   unit:'g' },
     { key:'fib', label:'Fiber',    cls:'fib', value:consumed.fib, target:TARGETS.fib, unit:'g' }
   ];
 
-  const grid = document.getElementById('trackerGrid');
-  grid.innerHTML = metrics.map(m => {
+  document.getElementById('trackerGrid').innerHTML = metrics.map(m => {
     const pct = Math.min(100, Math.round((m.value / m.target) * 100));
     const over = m.value > m.target;
     const overBy = over ? m.value - m.target : 0;
     const fmt = m.fmt || (v => v);
+    const unit = m.unit || '';
     return `<div class="metric">
       <p class="metric-label">${m.label}</p>
-      <div class="metric-val">${fmt(m.value)}${m.unit}<span class="target"> / ${fmt(m.target)}${m.unit}</span></div>
-      <div class="bar"><div class="bar-fill ${m.cls}${over ? ' over' : ''}" style="width: ${over ? 100 : pct}%"></div></div>
-      ${over ? `<div class="over-note">+${fmt(overBy)}${m.unit} over</div>` : ''}
+      <div class="metric-val">${fmt(m.value)}${unit}<span class="target"> / ${fmt(m.target)}${unit}</span></div>
+      <div class="bar"><div class="bar-fill ${m.cls}${over ? ' over' : ''}" style="width:${over ? 100 : pct}%"></div></div>
+      ${over ? `<div class="over-note">+${fmt(overBy)}${unit} over</div>` : ''}
     </div>`;
   }).join('');
 }
@@ -642,17 +1383,29 @@ function switchDay(day) {
 document.getElementById('resetBtn').addEventListener('click', () => {
   if (!confirm('Reset all check-offs for ' + DAY_NAMES[currentDay] + '?')) return;
   setCheckedIds(currentDay, []);
+  setSkippedItems(currentDay, {});
   renderPanels();
   renderTracker();
   renderTabs();
 });
 
-// Auto-select today's day on first load
 (function initDay() {
-  const todayIdx = new Date().getDay(); // 0 = Sun
-  const map = [6, 0, 1, 2, 3, 4, 5]; // JS Sun=0 → our idx; Sun=6 in our order
+  const todayIdx = new Date().getDay();
+  const map = [6, 0, 1, 2, 3, 4, 5];
   currentDay = DAY_ORDER[map[todayIdx]];
 })();
+
+/* Load overrides (may include items[] for correct partial math) */
+DAY_ORDER.forEach(day => {
+  try {
+    const overrides = JSON.parse(localStorage.getItem('mealPlan_overrides_' + day) || '{}');
+    Object.entries(overrides).forEach(([id, data]) => {
+      const meal = MEAL_PLAN[day].meals.find(m => m.id === id);
+      if (meal) Object.assign(meal, data);
+    });
+    applyDerivedDayTotals(day);
+  } catch {}
+});
 
 renderTabs();
 renderPanels();
