@@ -105,6 +105,170 @@
     .metric-label { font-size: 9px; }
   }
 
+  /* Activity section */
+  .activity {
+    background: var(--bg-primary);
+    border: 0.5px solid var(--border-tertiary);
+    border-radius: var(--radius-lg);
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+  .activity[open] { border-color: var(--border-secondary); }
+  .activity-summary {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 16px; cursor: pointer; list-style: none;
+    user-select: none; gap: 10px;
+  }
+  .activity-summary::-webkit-details-marker { display: none; }
+  .activity-left { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
+  .activity-icon {
+    width: 28px; height: 28px; border-radius: 8px;
+    background: var(--bg-secondary); color: var(--text-secondary);
+    display: flex; align-items: center; justify-content: center;
+    flex: 0 0 auto;
+  }
+  .activity-label {
+    font-size: 11px; color: var(--text-tertiary);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    font-weight: 500; display: block; margin-bottom: 1px;
+  }
+  .activity-summary-text {
+    font-size: 13px; color: var(--text-primary); font-weight: 500;
+    display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    max-width: calc(100vw - 140px);
+  }
+  .activity-summary-text.has-burn { color: var(--success); }
+  @media (prefers-color-scheme: dark) {
+    .activity-summary-text.has-burn { color: var(--success-light); }
+  }
+  .activity-caret {
+    font-size: 12px; color: var(--text-tertiary);
+    transition: transform 0.15s; flex: 0 0 auto;
+  }
+  .activity[open] .activity-caret { transform: rotate(180deg); }
+
+  .activity-body {
+    padding: 0 16px 14px;
+    border-top: 0.5px solid var(--border-tertiary);
+  }
+  .activity-hint {
+    font-size: 12px; color: var(--text-secondary);
+    margin: 12px 0 10px; line-height: 1.5;
+  }
+  .activity-presets {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;
+  }
+  .activity-preset {
+    font-size: 12px; padding: 6px 12px;
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border-tertiary);
+    border-radius: 20px;
+    color: var(--text-primary);
+    cursor: pointer; font-family: inherit;
+    transition: all 0.15s;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .activity-preset:hover { border-color: var(--border-secondary); background: var(--bg-primary); }
+  .activity-preset .preset-cal {
+    font-size: 10px; color: var(--text-tertiary); font-weight: 500;
+  }
+
+  .activity-custom {
+    display: grid; grid-template-columns: 1fr 80px auto; gap: 6px;
+    margin-bottom: 10px;
+  }
+  .activity-input {
+    padding: 9px 11px; font-size: 13px;
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border-tertiary);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-family: inherit; outline: none;
+    transition: border-color 0.15s;
+  }
+  .activity-input:focus { border-color: var(--border-info); }
+  .activity-input::placeholder { color: var(--text-tertiary); }
+  .activity-add-btn {
+    padding: 9px 16px; font-size: 13px; font-weight: 500;
+    background: var(--success); color: white;
+    border: none; border-radius: var(--radius-md);
+    cursor: pointer; font-family: inherit;
+    transition: opacity 0.15s;
+  }
+  .activity-add-btn:hover { opacity: 0.9; }
+  @media (prefers-color-scheme: dark) {
+    .activity-add-btn { background: var(--success-light); color: #1a1a18; }
+  }
+
+  .activity-list {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .activity-list:empty { display: none; }
+  .activity-item {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 12px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    font-size: 13px; gap: 10px;
+  }
+  .activity-item-name { color: var(--text-primary); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .activity-item-cal { color: var(--success); font-weight: 500; font-size: 12px; white-space: nowrap; }
+  @media (prefers-color-scheme: dark) {
+    .activity-item-cal { color: var(--success-light); }
+  }
+  .activity-item-remove {
+    background: transparent; border: none; padding: 2px 6px;
+    color: var(--text-tertiary); cursor: pointer; font-size: 16px;
+    line-height: 1; border-radius: 4px; font-family: inherit;
+  }
+  .activity-item-remove:hover { background: var(--bg-primary); color: var(--danger); }
+
+  /* Net calorie note in tracker */
+  .net-note { font-size: 10px; color: var(--success); margin-top: 2px; font-weight: 500; }
+  .net-note.deficit { color: var(--partial); }
+  .metric-val.metric-val-deficit { color: var(--partial); }
+  @media (prefers-color-scheme: dark) {
+    .net-note { color: var(--success-light); }
+    .net-note.deficit { color: var(--partial-light); }
+    .metric-val.metric-val-deficit { color: var(--partial-light); }
+  }
+
+  /* Weight & goal section */
+  .weight-unit-toggle {
+    display: inline-flex; gap: 0; margin-bottom: 12px;
+    background: var(--bg-secondary); border-radius: var(--radius-md);
+    padding: 3px;
+  }
+  .weight-unit-btn {
+    padding: 5px 14px; font-size: 12px; font-weight: 500;
+    background: transparent; border: none; border-radius: 6px;
+    color: var(--text-secondary); cursor: pointer; font-family: inherit;
+    transition: all 0.15s;
+  }
+  .weight-unit-btn.active {
+    background: var(--bg-primary); color: var(--text-primary);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  }
+  .weight-inputs {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    margin-bottom: 4px;
+  }
+  .weight-input-group { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+  .weight-input-label {
+    font-size: 10px; color: var(--text-tertiary);
+    text-transform: uppercase; letter-spacing: 0.4px; font-weight: 500;
+  }
+  .weight-input { padding: 9px 11px; font-size: 14px; width: 100%; }
+
+  .weight-delta:empty { display: none; }
+  .weight-delta {
+    font-size: 12px; color: var(--text-secondary); margin-top: 10px;
+    padding: 8px 12px; background: var(--bg-secondary);
+    border-radius: var(--radius-md); line-height: 1.5;
+  }
+  .weight-delta strong { color: var(--text-primary); font-weight: 500; }
+
   .day-panel { display: none; }
   .day-panel.active { display: block; }
 
@@ -350,6 +514,18 @@
 
   /* Edit meal modal */
   .edit-modal .modal-title { font-size: 15px; }
+  .reset-original-btn {
+    width: 100%; padding: 10px;
+    font-size: 12px; font-weight: 500;
+    background: transparent; color: var(--text-secondary);
+    border: 0.5px dashed var(--border-secondary);
+    border-radius: var(--radius-md);
+    cursor: pointer; font-family: inherit;
+    margin-bottom: 10px;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    transition: all 0.15s;
+  }
+  .reset-original-btn:hover { background: var(--bg-secondary); color: var(--text-primary); border-style: solid; }
 
   .day-tabs {
     position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
@@ -390,6 +566,65 @@
   </div>
   <div class="tracker-grid" id="trackerGrid"></div>
 </div>
+
+<details class="activity" id="activityBlock">
+  <summary class="activity-summary">
+    <span class="activity-left">
+      <span class="activity-icon">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M13 4a3 3 0 11-6 0 3 3 0 016 0zm-3 5.5c-2.2 0-4 1-4 2.5v.5h1.5l.8 5h3.4l.8-5H14v-.5c0-1.5-1.8-2.5-4-2.5z"/></svg>
+      </span>
+      <span>
+        <span class="activity-label">Activity</span>
+        <span class="activity-summary-text" id="activitySummaryText">No activity logged</span>
+      </span>
+    </span>
+    <span class="activity-caret">▾</span>
+  </summary>
+  <div class="activity-body">
+    <p class="activity-hint">Quick log — tap a preset or add your own. Calories burned subtract from today's net.</p>
+    <div class="activity-presets" id="activityPresets"></div>
+    <div class="activity-custom">
+      <input type="text" class="activity-input activity-input-name" id="activityName" placeholder="Activity name">
+      <input type="number" class="activity-input activity-input-cal" id="activityCal" placeholder="Cal" min="0">
+      <button type="button" class="activity-add-btn" id="activityAddBtn">Add</button>
+    </div>
+    <ul class="activity-list" id="activityList"></ul>
+  </div>
+</details>
+
+<details class="activity weight-block" id="weightBlock">
+  <summary class="activity-summary">
+    <span class="activity-left">
+      <span class="activity-icon">
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M4 6a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm6 1a2.5 2.5 0 00-2.45 2h4.9A2.5 2.5 0 0010 7z"/></svg>
+      </span>
+      <span>
+        <span class="activity-label">Weight & goal</span>
+        <span class="activity-summary-text" id="weightSummaryText">Not set</span>
+      </span>
+    </span>
+    <span class="activity-caret">▾</span>
+  </summary>
+  <div class="activity-body">
+    <div class="weight-unit-toggle">
+      <button type="button" class="weight-unit-btn" data-unit="kg">kg</button>
+      <button type="button" class="weight-unit-btn" data-unit="lb">lb</button>
+    </div>
+
+    <div class="weight-inputs">
+      <div class="weight-input-group">
+        <label class="weight-input-label" for="weightCurrent">Current</label>
+        <input type="number" class="activity-input weight-input" id="weightCurrent" placeholder="0" step="0.1">
+      </div>
+      <div class="weight-input-group">
+        <label class="weight-input-label" for="weightGoal">Goal</label>
+        <input type="number" class="activity-input weight-input" id="weightGoal" placeholder="0" step="0.1">
+      </div>
+    </div>
+
+    <div class="weight-delta" id="weightDelta"></div>
+  </div>
+</details>
 
 <div id="panels"></div>
 
@@ -472,6 +707,11 @@
       <input type="number" class="modal-input" id="editMealFib" placeholder="Fib (g)">
     </div>
     <p class="modal-macro-label">Protein · Carbs · Fat · Fiber</p>
+
+    <button class="reset-original-btn" id="editMealResetOriginal" style="display:none">
+      <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor"><path d="M4 10a6 6 0 0110.472-4H12a1 1 0 100 2h5a1 1 0 001-1V2a1 1 0 10-2 0v2.5A8 8 0 102 10a1 1 0 102 0z"/></svg>
+      Reset to original
+    </button>
 
     <div class="modal-actions">
       <button class="modal-cancel" id="editMealCancel">Cancel</button>
@@ -804,8 +1044,29 @@ function applyDerivedDayTotals(day) {
 
 DAY_ORDER.forEach(applyDerivedDayTotals);
 
+/* Deep-clone the original base plan so "Reset to original" can always restore. */
+const PRISTINE_PLAN = JSON.parse(JSON.stringify(MEAL_PLAN));
+
 let currentDay = 'mon';
 let editingMealId = null;
+
+function getOverrides(day) {
+  try { return JSON.parse(localStorage.getItem('mealPlan_overrides_' + day) || '{}'); } catch { return {}; }
+}
+function setOverrides(day, data) {
+  try { localStorage.setItem('mealPlan_overrides_' + day, JSON.stringify(data)); } catch {}
+}
+function findPristineMeal(day, mealId) {
+  if (!PRISTINE_PLAN[day]) return null;
+  return PRISTINE_PLAN[day].meals.find(m => m.id === mealId) || null;
+}
+function isBaseMeal(day, mealId) {
+  return !!findPristineMeal(day, mealId);
+}
+function hasOverride(day, mealId) {
+  const ov = getOverrides(day);
+  return Object.prototype.hasOwnProperty.call(ov, mealId);
+}
 
 /* ---------- storage helpers ---------- */
 function getCustomMeals(day) {
@@ -825,6 +1086,24 @@ function getSkippedItems(day) {
 }
 function setSkippedItems(day, data) {
   try { localStorage.setItem('mealPlan_skipped_' + day, JSON.stringify(data)); } catch {}
+}
+
+/* ---------- activity storage ---------- */
+const ACTIVITY_PRESETS = [
+  { name: 'Weight training', cal: 250 },
+  { name: 'Dance class',     cal: 350 },
+  { name: '30-min walk',     cal: 120 },
+  { name: '5k run',          cal: 350 },
+  { name: '10k steps',       cal: 400 }
+];
+function getActivities(day) {
+  try { return JSON.parse(localStorage.getItem('mealPlan_activities_' + day) || '[]'); } catch { return []; }
+}
+function setActivities(day, list) {
+  try { localStorage.setItem('mealPlan_activities_' + day, JSON.stringify(list)); } catch {}
+}
+function totalBurned(day) {
+  return getActivities(day).reduce((a, x) => a + (parseInt(x.cal) || 0), 0);
 }
 
 function getMealsForDay(day) {
@@ -881,12 +1160,14 @@ function renderTabs() {
 
 function renderMealRow(m, checkedIds, skippedData) {
   const checked = checkedIds.includes(m.id);
-  const skippedIdxs = skippedData[m.id] || [];
+  const items = m.items || [];
+  // Filter stored skip indices against the current items list so stale/invalid indices
+  // (e.g. from a custom meal that was migrated or edited) don't pollute the display.
+  const rawSkippedIdxs = skippedData[m.id] || [];
+  const skippedIdxs = rawSkippedIdxs.filter(idx => idx >= 0 && idx < items.length);
   const isPartial = skippedIdxs.length > 0 && !checked;
   const effective = computeEffectiveMacros(m, isPartial ? skippedIdxs : []);
   const calDisplay = isPartial ? effective.cal : m.cal;
-
-  const items = m.items || [];
   const itemsHtml = items.length ? items.map((item, idx) => {
     const isSkipped = skippedIdxs.includes(idx);
     const label = itemLabel(item);
@@ -916,7 +1197,7 @@ function renderMealRow(m, checkedIds, skippedData) {
     ${m.recipe ? `<div class="recipe-line"><strong>Recipe:</strong> ${escapeHtml(m.recipe.replace(/^Hung curd recipe: /, ''))}</div>` : ''}
     ${m.zomato ? `<div class="alt-line"><strong>Zomato alt:</strong> ${escapeHtml(m.zomato)}</div>` : ''}
 
-    ${itemsHtml ? `<div class="skip-panel${isPartial ? ' open' : ''}" id="${skipPanelId}">
+    ${itemsHtml ? `<div class="skip-panel" id="${skipPanelId}">
       <div class="skip-panel-title">Tap items you skipped</div>
       <div class="skip-items">${itemsHtml}</div>
       <button type="button" class="skip-done-btn" data-meal-id="${m.id}">Done — log partial meal</button>
@@ -1040,13 +1321,47 @@ function attachHandlers() {
       const mealId = btn.dataset.mealId;
       const skipped = getSkippedItems(currentDay);
       const panel = document.getElementById('skip-' + mealId);
-      if (skipped[mealId] && skipped[mealId].length > 0) {
-        if (panel) panel.classList.remove('open');
-        renderPanels();
+      const row = document.querySelector('.meal-row[data-meal-id="' + mealId + '"]');
+
+      // Always collapse the skip panel
+      if (panel) panel.classList.remove('open');
+
+      const hasSkips = skipped[mealId] && skipped[mealId].length > 0;
+
+      if (hasSkips && row) {
+        // Apply the "partial" visual state in-place (no full re-render — that would re-open the panel)
+        const allMeals = getMealsForDay(currentDay);
+        const meal = allMeals.find(m => m.id === mealId);
+        const checkedIds = getCheckedIds(currentDay);
+        const isChecked = checkedIds.includes(mealId);
+
+        if (!isChecked && meal) {
+          row.classList.remove('checked');
+          row.classList.add('partial');
+          const check = row.querySelector('.check');
+          if (check) check.classList.add('partial-check');
+
+          const eff = computeEffectiveMacros(meal, skipped[mealId]);
+          const calEl = row.querySelector('.meal-cal');
+          if (calEl) calEl.innerHTML = eff.cal + ' cal <span style="color:var(--partial);font-size:11px">partial</span>';
+          const pills = row.querySelectorAll('.macro-pills .pill');
+          if (pills[0]) pills[0].textContent = eff.p + 'g P';
+          if (pills[1]) pills[1].textContent = eff.c + 'g C';
+          if (pills[2]) pills[2].textContent = eff.f + 'g F';
+          if (pills[3]) pills[3].textContent = eff.fib + 'g fiber';
+
+          // Update the partial/edit button label
+          const partialBtn = row.querySelector('[data-toggle-skip="' + mealId + '"]');
+          if (partialBtn) partialBtn.textContent = 'Edit skipped';
+        }
+
         renderTracker();
         renderTabs();
-      } else {
-        if (panel) panel.classList.remove('open');
+      } else if (!hasSkips && row) {
+        // No items were marked skipped — just clear the partial look
+        row.classList.remove('partial');
+        const check = row.querySelector('.check');
+        if (check) check.classList.remove('partial-check');
       }
     });
   });
@@ -1106,26 +1421,13 @@ document.getElementById('addMealSave').addEventListener('click', () => {
     return;
   }
 
-  // Build item list from description. For a custom add, we don't know per-item macros,
-  // so we lump all macros onto a single "whole meal" item to keep the partial-meal math
-  // internally consistent (skipping everything = 0 cal, checking = full cal).
-  const parts = desc ? desc.split(',').map(s => s.trim()).filter(Boolean) : [];
-  let items;
-  if (parts.length <= 1) {
-    items = [{ n: parts[0] || title, cal, p, c, f, fib }];
-  } else {
-    // Distribute evenly across parts so user at least sees per-item cal hints.
-    // (They can Edit later to refine.)
-    const share = (v) => Math.round(v / parts.length);
-    items = parts.map(n => ({ n, cal: share(cal), p: share(p), c: share(c), f: share(f), fib: share(fib) }));
-    // Fix rounding drift by dumping remainder into the first item
-    const sum = k => items.reduce((a, it) => a + it[k], 0);
-    items[0].cal += (cal - sum('cal'));
-    items[0].p   += (p   - sum('p'));
-    items[0].c   += (c   - sum('c'));
-    items[0].f   += (f   - sum('f'));
-    items[0].fib += (fib - sum('fib'));
-  }
+  // For a custom meal, the user entered TOTAL macros — we don't know how to distribute
+  // them across named ingredients without per-item knowledge (e.g. water has 0 protein,
+  // whey has all of it). So we store one atomic item that carries the full macros.
+  // This means custom meals behave as "check/uncheck whole thing" — no partial skipping,
+  // which is honest: we can't guess what fraction of the user's 100g protein belongs
+  // to each ingredient they typed.
+  const items = [{ n: title, cal, p, c, f, fib }];
 
   const newMeal = {
     id: 'custom-' + Date.now(),
@@ -1161,12 +1463,47 @@ function openEditModal(mealId) {
   document.getElementById('editMealF').value = meal.f || '';
   document.getElementById('editMealFib').value = meal.fib || '';
   document.getElementById('editAiStatus').textContent = '';
+
+  // Show "Reset to original" only when this is a base meal with a saved override
+  const resetBtn = document.getElementById('editMealResetOriginal');
+  if (isBaseMeal(currentDay, mealId) && hasOverride(currentDay, mealId)) {
+    resetBtn.style.display = 'flex';
+  } else {
+    resetBtn.style.display = 'none';
+  }
+
   document.getElementById('editMealModal').classList.add('open');
 }
 
 document.getElementById('editMealCancel').addEventListener('click', () => {
   document.getElementById('editMealModal').classList.remove('open');
   editingMealId = null;
+});
+
+document.getElementById('editMealResetOriginal').addEventListener('click', () => {
+  if (!editingMealId) return;
+  const pristine = findPristineMeal(currentDay, editingMealId);
+  if (!pristine) return;
+  if (!confirm('Reset "' + pristine.title + '" back to its original values? Your edits to this meal will be discarded.')) return;
+
+  // Remove the override for this meal
+  const ov = getOverrides(currentDay);
+  delete ov[editingMealId];
+  setOverrides(currentDay, ov);
+
+  // Restore the in-memory base meal from the pristine snapshot (deep clone so future edits don't mutate it)
+  const idx = MEAL_PLAN[currentDay].meals.findIndex(m => m.id === editingMealId);
+  if (idx !== -1) {
+    MEAL_PLAN[currentDay].meals[idx] = JSON.parse(JSON.stringify(pristine));
+  }
+
+  // Re-derive day totals and refresh UI
+  applyDerivedDayTotals(currentDay);
+  document.getElementById('editMealModal').classList.remove('open');
+  editingMealId = null;
+  renderPanels();
+  renderTracker();
+  renderTabs();
 });
 
 document.getElementById('editMealModal').addEventListener('click', (e) => {
@@ -1204,47 +1541,53 @@ document.getElementById('editMealSave').addEventListener('click', () => {
   const allMeals = getMealsForDay(currentDay);
   const existing = allMeals.find(m => m.id === editingMealId);
   const prevItems = existing && existing.items ? existing.items : [];
+  const isCustom = existing && existing.isCustom;
 
-  // Rebuild items from new description, keeping per-item macros when names match;
-  // otherwise fall back to even distribution.
-  const parts = desc ? desc.split(',').map(s => s.trim()).filter(Boolean) : [];
   let newItems;
-  if (parts.length === 0) {
+  if (isCustom) {
+    // Custom meals: user-entered totals, no per-item knowledge. Store atomically
+    // so partial-skipping never silently loses macros. See addMealSave for rationale.
     newItems = [{ n: title, cal, p, c, f, fib }];
   } else {
-    // Try to preserve prev items if same count and all names still line up
-    const sameCount = parts.length === prevItems.length;
-    const prevMatched = sameCount && parts.every((name, i) => {
-      const prev = prevItems[i];
-      return prev && itemLabel(prev).toLowerCase() === name.toLowerCase();
-    });
-    if (prevMatched) {
-      // user didn't rewrite description — keep per-item macros but scale to new totals
-      const prevTotal = prevItems.reduce((a, it) => a + (it.cal || 0), 0);
-      const scale = (key, newVal) => {
-        const prevSum = prevItems.reduce((a, it) => a + (it[key] || 0), 0);
-        return prevSum > 0 ? (newVal / prevSum) : 0;
-      };
-      const sCal = scale('cal', cal), sP = scale('p', p), sC = scale('c', c), sF = scale('f', f), sFib = scale('fib', fib);
-      newItems = prevItems.map(it => ({
-        n: itemLabel(it),
-        cal: Math.round((it.cal || 0) * sCal),
-        p:   Math.round((it.p   || 0) * sP),
-        c:   Math.round((it.c   || 0) * sC),
-        f:   Math.round((it.f   || 0) * sF),
-        fib: Math.round((it.fib || 0) * sFib),
-      }));
+    // Base meals have real per-item macros. Rebuild items from new description,
+    // keeping per-item macros when names match; otherwise fall back to even distribution.
+    const parts = desc ? desc.split(',').map(s => s.trim()).filter(Boolean) : [];
+    if (parts.length === 0) {
+      newItems = [{ n: title, cal, p, c, f, fib }];
     } else {
-      const share = (v) => Math.round(v / parts.length);
-      newItems = parts.map(n => ({ n, cal: share(cal), p: share(p), c: share(c), f: share(f), fib: share(fib) }));
+      // Try to preserve prev items if same count and all names still line up
+      const sameCount = parts.length === prevItems.length;
+      const prevMatched = sameCount && parts.every((name, i) => {
+        const prev = prevItems[i];
+        return prev && itemLabel(prev).toLowerCase() === name.toLowerCase();
+      });
+      if (prevMatched) {
+        // user didn't rewrite description — keep per-item macros but scale to new totals
+        const scale = (key, newVal) => {
+          const prevSum = prevItems.reduce((a, it) => a + (it[key] || 0), 0);
+          return prevSum > 0 ? (newVal / prevSum) : 0;
+        };
+        const sCal = scale('cal', cal), sP = scale('p', p), sC = scale('c', c), sF = scale('f', f), sFib = scale('fib', fib);
+        newItems = prevItems.map(it => ({
+          n: itemLabel(it),
+          cal: Math.round((it.cal || 0) * sCal),
+          p:   Math.round((it.p   || 0) * sP),
+          c:   Math.round((it.c   || 0) * sC),
+          f:   Math.round((it.f   || 0) * sF),
+          fib: Math.round((it.fib || 0) * sFib),
+        }));
+      } else {
+        const share = (v) => Math.round(v / parts.length);
+        newItems = parts.map(n => ({ n, cal: share(cal), p: share(p), c: share(c), f: share(f), fib: share(fib) }));
+      }
+      // Fix rounding drift
+      const sum = k => newItems.reduce((a, it) => a + it[k], 0);
+      newItems[0].cal += (cal - sum('cal'));
+      newItems[0].p   += (p   - sum('p'));
+      newItems[0].c   += (c   - sum('c'));
+      newItems[0].f   += (f   - sum('f'));
+      newItems[0].fib += (fib - sum('fib'));
     }
-    // Fix rounding drift
-    const sum = k => newItems.reduce((a, it) => a + it[k], 0);
-    newItems[0].cal += (cal - sum('cal'));
-    newItems[0].p   += (p   - sum('p'));
-    newItems[0].c   += (c   - sum('c'));
-    newItems[0].f   += (f   - sum('f'));
-    newItems[0].fib += (fib - sum('fib'));
   }
 
   const customs = getCustomMeals(currentDay);
@@ -1256,9 +1599,9 @@ document.getElementById('editMealSave').addEventListener('click', () => {
     customs[customIdx] = { ...customs[customIdx], ...patch };
     setCustomMeals(currentDay, customs);
   } else {
-    const overrides = JSON.parse(localStorage.getItem('mealPlan_overrides_' + currentDay) || '{}');
+    const overrides = getOverrides(currentDay);
     overrides[editingMealId] = patch;
-    localStorage.setItem('mealPlan_overrides_' + currentDay, JSON.stringify(overrides));
+    setOverrides(currentDay, overrides);
     const baseMeal = MEAL_PLAN[currentDay].meals.find(m => m.id === editingMealId);
     if (baseMeal) Object.assign(baseMeal, patch);
   }
@@ -1334,10 +1677,16 @@ function computeConsumed(day) {
     if (ids.includes(m.id)) {
       totals.cal += m.cal; totals.p += m.p; totals.c += m.c; totals.f += m.f; totals.fib += m.fib;
     } else if (skippedData[m.id] && skippedData[m.id].length > 0 && m.items && m.items.length > 0) {
-      const skippedCount = skippedData[m.id].length;
-      const totalItems = m.items.length;
-      if (skippedCount < totalItems) {
-        const eff = computeEffectiveMacros(m, skippedData[m.id]);
+      // Only count skip indices that are still valid for the current items list.
+      // (Legacy data may reference indices that no longer exist after migration/edit.)
+      const validSkips = skippedData[m.id].filter(idx => idx >= 0 && idx < m.items.length);
+      if (validSkips.length === 0) {
+        // All stored skips are stale — treat as "nothing skipped, nothing eaten" → 0 contribution.
+        // User should re-check the meal if they ate it.
+        return;
+      }
+      if (validSkips.length < m.items.length) {
+        const eff = computeEffectiveMacros(m, validSkips);
         totals.cal += eff.cal; totals.p += eff.p; totals.c += eff.c; totals.f += eff.f; totals.fib += eff.fib;
       }
     }
@@ -1347,10 +1696,13 @@ function computeConsumed(day) {
 
 function renderTracker() {
   const consumed = computeConsumed(currentDay);
+  const burned = totalBurned(currentDay);
+  const netCal = consumed.cal - burned;   // may be negative if burned > eaten
   document.getElementById('trackerDayLabel').textContent = DAY_NAMES[currentDay] + "'s progress";
 
   const metrics = [
-    { key:'cal', label:'Calories', cls:'cal', value:consumed.cal, target:TARGETS.cal, fmt: v => v.toLocaleString() },
+    { key:'cal', label:'Calories', cls:'cal', value:netCal, target:TARGETS.cal, fmt: v => v.toLocaleString(),
+      burned: burned, rawConsumed: consumed.cal, allowNegative: true },
     { key:'p',   label:'Protein',  cls:'p',   value:consumed.p,   target:TARGETS.p,   unit:'g' },
     { key:'c',   label:'Carbs',    cls:'c',   value:consumed.c,   target:TARGETS.c,   unit:'g' },
     { key:'f',   label:'Fat',      cls:'f',   value:consumed.f,   target:TARGETS.f,   unit:'g' },
@@ -1358,35 +1710,184 @@ function renderTracker() {
   ];
 
   document.getElementById('trackerGrid').innerHTML = metrics.map(m => {
-    const pct = Math.min(100, Math.round((m.value / m.target) * 100));
+    const isNegative = m.allowNegative && m.value < 0;
+    const pct = isNegative ? 0 : Math.min(100, Math.round((m.value / m.target) * 100));
     const over = m.value > m.target;
     const overBy = over ? m.value - m.target : 0;
     const fmt = m.fmt || (v => v);
     const unit = m.unit || '';
+    // Show actual signed value — e.g. "−250" when burned exceeds eaten
+    const displayValue = isNegative ? `−${fmt(Math.abs(m.value))}` : `${fmt(m.value)}`;
+    const valClass = isNegative ? ' metric-val-deficit' : '';
+    // Calorie metric gets a burn note under the bar if activity was logged
+    let note = '';
+    if (over) {
+      note = `<div class="over-note">+${fmt(overBy)}${unit} over</div>`;
+    } else if (isNegative) {
+      note = `<div class="net-note deficit">${fmt(Math.abs(m.value))} cal deficit</div>`;
+    } else if (m.key === 'cal' && m.burned > 0) {
+      note = `<div class="net-note">−${fmt(m.burned)} burned</div>`;
+    }
     return `<div class="metric">
       <p class="metric-label">${m.label}</p>
-      <div class="metric-val">${fmt(m.value)}${unit}<span class="target"> / ${fmt(m.target)}${unit}</span></div>
+      <div class="metric-val${valClass}">${displayValue}${unit}<span class="target"> / ${fmt(m.target)}${unit}</span></div>
       <div class="bar"><div class="bar-fill ${m.cls}${over ? ' over' : ''}" style="width:${over ? 100 : pct}%"></div></div>
-      ${over ? `<div class="over-note">+${fmt(overBy)}${unit} over</div>` : ''}
+      ${note}
     </div>`;
   }).join('');
 }
+
+/* ---------- activity rendering ---------- */
+function renderActivity() {
+  const list = getActivities(currentDay);
+  const burned = totalBurned(currentDay);
+
+  // Summary line in the collapsed header
+  const sumEl = document.getElementById('activitySummaryText');
+  if (list.length === 0) {
+    sumEl.textContent = 'No activity logged';
+    sumEl.classList.remove('has-burn');
+  } else {
+    sumEl.textContent = `${list.length} logged · −${burned.toLocaleString()} cal burned`;
+    sumEl.classList.add('has-burn');
+  }
+
+  // Presets
+  const presetsEl = document.getElementById('activityPresets');
+  presetsEl.innerHTML = ACTIVITY_PRESETS.map((p, i) =>
+    `<button type="button" class="activity-preset" data-preset-idx="${i}">${escapeHtml(p.name)}<span class="preset-cal">~${p.cal} cal</span></button>`
+  ).join('');
+  presetsEl.querySelectorAll('[data-preset-idx]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const p = ACTIVITY_PRESETS[parseInt(btn.dataset.presetIdx)];
+      addActivity(p.name, p.cal);
+    });
+  });
+
+  // Logged entries
+  const listEl = document.getElementById('activityList');
+  listEl.innerHTML = list.map((a, i) =>
+    `<li class="activity-item">
+      <span class="activity-item-name">${escapeHtml(a.name)}</span>
+      <span class="activity-item-cal">−${(parseInt(a.cal)||0).toLocaleString()} cal</span>
+      <button type="button" class="activity-item-remove" data-remove-idx="${i}" aria-label="Remove">×</button>
+    </li>`
+  ).join('');
+  listEl.querySelectorAll('[data-remove-idx]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.dataset.removeIdx);
+      const current = getActivities(currentDay);
+      current.splice(idx, 1);
+      setActivities(currentDay, current);
+      renderActivity();
+      renderTracker();
+    });
+  });
+}
+
+function addActivity(name, cal) {
+  const trimmed = String(name || '').trim();
+  const c = parseInt(cal);
+  if (!trimmed || !c || c <= 0) return;
+  const current = getActivities(currentDay);
+  current.push({ name: trimmed, cal: c, ts: Date.now() });
+  setActivities(currentDay, current);
+  renderActivity();
+  renderTracker();
+}
+
+/* ---------- weight & goal (simple) ---------- */
+const WEIGHT_KEY = 'mealPlan_weight';
+const LB_PER_KG = 2.20462;
+
+function getWeight() {
+  try { return JSON.parse(localStorage.getItem(WEIGHT_KEY) || '{}'); } catch { return {}; }
+}
+function setWeight(data) {
+  try { localStorage.setItem(WEIGHT_KEY, JSON.stringify(data)); } catch {}
+}
+function formatWeight(value, unit) {
+  if (value == null || isNaN(value)) return '—';
+  return `${(Math.round(value * 10) / 10).toLocaleString()} ${unit}`;
+}
+
+function renderWeight() {
+  const w = getWeight();
+  const unit = w.unit || 'kg';
+
+  // Unit toggle active state
+  document.querySelectorAll('.weight-unit-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.unit === unit);
+  });
+
+  // Populate inputs from storage (unless user is currently typing in them)
+  const curEl = document.getElementById('weightCurrent');
+  const goalEl = document.getElementById('weightGoal');
+  if (curEl && document.activeElement !== curEl) curEl.value = w.current || '';
+  if (goalEl && document.activeElement !== goalEl) goalEl.value = w.goal || '';
+
+  // Header summary line
+  const sumEl = document.getElementById('weightSummaryText');
+  if (w.current && w.goal) {
+    const curTxt = formatWeight(parseFloat(w.current), unit);
+    const goalTxt = formatWeight(parseFloat(w.goal), unit);
+    sumEl.textContent = `${curTxt} → ${goalTxt}`;
+    sumEl.classList.add('has-burn');
+  } else if (w.current) {
+    sumEl.textContent = formatWeight(parseFloat(w.current), unit);
+    sumEl.classList.remove('has-burn');
+  } else {
+    sumEl.textContent = 'Not set';
+    sumEl.classList.remove('has-burn');
+  }
+
+  // Delta line — just the arithmetic difference, no projections
+  const deltaEl = document.getElementById('weightDelta');
+  if (w.current && w.goal) {
+    const cur = parseFloat(w.current);
+    const goal = parseFloat(w.goal);
+    if (cur === goal) {
+      deltaEl.innerHTML = `You're at your goal.`;
+    } else {
+      const diff = Math.abs(cur - goal);
+      const verb = goal < cur ? 'lose' : 'gain';
+      deltaEl.innerHTML = `<strong>${verb === 'lose' ? '−' : '+'}${formatWeight(diff, unit)}</strong> to ${verb === 'lose' ? 'reach' : 'reach'} your goal.`;
+    }
+  } else {
+    deltaEl.innerHTML = '';
+  }
+}
+
+function saveWeightFromInputs() {
+  const unit = (document.querySelector('.weight-unit-btn.active') || {}).dataset?.unit || 'kg';
+  const current = parseFloat(document.getElementById('weightCurrent').value);
+  const goal = parseFloat(document.getElementById('weightGoal').value);
+  const data = { unit };
+  if (!isNaN(current) && current > 0) data.current = current;
+  if (!isNaN(goal) && goal > 0) data.goal = goal;
+  setWeight(data);
+  renderWeight();
+}
+
 
 function switchDay(day) {
   currentDay = day;
   renderTabs();
   renderPanels();
   renderTracker();
+  renderActivity();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 document.getElementById('resetBtn').addEventListener('click', () => {
-  if (!confirm('Reset all check-offs for ' + DAY_NAMES[currentDay] + '?')) return;
+  if (!confirm('Reset all check-offs and activity for ' + DAY_NAMES[currentDay] + '?')) return;
   setCheckedIds(currentDay, []);
   setSkippedItems(currentDay, {});
+  setActivities(currentDay, []);
   renderPanels();
   renderTracker();
   renderTabs();
+  renderActivity();
 });
 
 (function initDay() {
@@ -1398,7 +1899,7 @@ document.getElementById('resetBtn').addEventListener('click', () => {
 /* Load overrides (may include items[] for correct partial math) */
 DAY_ORDER.forEach(day => {
   try {
-    const overrides = JSON.parse(localStorage.getItem('mealPlan_overrides_' + day) || '{}');
+    const overrides = getOverrides(day);
     Object.entries(overrides).forEach(([id, data]) => {
       const meal = MEAL_PLAN[day].meals.find(m => m.id === id);
       if (meal) Object.assign(meal, data);
@@ -1407,9 +1908,116 @@ DAY_ORDER.forEach(day => {
   } catch {}
 });
 
+/* ---------- one-time migration for custom meals ---------- */
+/* Older custom meals stored with even-distributed per-item macros (e.g. 100g protein
+   split across 6 ingredients) could silently lose macros when items were skipped.
+   Collapse any multi-item custom meal into a single atomic item carrying the stored
+   totals. The stored `p`, `c`, `f`, `fib`, `cal` on the meal were always correct —
+   they came straight from the user's input at add time. */
+DAY_ORDER.forEach(day => {
+  try {
+    const customs = getCustomMeals(day);
+    let changed = false;
+    customs.forEach(meal => {
+      if (meal && meal.isCustom && Array.isArray(meal.items) && meal.items.length > 1) {
+        meal.items = [{
+          n: meal.title || (meal.items[0] && meal.items[0].n) || 'Meal',
+          cal: meal.cal || 0, p: meal.p || 0, c: meal.c || 0, f: meal.f || 0, fib: meal.fib || 0
+        }];
+        changed = true;
+      }
+    });
+    if (changed) setCustomMeals(day, customs);
+  } catch {}
+
+  // Clean stale skip indices: if a meal no longer has the items that were skipped
+  // (e.g. items count shrank due to migration or edits), drop indices that point
+  // past the end. This keeps the tracker honest.
+  try {
+    const skipped = getSkippedItems(day);
+    const allMeals = [...MEAL_PLAN[day].meals, ...getCustomMeals(day)];
+    const mealById = {};
+    allMeals.forEach(m => { mealById[m.id] = m; });
+    let skipChanged = false;
+    Object.keys(skipped).forEach(mealId => {
+      const meal = mealById[mealId];
+      if (!meal || !Array.isArray(meal.items)) {
+        // Meal no longer exists — nuke its skip entry
+        delete skipped[mealId];
+        skipChanged = true;
+        return;
+      }
+      const validIdxs = skipped[mealId].filter(i => i >= 0 && i < meal.items.length);
+      if (validIdxs.length !== skipped[mealId].length) {
+        if (validIdxs.length === 0) {
+          delete skipped[mealId];
+        } else {
+          skipped[mealId] = validIdxs;
+        }
+        skipChanged = true;
+      }
+    });
+    if (skipChanged) setSkippedItems(day, skipped);
+  } catch {}
+});
+
 renderTabs();
 renderPanels();
 renderTracker();
+
+/* ---------- activity handlers ---------- */
+document.getElementById('activityAddBtn').addEventListener('click', () => {
+  const name = document.getElementById('activityName').value;
+  const cal = document.getElementById('activityCal').value;
+  if (!name.trim() || !cal) return;
+  addActivity(name, cal);
+  document.getElementById('activityName').value = '';
+  document.getElementById('activityCal').value = '';
+});
+['activityName', 'activityCal'].forEach(id => {
+  document.getElementById(id).addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') document.getElementById('activityAddBtn').click();
+  });
+});
+
+renderActivity();
+
+/* ---------- weight handlers ---------- */
+document.querySelectorAll('.weight-unit-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const newUnit = btn.dataset.unit;
+    const current = getWeight();
+    const oldUnit = current.unit || 'kg';
+    if (newUnit === oldUnit) return;
+    // Convert existing values between units so the numbers make sense
+    const convert = (val) => {
+      if (!val) return val;
+      const num = parseFloat(val);
+      if (isNaN(num)) return val;
+      if (oldUnit === 'kg' && newUnit === 'lb') return Math.round(num * LB_PER_KG * 10) / 10;
+      if (oldUnit === 'lb' && newUnit === 'kg') return Math.round((num / LB_PER_KG) * 10) / 10;
+      return num;
+    };
+    const next = {
+      unit: newUnit,
+      current: convert(current.current),
+      goal: convert(current.goal)
+    };
+    setWeight(next);
+    renderWeight();
+  });
+});
+
+// Live-save as user types in the two weight inputs
+['weightCurrent', 'weightGoal'].forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener('input', saveWeightFromInputs);
+  el.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') el.blur();
+  });
+});
+
+renderWeight();
 </script>
 </body>
 </html>
