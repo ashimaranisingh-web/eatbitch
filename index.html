@@ -85,7 +85,7 @@
   .tracker-label { font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; }
   .reset-btn { font-size: 12px; color: var(--text-secondary); background: none; border: none; cursor: pointer; padding: 4px 8px; font-family: inherit; border-radius: 6px; }
   .reset-btn:hover { background: var(--bg-secondary); }
-  .tracker-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .tracker-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
   .metric { min-width: 0; }
   .metric-label { font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.4px; margin: 0 0 3px; font-weight: 500; }
   .metric-val { font-size: 14px; font-weight: 500; margin: 0 0 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -103,6 +103,49 @@
     .metric-val { font-size: 12px; }
     .metric-val .target { font-size: 10px; }
     .metric-label { font-size: 9px; }
+  }
+
+  /* Calorie equation: consumed − burned = net */
+  .cal-equation {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    align-items: center; gap: 6px;
+    padding: 4px 0 14px; margin-bottom: 12px;
+    border-bottom: 0.5px solid var(--border-tertiary);
+  }
+  .cal-term { min-width: 0; text-align: center; }
+  .cal-term-val {
+    font-size: 20px; font-weight: 600; color: var(--text-primary);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    line-height: 1.1;
+  }
+  .cal-term-val.burned { color: var(--success); }
+  .cal-term-val.net { color: var(--text-primary); }
+  .cal-term-val.net.over { color: var(--danger); }
+  .cal-term-val.net.deficit { color: var(--partial); }
+  @media (prefers-color-scheme: dark) {
+    .cal-term-val.burned { color: var(--success-light); }
+    .cal-term-val.net.deficit { color: var(--partial-light); }
+  }
+  .cal-term-label {
+    font-size: 9px; color: var(--text-tertiary);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    font-weight: 500; margin-top: 3px;
+  }
+  .cal-term-sub {
+    font-size: 10px; color: var(--text-tertiary);
+    margin-top: 2px; font-weight: 400;
+  }
+  .cal-op {
+    font-size: 18px; font-weight: 400; color: var(--text-tertiary);
+    line-height: 1; padding: 0 2px;
+  }
+  @media (max-width: 420px) {
+    .cal-term-val { font-size: 17px; }
+    .cal-op { font-size: 15px; }
+    .cal-term-label { font-size: 8px; }
+    .cal-term-sub { font-size: 9px; }
+    .cal-equation { gap: 4px; }
   }
 
   /* Activity section */
@@ -564,6 +607,9 @@
     <span class="tracker-label" id="trackerDayLabel">Monday's progress</span>
     <button class="reset-btn" id="resetBtn">Reset day</button>
   </div>
+
+  <div class="cal-equation" id="calEquation"></div>
+
   <div class="tracker-grid" id="trackerGrid"></div>
 </div>
 
@@ -1697,42 +1743,56 @@ function computeConsumed(day) {
 function renderTracker() {
   const consumed = computeConsumed(currentDay);
   const burned = totalBurned(currentDay);
-  const netCal = consumed.cal - burned;   // may be negative if burned > eaten
+  const netCal = consumed.cal - burned;
+  const target = TARGETS.cal;
+  const isDeficit = netCal < 0;
+  const isOver = netCal > target;
+  const fmt = (v) => v.toLocaleString();
+
   document.getElementById('trackerDayLabel').textContent = DAY_NAMES[currentDay] + "'s progress";
 
-  const metrics = [
-    { key:'cal', label:'Calories', cls:'cal', value:netCal, target:TARGETS.cal, fmt: v => v.toLocaleString(),
-      burned: burned, rawConsumed: consumed.cal, allowNegative: true },
-    { key:'p',   label:'Protein',  cls:'p',   value:consumed.p,   target:TARGETS.p,   unit:'g' },
-    { key:'c',   label:'Carbs',    cls:'c',   value:consumed.c,   target:TARGETS.c,   unit:'g' },
-    { key:'f',   label:'Fat',      cls:'f',   value:consumed.f,   target:TARGETS.f,   unit:'g' },
-    { key:'fib', label:'Fiber',    cls:'fib', value:consumed.fib, target:TARGETS.fib, unit:'g' }
+  // --- Calorie equation: consumed − burned = net (of target) ---
+  const netDisplay = isDeficit ? `−${fmt(Math.abs(netCal))}` : fmt(netCal);
+  const netClass = isOver ? ' over' : (isDeficit ? ' deficit' : '');
+  let netSub = `of ${fmt(target)}`;
+  if (isOver) netSub = `+${fmt(netCal - target)} over`;
+  else if (isDeficit) netSub = `${fmt(Math.abs(netCal))} cal deficit`;
+  else netSub = `${fmt(target - netCal)} left`;
+
+  document.getElementById('calEquation').innerHTML = `
+    <div class="cal-term">
+      <div class="cal-term-val">${fmt(consumed.cal)}</div>
+      <div class="cal-term-label">Eaten</div>
+    </div>
+    <div class="cal-op">−</div>
+    <div class="cal-term">
+      <div class="cal-term-val burned">${fmt(burned)}</div>
+      <div class="cal-term-label">Burned</div>
+    </div>
+    <div class="cal-op">=</div>
+    <div class="cal-term">
+      <div class="cal-term-val net${netClass}">${netDisplay}</div>
+      <div class="cal-term-sub">${netSub}</div>
+    </div>
+  `;
+
+  // --- Macro grid below: protein, carbs, fat, fiber ---
+  const macros = [
+    { key:'p',   label:'Protein', cls:'p',   value:consumed.p,   target:TARGETS.p   },
+    { key:'c',   label:'Carbs',   cls:'c',   value:consumed.c,   target:TARGETS.c   },
+    { key:'f',   label:'Fat',     cls:'f',   value:consumed.f,   target:TARGETS.f   },
+    { key:'fib', label:'Fiber',   cls:'fib', value:consumed.fib, target:TARGETS.fib }
   ];
 
-  document.getElementById('trackerGrid').innerHTML = metrics.map(m => {
-    const isNegative = m.allowNegative && m.value < 0;
-    const pct = isNegative ? 0 : Math.min(100, Math.round((m.value / m.target) * 100));
+  document.getElementById('trackerGrid').innerHTML = macros.map(m => {
+    const pct = Math.min(100, Math.round((m.value / m.target) * 100));
     const over = m.value > m.target;
     const overBy = over ? m.value - m.target : 0;
-    const fmt = m.fmt || (v => v);
-    const unit = m.unit || '';
-    // Show actual signed value — e.g. "−250" when burned exceeds eaten
-    const displayValue = isNegative ? `−${fmt(Math.abs(m.value))}` : `${fmt(m.value)}`;
-    const valClass = isNegative ? ' metric-val-deficit' : '';
-    // Calorie metric gets a burn note under the bar if activity was logged
-    let note = '';
-    if (over) {
-      note = `<div class="over-note">+${fmt(overBy)}${unit} over</div>`;
-    } else if (isNegative) {
-      note = `<div class="net-note deficit">${fmt(Math.abs(m.value))} cal deficit</div>`;
-    } else if (m.key === 'cal' && m.burned > 0) {
-      note = `<div class="net-note">−${fmt(m.burned)} burned</div>`;
-    }
     return `<div class="metric">
       <p class="metric-label">${m.label}</p>
-      <div class="metric-val${valClass}">${displayValue}${unit}<span class="target"> / ${fmt(m.target)}${unit}</span></div>
+      <div class="metric-val">${m.value}g<span class="target"> / ${m.target}g</span></div>
       <div class="bar"><div class="bar-fill ${m.cls}${over ? ' over' : ''}" style="width:${over ? 100 : pct}%"></div></div>
-      ${note}
+      ${over ? `<div class="over-note">+${overBy}g over</div>` : ''}
     </div>`;
   }).join('');
 }
