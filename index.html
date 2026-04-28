@@ -462,6 +462,15 @@
     line-height: 1.6; border-left: 2px solid var(--border-secondary);
   }
 
+  /* Quantities block — same expand/collapse as groceries but rendered as a block above the macro pills row */
+  details.qty-block { display: block; margin: 6px 0 10px; }
+  details.qty-block summary {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--bg-secondary); border: 0.5px solid var(--border-tertiary);
+    color: var(--text-primary); font-weight: 500;
+  }
+  details.qty-block summary::after { margin-left: auto; }
+
   .day-totals {
     background: var(--bg-secondary); border-radius: var(--radius-md);
     padding: 12px 14px; margin-top: 14px;
@@ -470,6 +479,66 @@
   .tot-label { font-size: 10px; color: var(--text-tertiary); margin: 0; text-transform: uppercase; letter-spacing: 0.4px; font-weight: 500; }
   .tot-val { font-size: 14px; font-weight: 500; margin: 2px 0 0; }
   .note-box { font-size: 12px; color: var(--text-secondary); background: var(--bg-info); padding: 10px 12px; border-radius: var(--radius-md); margin-top: 10px; line-height: 1.55; }
+
+  /* Weekly grocery list (Sunday only) */
+  details.weekly-grocery {
+    margin-top: 24px;
+    background: var(--bg-primary);
+    border: 0.5px solid var(--border-tertiary);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .weekly-grocery-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; cursor: pointer; list-style: none;
+    user-select: none; gap: 10px;
+  }
+  .weekly-grocery-head::-webkit-details-marker { display: none; }
+  .weekly-grocery-title {
+    display: block; font-size: 16px; font-weight: 500;
+    color: var(--text-primary);
+  }
+  .weekly-grocery-sub {
+    display: block; font-size: 12px; color: var(--text-secondary);
+    margin-top: 2px;
+  }
+  .weekly-grocery-caret {
+    font-size: 12px; color: var(--text-tertiary);
+    transition: transform 0.15s; flex: 0 0 auto;
+  }
+  details.weekly-grocery[open] .weekly-grocery-caret { transform: rotate(180deg); }
+  .weekly-grocery-body {
+    padding: 0 16px 16px;
+    border-top: 0.5px solid var(--border-tertiary);
+    padding-top: 14px;
+  }
+  details.grocery-section { margin-bottom: 8px; }
+  details.grocery-section summary {
+    cursor: pointer; padding: 8px 12px;
+    background: var(--bg-secondary); border-radius: var(--radius-md);
+    font-size: 13px; font-weight: 500; color: var(--text-primary);
+    list-style: none; user-select: none;
+    display: flex; align-items: center;
+  }
+  details.grocery-section summary::-webkit-details-marker { display: none; }
+  details.grocery-section summary::after {
+    content: "\25BE"; margin-left: auto; font-size: 10px;
+    transition: transform 0.15s; color: var(--text-tertiary);
+  }
+  details.grocery-section[open] summary::after { transform: rotate(180deg); }
+  .grocery-list {
+    list-style: none; padding: 8px 4px 4px; margin: 0;
+  }
+  .grocery-list li {
+    padding: 6px 12px; font-size: 13px;
+    color: var(--text-primary); line-height: 1.5;
+    border-bottom: 0.5px solid var(--border-tertiary);
+  }
+  .grocery-list li:last-child { border-bottom: none; }
+  .weekly-grocery-note {
+    font-size: 11px; color: var(--text-tertiary);
+    margin: 12px 0 0; line-height: 1.55; font-style: italic;
+  }
 
   /* Add meal button */
   .add-meal-btn {
@@ -768,6 +837,75 @@
 
 <script>
 const TARGETS = { cal: 1450, p: 100, c: 180, f: 35, fib: 25 };
+
+// Aggregated grocery list for the whole 7-day plan. Quantities computed from each meal's
+// quantities field. Round up where it makes sense for shopping (you can't buy 580g of chicken).
+const WEEKLY_GROCERY_LIST = [
+  { section: 'Protein', items: [
+    'Chicken breast — ~700g raw (Mon, Wed, Fri, Sat, Sun)',
+    'Eggs — 9 (note: Sat uses whites only, save 2 yolks)',
+    'Paneer — ~300g (Mon, Tue, Thu)',
+    'Plant protein powder — 7 scoops total (keep tub)'
+  ]},
+  { section: 'Dairy', items: [
+    'Dahi (curd) — ~1.1 kg (used every day)',
+    'Ghee — small jar (~25g used)'
+  ]},
+  { section: 'Pulses & lentils', items: [
+    'Moong dal (yellow) — 200g',
+    'Arhar/toor dal — 50g',
+    'Kala chana (black chickpeas) — 200g (soak overnight)',
+    'Rajma — 50g',
+    'White chickpeas (kabuli) — 50g'
+  ]},
+  { section: 'Grains', items: [
+    'White rice — 400g raw',
+    'Whole wheat spaghetti — 60g (or buy a small pack)',
+    'Wheat atta or 2 small rotis (for Wed + Fri)',
+    'Dosa batter — 120g (Thu) — or make from rice + urad'
+  ]},
+  { section: 'Vegetables', items: [
+    'Cucumber — ~1 kg (used every day)',
+    'Tomato — ~700g',
+    'Onion — ~500g',
+    'Capsicum / bell pepper — ~300g',
+    'Spinach (palak) — ~300g',
+    'Zucchini — 80g (Mon)',
+    'Broccoli — ~200g (Wed, Sat)',
+    'Mushroom — 40g (Wed)',
+    'Carrot — 60g (Sun)',
+    'Lettuce — 40g (Sun)',
+    'Cherry tomato — 40g (Sun)',
+    'Mint leaves — small bunch',
+    'Coriander leaves — small bunch',
+    'Garlic — 1 small head',
+    'Ginger — 1 small piece'
+  ]},
+  { section: 'Fruits', items: [
+    'Apples — 3 medium',
+    'Bananas — 4 small',
+    'Oranges — 2 medium',
+    'Lemons — 4–5',
+    'Seasonal fruit — ~300g (papaya / watermelon / mango)',
+    'Pomegranate — 40g (small handful)'
+  ]},
+  { section: 'Seeds, nuts & dry', items: [
+    'Chia seeds — 60g (used most mornings)',
+    'Raw almonds — ~50g (Tue, soak overnight)',
+    'Sunflower seeds — 20g',
+    'Pumpkin seeds — 10g',
+    'Makhana (fox nuts) — 30g (Fri)',
+    'Potato — ~600g (for aloo tikki — Mon, Wed, Fri) or buy ready frozen tikki'
+  ]},
+  { section: 'Oils & condiments', items: [
+    'Olive oil — small bottle (~50ml used)',
+    'Cooking oil — ~50ml',
+    'Mint chutney — small jar (or make fresh)',
+    'Tamarind chutney — small jar (Fri)',
+    'Coconut water — 1 tetrapak (Fri)',
+    'Cumin, black pepper, salt, rock salt, turmeric, chilli powder — pantry'
+  ]}
+];
 const DAY_NAMES = { mon:'Monday', tue:'Tuesday', wed:'Wednesday', thu:'Thursday', fri:'Friday', sat:'Saturday', sun:'Sunday' };
 const DAY_SHORT = { mon:'Mon', tue:'Tue', wed:'Wed', thu:'Thu', fri:'Fri', sat:'Sat', sun:'Sun' };
 const DAY_ORDER = ['mon','tue','wed','thu','fri','sat','sun'];
@@ -784,111 +922,141 @@ const MEAL_PLAN = {
   mon: {
     meals: [
       { id:'mon-1', time:'7–8am · Pre-meal', title:'Coffee + chia water',
-        desc:'Black coffee with 1 tsp chia seeds soaked 10 min in warm water.',
+        desc:'Black coffee + 1 tsp chia seeds soaked 10 min in warm water with lemon.',
+        quantities:'Black coffee (1 cup, no sugar) · Chia seeds (5g / 1 tsp) · Warm water (200ml) · Lemon (½)',
         items:[
-          { n:'Black coffee',  cal:0,  p:0, c:0, f:0, fib:0 },
-          { n:'Chia seeds',    cal:60, p:2, c:4, f:3, fib:4 }
+          { n:'Black coffee', cal:0,  p:0, c:0, f:0, fib:0 },
+          { n:'Chia seeds',   cal:60, p:2, c:4, f:3, fib:4 }
         ] },
-      { id:'mon-2', time:'1–2pm · Meal 1', title:'Chicken spaghetti + salad',
-        desc:'Grilled chicken breast (lemon, pepper, garlic) tossed with whole wheat spaghetti in olive oil, zucchini, bell pepper, spinach. Side salad.',
+
+      { id:'mon-2', time:'1–2pm · Meal 1', title:'Chicken spaghetti + cucumber salad',
+        desc:'Grilled chicken breast (lemon, pepper, garlic) tossed with whole wheat spaghetti in olive oil, zucchini, bell pepper, spinach. Side: cucumber + tomato + onion with lemon.',
+        quantities:'Raw chicken breast (120g) · Dry whole wheat spaghetti (60g) · Olive oil (5ml / 1 tsp) · Zucchini (80g) · Bell pepper (60g) · Spinach (40g) · Cucumber (80g) · Tomato (70g) · Onion (30g) · Lemon (½) · Salt + pepper + garlic (to taste)',
         items:[
-          { n:'Grilled chicken',     cal:200, p:35, c:0,  f:6, fib:0 },
-          { n:'Whole wheat spaghetti', cal:220, p:8,  c:44, f:2, fib:6 },
-          { n:'Sautéed veggies',     cal:70,  p:2,  c:10, f:2, fib:3 },
-          { n:'Side salad',          cal:30,  p:1,  c:5,  f:0, fib:2 }
+          { n:'Grilled chicken',         cal:200, p:35, c:0,  f:6, fib:0 },
+          { n:'Whole wheat spaghetti',   cal:220, p:8,  c:44, f:2, fib:6 },
+          { n:'Sautéed veggies',         cal:70,  p:2,  c:10, f:2, fib:3 },
+          { n:'Cucumber-tomato-onion',   cal:30,  p:1,  c:5,  f:0, fib:2 }
         ],
-        zomato:'Grilled chicken breast (150g) from FreshMenu, EatFit, Salad Days. No butter, no cream.',
-        groceries:'120g raw chicken breast · 60g dry whole wheat spaghetti · 5ml olive oil · 80g zucchini · 60g bell pepper · 40g spinach · 80g cucumber · 70g tomato · 1 lemon · garlic, black pepper, salt' },
-      { id:'mon-3', time:'4–5pm · Snack', title:'Makhana chaat + coconut water',
-        desc:'Roasted makhana with cucumber, tomato, coriander, lemon, chaat masala.',
+        zomato:'Grilled chicken breast (150g) from FreshMenu, EatFit, Salad Days. No butter, no cream.' },
+
+      { id:'mon-3', time:'4–5pm · Snack', title:'Aloo tikki + orange',
+        desc:'2 small baked aloo tikkis with mint-coriander chutney + 1 medium orange.',
+        quantities:'Aloo tikki (2 small / ~100g total) · Mint chutney (1 tbsp / 15g) · Orange (1 medium / 130g)',
         items:[
-          { n:'Makhana chaat',  cal:130, p:3, c:22, f:3, fib:3 },
-          { n:'Coconut water',  cal:50,  p:1, c:8,  f:0, fib:1 }
+          { n:'Aloo tikki (x2)',  cal:160, p:3, c:28, f:4, fib:3 },
+          { n:'Mint chutney',     cal:20,  p:1, c:2,  f:0, fib:1 },
+          { n:'Orange',           cal:70,  p:1, c:16, f:0, fib:3 }
         ] },
+
       { id:'mon-4', time:'6–6:30pm · Pre-workout', title:'Apple + plant protein',
         desc:'Medium apple with skin + Nutrabay plant protein in water.',
+        quantities:'Apple (1 medium / 180g, with skin) · Plant protein (1 scoop / ~30g) · Water (250ml)',
         items:[
-          { n:'Apple',              cal:80,  p:1,  c:21, f:0, fib:4 },
-          { n:'Plant protein shake', cal:120, p:25, c:1,  f:2, fib:1 }
+          { n:'Apple',                cal:80,  p:1,  c:21, f:0, fib:4 },
+          { n:'Plant protein shake',  cal:120, p:25, c:1,  f:2, fib:1 }
         ] },
-      { id:'mon-5', time:'8–8:30pm · Meal 2', title:'Moong dal chilla + curd',
-        desc:'2 moong dal chillas stuffed with sautéed paneer, onion, capsicum, coriander. Curd with jeera + flaxseed on the side.',
+
+      { id:'mon-5', time:'8–8:30pm · Meal 2', title:'Moong dal chilla + dahi',
+        desc:'2 moong dal chillas stuffed with sautéed paneer, onion, capsicum, coriander. Fresh dahi with jeera + chia on the side.',
+        quantities:'Moong dal (60g dry, soaked) · Paneer (60g) · Onion (40g) · Capsicum (40g) · Coriander · Dahi (150g) · Chia seeds (5g / 1 tsp) · Cumin powder · Salt',
         items:[
           { n:'Moong dal chilla (x2)',  cal:240, p:14, c:32, f:5, fib:7 },
           { n:'Paneer filling',         cal:150, p:12, c:4,  f:9, fib:2 },
-          { n:'Curd with flaxseed',     cal:100, p:6,  c:16, f:0, fib:3 }
+          { n:'Dahi with chia',         cal:100, p:6,  c:14, f:2, fib:3 }
         ] }
     ],
-    note:'Weight training day. Take B12 + multivitamin with meal 1.'
+    note:'Weight training day. B12 + multivitamin with meal 1. Aloo tikki snack — measure 100g total.'
   },
+
   tue: {
     meals: [
       { id:'tue-1', time:'7–8am · Pre-meal', title:'Coffee + soaked almonds',
         desc:'Black coffee + 6 overnight-soaked almonds, peel off skins.',
+        quantities:'Black coffee (1 cup) · Soaked almonds (6 / ~8g)',
         items:[
           { n:'Black coffee',     cal:0,  p:0, c:0, f:0, fib:0 },
           { n:'Soaked almonds',   cal:80, p:3, c:3, f:6, fib:2 }
         ] },
+
       { id:'tue-2', time:'1–2pm · Meal 1', title:'Kala chana + rice + raita',
-        desc:'Kala chana curry (tomato-onion-ginger), rice, sautéed palak, cucumber raita.',
+        desc:'Kala chana curry (tomato-onion-ginger), white rice, sautéed palak, cucumber raita.',
+        quantities:'Kala chana (50g dry, soaked & boiled / ~120g cooked) · White rice (50g dry / ~120g cooked) · Spinach (60g) · Cucumber (60g) · Dahi (100g) · Tomato (40g) · Onion (30g) · Ginger · 1 tsp oil · Salt + spices',
         items:[
           { n:'Kala chana curry',  cal:200, p:12, c:28, f:5, fib:9 },
-          { n:'Rice',              cal:200, p:4,  c:42, f:1, fib:1 },
+          { n:'White rice',        cal:200, p:4,  c:44, f:0, fib:1 },
           { n:'Sautéed palak',     cal:60,  p:3,  c:4,  f:3, fib:3 },
           { n:'Cucumber raita',    cal:60,  p:7,  c:2,  f:1, fib:1 }
         ] },
+
       { id:'tue-3', time:'4–5pm · Snack', title:'Fruit + protein shake',
         desc:'1 scoop plant protein + 1 small pear or apple.',
+        quantities:'Plant protein (1 scoop / ~30g) · Pear or apple (1 small / ~150g) · Water (250ml)',
         items:[
-          { n:'Protein shake',    cal:120, p:25, c:1,  f:2, fib:1 },
-          { n:'Fruit (pear/apple)', cal:100, p:1,  c:21, f:0, fib:4 }
+          { n:'Protein shake',       cal:120, p:25, c:1,  f:2, fib:1 },
+          { n:'Fruit (pear/apple)',  cal:100, p:1,  c:21, f:0, fib:4 }
         ] },
-      { id:'tue-4', time:'6pm · Pre-dinner', title:'Cucumber + hummus',
-        desc:'150g cucumber sticks with 45g chickpea hummus.',
+
+      { id:'tue-4', time:'6pm · Pre-dinner', title:'Cucumber + dahi-mint dip',
+        desc:'Cucumber sticks with thick dahi-mint dip (dahi, mint, garlic, black pepper, lemon).',
+        quantities:'Cucumber (150g) · Dahi (60g, drained 30 min) · Mint leaves (5g) · Garlic (1 small clove) · Black pepper · Lemon · Salt',
         items:[
-          { n:'Cucumber sticks',  cal:20,  p:1, c:4,  f:0, fib:2 },
-          { n:'Hummus',           cal:100, p:4, c:10, f:5, fib:3 }
+          { n:'Cucumber sticks',     cal:20,  p:1, c:4, f:0, fib:2 },
+          { n:'Dahi-mint dip',       cal:80,  p:6, c:6, f:3, fib:1 }
         ] },
-      { id:'tue-5', time:'8–8:30pm · Meal 2', title:'Egg bhurji + dosa + salad',
-        desc:'3 whole eggs scrambled with onion, tomato, spinach in olive oil. 1 dosa cooked in a little ghee. Side: fresh cucumber-tomato-onion salad.',
+
+      { id:'tue-5', time:'8–8:30pm · Meal 2', title:'Paneer chilla + cucumber-tomato salad',
+        desc:'2 moong-dal chillas stuffed with paneer bhurji (onion, tomato, capsicum). Side: cucumber-tomato-onion salad with lemon.',
+        quantities:'Moong dal (60g dry) · Paneer (80g, crumbled) · Onion (40g) · Tomato (50g) · Capsicum (40g) · Cucumber (80g) · Lemon · 1 tsp oil · Salt + spices',
         items:[
-          { n:'Egg bhurji (3 eggs)', cal:260, p:20, c:6,  f:16, fib:2 },
-          { n:'Dosa',                cal:210, p:5,  c:40, f:2,  fib:2 },
-          { n:'Kachumber salad',     cal:40,  p:1,  c:6,  f:0,  fib:4 }
+          { n:'Moong dal chilla (x2)',     cal:240, p:14, c:32, f:5, fib:7 },
+          { n:'Paneer bhurji filling',     cal:180, p:14, c:6,  f:11, fib:2 },
+          { n:'Cucumber-tomato salad',     cal:40,  p:1,  c:6,  f:0,  fib:3 }
         ] }
     ],
-    note:'Steps/run day. Kachumber adds the crunch with more fiber variety.'
+    note:'Vegetarian day (no chicken/eggs). Steps/run day. Lots of dahi-based protein.'
   },
+
   wed: {
     meals: [
-      { id:'wed-1', time:'7–8am · Pre-meal', title:'Coffee + chia pudding shot',
-        desc:'Black coffee + chia soaked overnight in low-fat milk with cinnamon.',
+      { id:'wed-1', time:'7–8am · Pre-meal', title:'Coffee + chia water',
+        desc:'Black coffee + 1 tsp chia seeds in warm water with lemon.',
+        quantities:'Black coffee (1 cup) · Chia seeds (5g / 1 tsp) · Warm water (200ml) · Lemon (½)',
         items:[
-          { n:'Black coffee',  cal:0,  p:0, c:0, f:0, fib:0 },
-          { n:'Chia pudding',  cal:90, p:4, c:7, f:5, fib:5 }
+          { n:'Black coffee', cal:0,  p:0, c:0, f:0, fib:0 },
+          { n:'Chia water',   cal:60, p:2, c:4, f:3, fib:4 }
         ] },
-      { id:'wed-2', time:'1–2pm · Meal 1', title:'Rajma chawal + salad + egg',
-        desc:'Rajma in minimal-oil gravy, brown rice, kachumber, 1 boiled egg.',
+
+      { id:'wed-2', time:'1–2pm · Meal 1', title:'Rajma + white rice + cucumber salad + egg',
+        desc:'Rajma in minimal-oil gravy, white rice, cucumber + tomato + onion salad, 1 boiled egg.',
+        quantities:'Rajma (50g dry / ~120g cooked) · White rice (50g dry / ~120g cooked) · Cucumber (80g) · Tomato (60g) · Onion (30g) · Lemon · 1 boiled egg (50g) · 1 tsp oil · Salt + spices',
         items:[
-          { n:'Rajma curry',  cal:210, p:13, c:28, f:6, fib:10 },
-          { n:'Brown rice',   cal:180, p:4,  c:38, f:1, fib:2 },
-          { n:'Kachumber',    cal:50,  p:1,  c:7,  f:1, fib:3 },
-          { n:'Boiled egg',   cal:80,  p:7,  c:1,  f:5, fib:0 }
+          { n:'Rajma curry',              cal:210, p:13, c:28, f:6, fib:10 },
+          { n:'White rice',               cal:200, p:4,  c:44, f:0, fib:1 },
+          { n:'Cucumber-tomato-onion',    cal:50,  p:1,  c:7,  f:1, fib:3 },
+          { n:'Boiled egg',               cal:80,  p:7,  c:1,  f:5, fib:0 }
         ] },
-      { id:'wed-3', time:'4–5pm · Snack', title:'Roasted chana + orange',
-        desc:'30g dry-roasted split chickpeas (bhuna chana) with chaat masala + 1 medium orange.',
+
+      { id:'wed-3', time:'4–5pm · Snack', title:'Aloo tikki + orange',
+        desc:'2 small baked aloo tikkis with mint chutney + 1 medium orange.',
+        quantities:'Aloo tikki (2 small / ~100g total) · Mint chutney (1 tbsp / 15g) · Orange (1 medium / 130g)',
         items:[
-          { n:'Roasted chana', cal:110, p:7, c:18, f:2, fib:5 },
-          { n:'Orange',        cal:70,  p:1, c:16, f:0, fib:3 }
+          { n:'Aloo tikki (x2)',  cal:160, p:3, c:28, f:4, fib:3 },
+          { n:'Mint chutney',     cal:20,  p:1, c:2,  f:0, fib:1 },
+          { n:'Orange',           cal:70,  p:1, c:16, f:0, fib:3 }
         ] },
+
       { id:'wed-4', time:'6–6:30pm · Pre-workout', title:'Banana + protein',
         desc:'Plant protein in water + 1 small banana.',
+        quantities:'Plant protein (1 scoop / ~30g) · Banana (1 small / ~100g) · Water (250ml)',
         items:[
           { n:'Protein shake', cal:120, p:25, c:1,  f:2, fib:1 },
           { n:'Banana',        cal:90,  p:1,  c:22, f:0, fib:2 }
         ] },
-      { id:'wed-5', time:'8–8:30pm · Meal 2', title:'Tandoori chicken + mixed veg + roti',
+
+      { id:'wed-5', time:'8–8:30pm · Meal 2', title:'Tandoori chicken + grilled veg + roti',
         desc:'Tandoori chicken (yogurt-marinated), grilled mixed veg (capsicum, broccoli, mushroom, onion) in olive oil, mint chutney, 1 small wheat roti.',
+        quantities:'Raw chicken (120g) · Marinade dahi (30g) · Capsicum (40g) · Broccoli (60g) · Mushroom (40g) · Onion (30g) · Olive oil (5ml / 1 tsp) · Wheat roti (1 small / 30g) · Mint chutney (15g) · Spices',
         items:[
           { n:'Tandoori chicken',  cal:220, p:32, c:4,  f:8, fib:1 },
           { n:'Grilled mixed veg', cal:90,  p:4,  c:12, f:3, fib:5 },
@@ -897,171 +1065,209 @@ const MEAL_PLAN = {
         ],
         zomato:'Tandoori chicken half-plate from Barbeque Nation, Absolute BBQ, Pind Balluchi. No butter.' }
     ],
-    note:'Weight training day. D3 weekly dose with dinner for fat absorption.'
+    note:'Weight training day. White rice + tikki at lunch + snack — high-carb day for training fuel.'
   },
+
   thu: {
     meals: [
-      { id:'thu-1', time:'7–8am · Pre-meal', title:'Coffee + flaxseed water',
-        desc:'Black coffee + ground flaxseed in warm water with lemon.',
-        items:[
-          { n:'Black coffee',     cal:0,  p:0, c:0, f:0, fib:0 },
-          { n:'Flaxseed water',   cal:60, p:2, c:3, f:4, fib:3 }
-        ] },
-      { id:'thu-2', time:'1–2pm · Meal 1', title:'Paneer bhurji + 2 dosas + curd',
-        desc:'Paneer bhurji (onion, tomato, capsicum). 2 plain dosas. Fresh curd with jeera + black salt, mint-coriander chutney.',
-        items:[
-          { n:'Paneer bhurji',     cal:200, p:14, c:6,  f:13, fib:2 },
-          { n:'Dosa (x2)',         cal:260, p:7,  c:46, f:4,  fib:2 },
-          { n:'Curd with jeera',   cal:60,  p:7,  c:4,  f:1,  fib:0 },
-          { n:'Chutney',           cal:20,  p:1,  c:2,  f:0,  fib:2 }
-        ] },
-      { id:'thu-3', time:'4–5pm · Snack', title:'Cornflakes + milk',
-        desc:'30g cornflakes + 150ml low-fat or lactose-free milk + 1 tsp pumpkin seeds.',
-        items:[
-          { n:'Cornflakes',     cal:110, p:2, c:25, f:0, fib:1 },
-          { n:'Milk',           cal:70,  p:6, c:9,  f:2, fib:0 },
-          { n:'Pumpkin seeds',  cal:40,  p:2, c:1,  f:3, fib:1 }
-        ] },
-      { id:'thu-4', time:'6pm · Pre-dinner', title:'Protein shake + apple',
-        desc:'1 scoop plant protein + 1 medium apple.',
-        items:[
-          { n:'Protein shake', cal:120, p:25, c:1,  f:2, fib:1 },
-          { n:'Apple',         cal:80,  p:1,  c:21, f:0, fib:4 }
-        ] },
-      { id:'thu-5', time:'8–8:30pm · Meal 2', title:'Chickpea + egg salad bowl',
-        desc:'Boiled chickpeas + cucumber, tomato, onion, pomegranate, coriander, lemon, olive oil, 2 boiled eggs, sunflower seeds.',
-        items:[
-          { n:'Boiled chickpeas', cal:180, p:10, c:30, f:3, fib:8 },
-          { n:'Salad veggies',    cal:60,  p:2,  c:12, f:0, fib:4 },
-          { n:'Boiled eggs (x2)', cal:160, p:14, c:2,  f:10, fib:0 },
-          { n:'Sunflower seeds',  cal:50,  p:2,  c:2,  f:4, fib:1 }
-        ] }
-    ],
-    note:'Rest or light cardio day. Salad dinner is easy on digestion before bed.'
-  },
-  fri: {
-    meals: [
-      { id:'fri-1', time:'7–8am · Pre-meal', title:'Coffee + chia water',
-        desc:'Black coffee with 1 tsp chia seeds soaked 10 min in warm water.',
+      { id:'thu-1', time:'7–8am · Pre-meal', title:'Coffee + chia water',
+        desc:'Black coffee + 1 tsp chia seeds in warm water with lemon.',
+        quantities:'Black coffee (1 cup) · Chia seeds (5g / 1 tsp) · Warm water (200ml) · Lemon (½)',
         items:[
           { n:'Black coffee', cal:0,  p:0, c:0, f:0, fib:0 },
           { n:'Chia water',   cal:60, p:2, c:4, f:3, fib:4 }
         ] },
-      { id:'fri-2', time:'1–2pm · Meal 1', title:'Chicken tikka wrap + kachumber',
-        desc:'Chicken tikka (curd-marinated, grilled) rolled in 1 wheat roti with hung curd spread, shredded cabbage, onion, capsicum, mint chutney. Side: kachumber.',
+
+      { id:'thu-2', time:'1–2pm · Meal 1', title:'Paneer bhurji + 2 dosas + dahi',
+        desc:'Paneer bhurji (onion, tomato, capsicum). 2 plain dosas. Fresh dahi with jeera + black salt, mint-coriander chutney.',
+        quantities:'Paneer (80g) · Onion (40g) · Tomato (50g) · Capsicum (40g) · Dosa batter for 2 (~120g) · 1 tsp ghee · Dahi (100g) · Cumin powder · Mint chutney (15g) · Salt + spices',
         items:[
-          { n:'Chicken tikka wrap',  cal:400, p:36, c:36, f:12, fib:4 },
-          { n:'Hung curd spread',    cal:60,  p:5,  c:4,  f:2,  fib:0 },
-          { n:'Kachumber salad',     cal:50,  p:1,  c:8,  f:0,  fib:4 }
+          { n:'Paneer bhurji',     cal:200, p:14, c:6,  f:13, fib:2 },
+          { n:'Dosa (x2)',         cal:260, p:7,  c:46, f:4,  fib:2 },
+          { n:'Dahi with jeera',   cal:60,  p:7,  c:4,  f:1,  fib:0 },
+          { n:'Chutney',           cal:20,  p:1,  c:2,  f:0,  fib:2 }
+        ] },
+
+      { id:'thu-3', time:'4–5pm · Snack', title:'Dahi + fruit + chia',
+        desc:'Fresh dahi with chopped seasonal fruit (apple/pear/papaya) and 1 tsp chia.',
+        quantities:'Dahi (150g) · Seasonal fruit (100g, chopped) · Chia seeds (5g / 1 tsp)',
+        items:[
+          { n:'Dahi',            cal:90, p:7, c:8,  f:2, fib:0 },
+          { n:'Seasonal fruit',  cal:50, p:1, c:12, f:0, fib:3 },
+          { n:'Chia seeds',      cal:60, p:2, c:4,  f:3, fib:4 }
+        ] },
+
+      { id:'thu-4', time:'6pm · Pre-dinner', title:'Protein shake + apple',
+        desc:'1 scoop plant protein + 1 medium apple.',
+        quantities:'Plant protein (1 scoop / ~30g) · Apple (1 medium / 180g) · Water (250ml)',
+        items:[
+          { n:'Protein shake', cal:120, p:25, c:1,  f:2, fib:1 },
+          { n:'Apple',         cal:80,  p:1,  c:21, f:0, fib:4 }
+        ] },
+
+      { id:'thu-5', time:'8–8:30pm · Meal 2', title:'Chickpea + egg salad bowl',
+        desc:'Boiled chickpeas + cucumber, tomato, onion, pomegranate, coriander, lemon, olive oil, 2 boiled eggs, sunflower seeds.',
+        quantities:'Boiled chickpeas (100g cooked / ~40g dry) · Cucumber (80g) · Tomato (60g) · Onion (30g) · Pomegranate (40g) · Coriander · Olive oil (5ml / 1 tsp) · Lemon · Boiled eggs (2 / ~100g) · Sunflower seeds (8g / 1 tsp)',
+        items:[
+          { n:'Boiled chickpeas',  cal:180, p:10, c:30, f:3, fib:8 },
+          { n:'Salad veggies',     cal:60,  p:2,  c:12, f:0, fib:4 },
+          { n:'Boiled eggs (x2)',  cal:160, p:14, c:2,  f:10, fib:0 },
+          { n:'Sunflower seeds',   cal:50,  p:2,  c:2,  f:4, fib:1 }
+        ] }
+    ],
+    note:'Rest or light cardio day. Dahi-heavy day for protein from non-meat sources.'
+  },
+
+  fri: {
+    meals: [
+      { id:'fri-1', time:'7–8am · Pre-meal', title:'Coffee + chia water',
+        desc:'Black coffee + 1 tsp chia seeds in warm water with lemon.',
+        quantities:'Black coffee (1 cup) · Chia seeds (5g / 1 tsp) · Warm water (200ml) · Lemon (½)',
+        items:[
+          { n:'Black coffee', cal:0,  p:0, c:0, f:0, fib:0 },
+          { n:'Chia water',   cal:60, p:2, c:4, f:3, fib:4 }
+        ] },
+
+      { id:'fri-2', time:'1–2pm · Meal 1', title:'Chicken tikka wrap + cucumber salad',
+        desc:'Chicken tikka (curd-marinated, grilled) rolled in 1 wheat roti with thick dahi spread, onion, capsicum, mint chutney. Side: cucumber + tomato + onion salad.',
+        quantities:'Raw chicken (100g) · Marinade dahi (30g) · Wheat roti (1 / 35g) · Thick dahi spread (50g, drained 30 min) · Onion (30g) · Capsicum (30g) · Mint chutney (15g) · Cucumber (80g) · Tomato (60g) · Lemon · Spices',
+        items:[
+          { n:'Chicken tikka wrap',       cal:400, p:36, c:36, f:12, fib:4 },
+          { n:'Thick dahi spread',        cal:60,  p:5,  c:4,  f:2,  fib:0 },
+          { n:'Cucumber-tomato salad',    cal:50,  p:1,  c:8,  f:0,  fib:4 }
         ],
-        recipe:'Hung curd recipe: Take 150g full/low-fat curd, line a strainer with muslin cloth, pour curd in, tie it up, hang over a bowl in the fridge 4–6 hours (or overnight). Whey drips out, leaving thick creamy hung curd — ~60g from 150g input. Store in fridge up to 3 days.',
         zomato:'Chicken tikka from Behrouz, Faasos, or tandoor places. No butter/cream. Cook wraps at home.' },
+
       { id:'fri-3', time:'4–5pm · Snack', title:'Makhana + coconut water',
         desc:'25g ghee-roasted makhana with rock salt + 200ml coconut water + 1 tsp chia.',
+        quantities:'Makhana (25g) · Ghee (3g / ½ tsp) · Rock salt · Coconut water (200ml) · Chia (5g / 1 tsp)',
         items:[
           { n:'Roasted makhana', cal:130, p:3, c:22, f:4, fib:3 },
           { n:'Coconut water',   cal:50,  p:1, c:6,  f:1, fib:2 }
         ] },
-      { id:'fri-4', time:'6–6:30pm · Pre-workout', title:'Dates + protein',
-        desc:'1 scoop plant protein + 2 medjool dates.',
+
+      { id:'fri-4', time:'6–6:30pm · Pre-workout', title:'Banana + protein',
+        desc:'1 scoop plant protein + 1 small banana.',
+        quantities:'Plant protein (1 scoop / ~30g) · Banana (1 small / ~100g) · Water (250ml)',
         items:[
           { n:'Protein shake', cal:120, p:25, c:1,  f:2, fib:1 },
-          { n:'Medjool dates', cal:80,  p:0,  c:21, f:0, fib:2 }
+          { n:'Banana',        cal:90,  p:1,  c:22, f:0, fib:2 }
         ] },
+
       { id:'fri-5', time:'8–8:30pm · Meal 2', title:'Aloo tikki + kala chana chaat',
-        desc:'2 baked aloo tikkis on kala chana chaat with cucumber, tomato, onion, coriander, lemon. Hung curd on top + tamarind-mint chutney.',
+        desc:'2 baked aloo tikkis on kala chana chaat with cucumber, tomato, onion, coriander, lemon. Thick dahi on top + tamarind-mint chutney.',
+        quantities:'Aloo tikki (2 small / ~100g) · Kala chana cooked (120g / ~50g dry) · Cucumber (60g) · Tomato (50g) · Onion (30g) · Coriander · Lemon · Thick dahi (40g) · Tamarind-mint chutney (15g)',
         items:[
           { n:'Aloo tikki (x2)',   cal:220, p:5,  c:36, f:6, fib:4 },
           { n:'Kala chana chaat',  cal:180, p:14, c:28, f:3, fib:7 },
-          { n:'Hung curd',         cal:70,  p:6,  c:6,  f:1, fib:0 },
+          { n:'Thick dahi',        cal:70,  p:6,  c:6,  f:1, fib:0 },
           { n:'Chutney',           cal:30,  p:0,  c:5,  f:0, fib:1 }
         ] }
     ],
-    note:'Weight training day. Friday\u2019s chaat-style dinner \u2014 built clean.'
+    note:'Weight training day. Aloo tikki + kala chana chaat dinner — clean version, baked not fried.'
   },
+
   sat: {
     meals: [
       { id:'sat-1', time:'7–8am · Pre-dance', title:'Coffee + banana',
         desc:'Black coffee + ½ small banana with 1 tsp chia.',
+        quantities:'Black coffee (1 cup) · Banana (½ small / ~50g) · Chia (5g / 1 tsp)',
         items:[
           { n:'Black coffee', cal:0,  p:0, c:0,  f:0, fib:0 },
           { n:'Banana',       cal:60, p:1, c:15, f:0, fib:2 },
           { n:'Chia',         cal:50, p:1, c:5,  f:2, fib:2 }
         ] },
+
       { id:'sat-2', time:'10:30am · Post-dance', title:'Protein shake',
         desc:'1 scoop Nutrabay plant protein in 200ml water.',
+        quantities:'Plant protein (1 scoop / ~30g) · Water (200ml)',
         items:[
           { n:'Protein shake', cal:130, p:25, c:3, f:2, fib:1 }
         ] },
-      { id:'sat-3', time:'1–2pm · Meal 1', title:'Aloo tikki + dal + curd',
-        desc:'2 baked aloo tikkis, yellow dal tadka (moong/arhar), fresh curd, tomato chutney, 2 boiled egg whites.',
+
+      { id:'sat-3', time:'1–2pm · Meal 1', title:'Yellow dal + white rice + dahi',
+        desc:'Yellow dal tadka (moong/arhar), white rice, fresh dahi, cucumber-tomato salad, 2 boiled egg whites.',
+        quantities:'Yellow dal (50g dry / ~150g cooked) · White rice (50g dry / ~120g cooked) · Dahi (100g) · Cucumber (60g) · Tomato (50g) · Egg whites (2 / ~70g) · 1 tsp ghee · Cumin · Spices',
         items:[
-          { n:'Aloo tikki (x2)',     cal:220, p:5,  c:36, f:6, fib:4 },
           { n:'Yellow dal tadka',    cal:170, p:11, c:22, f:4, fib:4 },
-          { n:'Curd',                cal:60,  p:6,  c:6,  f:1, fib:0 },
-          { n:'Boiled egg whites',   cal:35,  p:7,  c:0,  f:0, fib:0 },
-          { n:'Tomato chutney',      cal:25,  p:1,  c:4,  f:1, fib:1 }
+          { n:'White rice',          cal:200, p:4,  c:44, f:0, fib:1 },
+          { n:'Dahi',                cal:60,  p:6,  c:6,  f:1, fib:0 },
+          { n:'Cucumber-tomato',     cal:40,  p:1,  c:7,  f:1, fib:2 },
+          { n:'Boiled egg whites',   cal:35,  p:7,  c:0,  f:0, fib:0 }
         ] },
-      { id:'sat-4', time:'5pm · Snack', title:'Curd + fruit + seeds',
-        desc:'150g fresh curd + 100g chopped seasonal fruit + 1 tsp pumpkin + 1 tsp flaxseed.',
+
+      { id:'sat-4', time:'5pm · Snack', title:'Dahi + fruit + seeds',
+        desc:'150g fresh dahi + 100g chopped seasonal fruit + 1 tsp chia + 1 tsp pumpkin seeds.',
+        quantities:'Dahi (150g) · Seasonal fruit (100g) · Chia seeds (5g) · Pumpkin seeds (5g)',
         items:[
-          { n:'Curd',            cal:90, p:7, c:8,  f:2, fib:0 },
+          { n:'Dahi',            cal:90, p:7, c:8,  f:2, fib:0 },
           { n:'Seasonal fruit',  cal:50, p:1, c:12, f:0, fib:3 },
-          { n:'Seeds mix',       cal:40, p:1, c:0,  f:3, fib:2 }
+          { n:'Seeds mix',       cal:40, p:1, c:2,  f:3, fib:2 }
         ] },
-      { id:'sat-5', time:'8–8:30pm · Meal 2', title:'Dal + broccoli stir-fry + rice',
-        desc:'Mixed dal (moong + masoor), rice, broccoli stir-fry with garlic (1 tsp oil), curd, salad.',
+
+      { id:'sat-5', time:'8–8:30pm · Meal 2', title:'Chicken curry + white rice + sautéed veg',
+        desc:'Home-style chicken curry (tomato-onion-ginger gravy, minimal oil), white rice, sautéed broccoli + capsicum with garlic, cucumber salad.',
+        quantities:'Raw chicken (120g) · Tomato (60g) · Onion (40g) · Ginger-garlic · 1 tsp oil · White rice (50g dry / ~120g cooked) · Broccoli (80g) · Capsicum (40g) · Cucumber (60g) · Spices',
         items:[
-          { n:'Mixed dal',          cal:180, p:12, c:22, f:4, fib:5 },
-          { n:'Rice',               cal:200, p:4,  c:42, f:1, fib:1 },
-          { n:'Broccoli stir-fry',  cal:80,  p:4,  c:6,  f:5, fib:3 },
-          { n:'Curd',               cal:40,  p:4,  c:4,  f:1, fib:0 },
-          { n:'Salad',              cal:20,  p:2,  c:0,  f:1, fib:4 }
+          { n:'Chicken curry',       cal:240, p:30, c:8,  f:9, fib:2 },
+          { n:'White rice',          cal:200, p:4,  c:44, f:0, fib:1 },
+          { n:'Sautéed broccoli',    cal:80,  p:4,  c:6,  f:5, fib:3 },
+          { n:'Cucumber salad',      cal:20,  p:1,  c:4,  f:0, fib:2 }
         ] }
     ],
-    note:'Dance day. Post-dance protein + sufficient carbs = proper recovery.'
+    note:'Dance day. Post-dance protein shake within 30 min. Chicken curry dinner — no double dal today.'
   },
+
   sun: {
     meals: [
-      { id:'sun-1', time:'7–8am · Pre-dance', title:'Coffee + dates',
-        desc:'Black coffee + 2 medjool dates.',
+      { id:'sun-1', time:'7–8am · Pre-dance', title:'Coffee + banana',
+        desc:'Black coffee + 1 small banana.',
+        quantities:'Black coffee (1 cup) · Banana (1 small / ~100g)',
         items:[
-          { n:'Black coffee',  cal:0,   p:0, c:0,  f:0, fib:0 },
-          { n:'Medjool dates', cal:110, p:1, c:24, f:0, fib:2 }
+          { n:'Black coffee', cal:0,  p:0, c:0,  f:0, fib:0 },
+          { n:'Banana',       cal:90, p:1, c:22, f:0, fib:2 }
         ] },
+
       { id:'sun-2', time:'10:30am · Post-dance', title:'Protein + fruit',
         desc:'1 scoop plant protein + 100g seasonal fruit (watermelon, papaya, mango, or apple).',
+        quantities:'Plant protein (1 scoop / ~30g) · Seasonal fruit (100g) · Water (250ml)',
         items:[
           { n:'Protein shake',   cal:120, p:25, c:1,  f:2, fib:1 },
           { n:'Seasonal fruit',  cal:40,  p:0,  c:11, f:0, fib:2 }
         ] },
-      { id:'sun-3', time:'1–2pm · Meal 1', title:'Chicken + aloo tikki bowl',
-        desc:'Grilled chicken over mixed greens, rice, 2 baked aloo tikkis, cucumber, cherry tomato, olive oil-lemon dressing, sunflower seeds.',
+
+      { id:'sun-3', time:'1–2pm · Meal 1', title:'Chicken + rice + cucumber salad',
+        desc:'Grilled chicken over white rice, sautéed lettuce + spinach, cucumber + cherry tomato + olive oil-lemon dressing, sunflower seeds.',
+        quantities:'Raw chicken (120g) · White rice (50g dry / ~120g cooked) · Lettuce (40g) · Spinach (40g) · Cucumber (80g) · Cherry tomato (40g) · Olive oil (5ml / 1 tsp) · Lemon · Sunflower seeds (5g)',
         items:[
-          { n:'Grilled chicken',  cal:200, p:35, c:0,  f:6, fib:0 },
-          { n:'Rice',             cal:160, p:3,  c:34, f:1, fib:1 },
-          { n:'Aloo tikki (x2)',  cal:80,  p:3,  c:12, f:3, fib:4 },
-          { n:'Mixed greens',     cal:30,  p:2,  c:3,  f:0, fib:3 },
-          { n:'Dressing',         cal:30,  p:2,  c:1,  f:4, fib:1 }
+          { n:'Grilled chicken',         cal:200, p:35, c:0,  f:6, fib:0 },
+          { n:'White rice',              cal:200, p:4,  c:44, f:0, fib:1 },
+          { n:'Lettuce + spinach',       cal:30,  p:2,  c:3,  f:0, fib:3 },
+          { n:'Cucumber + cherry tomato',cal:30,  p:1,  c:6,  f:0, fib:2 },
+          { n:'Olive oil-lemon dressing',cal:50,  p:0,  c:1,  f:5, fib:0 }
         ],
         zomato:'Grilled chicken salad bowl from EatFit, Salad Days, FreshMenu.' },
-      { id:'sun-4', time:'5pm · Snack', title:'Cucumber sticks + curd dip',
-        desc:'Cucumber + carrot sticks with hung curd dip (garlic, mint, black pepper, lemon).',
+
+      { id:'sun-4', time:'5pm · Snack', title:'Cucumber sticks + dahi dip',
+        desc:'Cucumber + carrot sticks with thick dahi dip (garlic, mint, black pepper, lemon).',
+        quantities:'Cucumber (100g) · Carrot (60g) · Thick dahi (60g, drained 30 min) · Garlic (1 small clove) · Mint · Black pepper · Lemon · Salt',
         items:[
-          { n:'Cucumber sticks', cal:20, p:1, c:4, f:0, fib:2 },
-          { n:'Carrot sticks',   cal:30, p:1, c:6, f:0, fib:2 },
-          { n:'Hung curd dip',   cal:80, p:6, c:2, f:5, fib:0 }
+          { n:'Cucumber sticks',  cal:20, p:1, c:4, f:0, fib:2 },
+          { n:'Carrot sticks',    cal:30, p:1, c:6, f:0, fib:2 },
+          { n:'Thick dahi dip',   cal:80, p:6, c:2, f:5, fib:0 }
         ] },
-      { id:'sun-5', time:'8–8:30pm · Meal 2', title:'Egg curry + rice + palak',
-        desc:'3 hard-boiled eggs in tomato-onion-ginger curry, rice, sautéed spinach with garlic, cucumber raita.',
+
+      { id:'sun-5', time:'8–8:30pm · Meal 2', title:'Egg curry + white rice + palak',
+        desc:'3 hard-boiled eggs in tomato-onion-ginger curry, white rice, sautéed spinach with garlic, cucumber raita.',
+        quantities:'Eggs (3 / ~150g) · Tomato (60g) · Onion (40g) · Ginger-garlic · 1 tsp oil · White rice (50g dry / ~120g cooked) · Spinach (80g) · Cucumber (60g) · Dahi (60g) · Spices',
         items:[
-          { n:'Egg curry (3 eggs)', cal:260, p:20, c:8,  f:16, fib:2 },
-          { n:'Rice',               cal:200, p:4,  c:42, f:1,  fib:1 },
-          { n:'Sautéed palak',      cal:50,  p:2,  c:5,  f:2,  fib:3 },
-          { n:'Cucumber raita',     cal:40,  p:2,  c:5,  f:1,  fib:3 }
+          { n:'Egg curry (3 eggs)',  cal:260, p:20, c:8,  f:16, fib:2 },
+          { n:'White rice',          cal:200, p:4,  c:44, f:0,  fib:1 },
+          { n:'Sautéed palak',       cal:50,  p:2,  c:5,  f:2,  fib:3 },
+          { n:'Cucumber raita',      cal:40,  p:2,  c:5,  f:1,  fib:3 }
         ] }
     ],
-    note:'Dance day. 10-min walk after dinner for digestion.'
+    note:'Dance day. 10-min walk after dinner for digestion. White rice all day for energy.'
   }
 };
 
@@ -1249,6 +1455,8 @@ function renderMealRow(m, checkedIds, skippedData) {
       <button type="button" class="skip-done-btn" data-meal-id="${m.id}">Done — log partial meal</button>
     </div>` : ''}
 
+    ${m.quantities ? `<details class="groc qty-block"><summary>Quantities (weigh out)</summary><div class="groc-content">${escapeHtml(m.quantities)}</div></details>` : ''}
+
     <div class="bottom-row">
       <div class="macro-pills">
         <span class="pill pill-p">${isPartial ? effective.p : m.p}g P</span>
@@ -1277,6 +1485,30 @@ function renderPanel(day) {
 
   const mealsHtml = allMeals.map(m => renderMealRow(m, checkedIds, skippedData)).join('');
 
+  // Weekly grocery list shown only on Sunday (end-of-week shopping prep)
+  const groceryHtml = day === 'sun' ? `
+    <details class="weekly-grocery">
+      <summary class="weekly-grocery-head">
+        <span>
+          <span class="weekly-grocery-title">Weekly grocery list</span>
+          <span class="weekly-grocery-sub">Everything you need for the next 7 days</span>
+        </span>
+        <span class="weekly-grocery-caret">▾</span>
+      </summary>
+      <div class="weekly-grocery-body">
+        ${WEEKLY_GROCERY_LIST.map(s => `
+          <details class="grocery-section" open>
+            <summary>${escapeHtml(s.section)}</summary>
+            <ul class="grocery-list">
+              ${s.items.map(it => `<li>${escapeHtml(it)}</li>`).join('')}
+            </ul>
+          </details>
+        `).join('')}
+        <p class="weekly-grocery-note">Quantities are aggregated across all 7 days' meals. Most are rounded up to a sensible buying amount — you can store extras for next week.</p>
+      </div>
+    </details>
+  ` : '';
+
   return `<div class="day-panel active" id="panel-${day}">
     ${mealsHtml}
     <button type="button" class="add-meal-btn" id="addMealBtn">
@@ -1291,6 +1523,7 @@ function renderPanel(day) {
       <div><p class="tot-label">Fiber</p><p class="tot-val">${plan.totals.fib}g</p></div>
     </div>
     <div class="note-box">${escapeHtml(plan.note)}</div>
+    ${groceryHtml}
   </div>`;
 }
 
