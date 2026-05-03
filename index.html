@@ -2173,10 +2173,15 @@ function switchDay(day) {
 }
 
 document.getElementById('resetBtn').addEventListener('click', () => {
-  if (!confirm('Reset all check-offs and activity for ' + DAY_NAMES[currentDay] + '?')) return;
+  const customCount = getCustomMeals(currentDay).length;
+  const customNote = customCount > 0
+    ? `\n\nThis will also delete ${customCount} added meal${customCount > 1 ? 's' : ''}.`
+    : '';
+  if (!confirm('Reset all check-offs and activity for ' + DAY_NAMES[currentDay] + '?' + customNote)) return;
   setCheckedIds(currentDay, []);
   setSkippedItems(currentDay, {});
   setActivities(currentDay, []);
+  setCustomMeals(currentDay, []);
   renderPanels();
   renderTracker();
   renderTabs();
