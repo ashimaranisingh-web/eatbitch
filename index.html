@@ -9,78 +9,64 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Meal Plan">
 <meta name="theme-color" content="#f7f6f3">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23639922'/%3E%3Ctext x='50' y='68' font-size='55' text-anchor='middle' fill='white' font-family='-apple-system,sans-serif' font-weight='500'%3EM%3C/text%3E%3C/svg%3E">
 <style>
   :root {
-    --bg-page: #f7f6f3;
-    --bg-primary: #ffffff;
-    --bg-secondary: #f1efe8;
-    --bg-info: #E6F1FB;
-    --bg-warning: #FFF8EC;
-    --text-primary: #1a1a1a;
-    --text-secondary: #5F5E5A;
-    --text-tertiary: #888780;
-    --text-info: #0C447C;
-    --text-warning: #7A4A00;
-    --border-tertiary: rgba(0,0,0,0.1);
-    --border-secondary: rgba(0,0,0,0.2);
-    --border-info: #378ADD;
-    --border-warning: #F0B429;
-    --success: #639922;
-    --success-light: #97C459;
-    --danger: #E24B4A;
-    --partial: #E07B39;
-    --partial-light: #F5A96A;
+    --bg-page: #f7f6f3; --bg-primary: #ffffff; --bg-secondary: #f1efe8;
+    --bg-info: #E6F1FB; --bg-warning: #FFF8EC;
+    --text-primary: #1a1a1a; --text-secondary: #5F5E5A; --text-tertiary: #888780;
+    --text-info: #0C447C; --text-warning: #7A4A00;
+    --border-tertiary: rgba(0,0,0,0.1); --border-secondary: rgba(0,0,0,0.2);
+    --border-info: #378ADD; --border-warning: #F0B429;
+    --success: #639922; --success-light: #97C459;
+    --danger: #E24B4A; --partial: #E07B39; --partial-light: #F5A96A;
     --pill-p-bg: #EEEDFE; --pill-p-tx: #26215C;
     --pill-c-bg: #E1F5EE; --pill-c-tx: #04342C;
     --pill-f-bg: #FAEEDA; --pill-f-tx: #412402;
     --pill-fib-bg: #EAF3DE; --pill-fib-tx: #173404;
-    --radius-md: 8px;
-    --radius-lg: 12px;
+    --radius-md: 8px; --radius-lg: 12px;
+    --pms-bg: #FDF4FF; --pms-border: #C084FC; --pms-text: #6B21A8; --pms-badge-bg: #F3E8FF;
+    --dessert-bg: #FFF0F6; --dessert-border: #F9A8D4; --dessert-text: #9D174D;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg-page: #1a1a18;
-      --bg-primary: #26251f;
-      --bg-secondary: #2f2e28;
-      --bg-info: #0C447C;
-      --bg-warning: #3A2800;
-      --text-primary: #f0ebe0;
-      --text-secondary: #b4b2a9;
-      --text-tertiary: #888780;
-      --text-info: #B5D4F4;
-      --text-warning: #FAC775;
-      --border-tertiary: rgba(255,255,255,0.12);
-      --border-secondary: rgba(255,255,255,0.22);
+      --bg-page: #1a1a18; --bg-primary: #26251f; --bg-secondary: #2f2e28;
+      --bg-info: #0C447C; --bg-warning: #3A2800;
+      --text-primary: #f0ebe0; --text-secondary: #b4b2a9; --text-tertiary: #888780;
+      --text-info: #B5D4F4; --text-warning: #FAC775;
+      --border-tertiary: rgba(255,255,255,0.12); --border-secondary: rgba(255,255,255,0.22);
       --border-warning: #C07A00;
       --pill-p-bg: #3C3489; --pill-p-tx: #CECBF6;
       --pill-c-bg: #085041; --pill-c-tx: #9FE1CB;
       --pill-f-bg: #633806; --pill-f-tx: #FAC775;
       --pill-fib-bg: #27500A; --pill-fib-tx: #C0DD97;
+      --pms-bg: #2D1040; --pms-border: #A855F7; --pms-text: #D8B4FE; --pms-badge-bg: #3B1060;
+      --dessert-bg: #2D0A1A; --dessert-border: #EC4899; --dessert-text: #F9A8D4;
     }
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background: var(--bg-page);
-    color: var(--text-primary);
-    margin: 0;
-    padding: 1rem 0.75rem calc(env(safe-area-inset-bottom) + 90px);
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-  }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg-page); color: var(--text-primary); margin: 0; padding: 1rem 0.75rem calc(env(safe-area-inset-bottom) + 90px); line-height: 1.5; -webkit-font-smoothing: antialiased; }
   .container { max-width: 760px; margin: 0 auto; }
   header { padding: 0.5rem 0.25rem 1rem; }
   h1 { font-size: 22px; font-weight: 500; margin: 0 0 4px; }
   .subtitle { font-size: 13px; color: var(--text-secondary); margin: 0; }
 
-  .tracker {
-    position: sticky; top: 8px; z-index: 10;
-    background: var(--bg-primary);
-    border: 0.5px solid var(--border-tertiary);
-    border-radius: var(--radius-lg);
-    padding: 14px 16px; margin-bottom: 1rem;
-  }
+  /* PMS TOGGLE */
+  .pms-toggle-bar { display: flex; align-items: center; justify-content: space-between; background: var(--pms-bg); border: 1px solid var(--pms-border); border-radius: var(--radius-lg); padding: 12px 16px; margin-bottom: 14px; gap: 12px; }
+  .pms-toggle-left { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+  .pms-toggle-title { font-size: 13px; font-weight: 600; color: var(--pms-text); }
+  .pms-toggle-sub { font-size: 11px; color: var(--text-secondary); }
+  .pms-toggle-switch { position: relative; width: 46px; height: 26px; flex: 0 0 auto; }
+  .pms-toggle-switch input { opacity: 0; width: 0; height: 0; position: absolute; }
+  .pms-slider { position: absolute; inset: 0; background: var(--border-secondary); border-radius: 13px; cursor: pointer; transition: background 0.2s; }
+  .pms-slider::before { content: ''; position: absolute; width: 20px; height: 20px; left: 3px; top: 3px; background: white; border-radius: 50%; transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+  .pms-toggle-switch input:checked + .pms-slider { background: var(--pms-border); }
+  .pms-toggle-switch input:checked + .pms-slider::before { transform: translateX(20px); }
+  .pms-active-note { display: none; font-size: 11px; color: var(--pms-text); background: var(--pms-badge-bg); border-radius: 6px; padding: 2px 8px; font-weight: 500; white-space: nowrap; }
+  body.pms-mode .pms-active-note { display: inline-block; }
+  body.pms-mode .pms-toggle-bar { background: var(--pms-badge-bg); }
+
+  /* TRACKER */
+  .tracker { position: sticky; top: 8px; z-index: 10; background: var(--bg-primary); border: 0.5px solid var(--border-tertiary); border-radius: var(--radius-lg); padding: 14px 16px; margin-bottom: 1rem; }
   .tracker-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
   .tracker-label { font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; }
   .reset-btn { font-size: 12px; color: var(--text-secondary); background: none; border: none; cursor: pointer; padding: 4px 8px; font-family: inherit; border-radius: 6px; }
@@ -91,338 +77,144 @@
   .metric-val { font-size: 14px; font-weight: 500; margin: 0 0 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .metric-val .target { color: var(--text-tertiary); font-weight: 400; font-size: 12px; }
   .bar { height: 4px; background: var(--bg-secondary); border-radius: 2px; overflow: hidden; }
-  .bar-fill { height: 100%; width: 0%; transition: width 0.25s ease, background 0.25s ease; border-radius: 2px; }
-  .bar-fill.cal { background: var(--text-secondary); }
-  .bar-fill.p { background: var(--pill-p-tx); }
-  .bar-fill.c { background: var(--pill-c-tx); }
-  .bar-fill.f { background: var(--pill-f-tx); }
-  .bar-fill.fib { background: var(--pill-fib-tx); }
+  .bar-fill { height: 100%; width: 0%; transition: width 0.25s ease; border-radius: 2px; }
+  .bar-fill.p { background: var(--pill-p-tx); } .bar-fill.c { background: var(--pill-c-tx); }
+  .bar-fill.f { background: var(--pill-f-tx); } .bar-fill.fib { background: var(--pill-fib-tx); }
   .bar-fill.over { background: var(--danger) !important; }
   .over-note { font-size: 10px; color: var(--danger); margin-top: 2px; font-weight: 500; }
-  @media (max-width: 420px) {
-    .metric-val { font-size: 12px; }
-    .metric-val .target { font-size: 10px; }
-    .metric-label { font-size: 9px; }
-  }
-
-  /* Calorie equation: consumed − burned = net */
-  .cal-equation {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr auto 1fr;
-    align-items: center; gap: 6px;
-    padding: 4px 0 14px; margin-bottom: 12px;
-    border-bottom: 0.5px solid var(--border-tertiary);
-  }
+  .cal-equation { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: center; gap: 6px; padding: 4px 0 14px; margin-bottom: 12px; border-bottom: 0.5px solid var(--border-tertiary); }
   .cal-term { min-width: 0; text-align: center; }
-  .cal-term-val {
-    font-size: 20px; font-weight: 600; color: var(--text-primary);
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    line-height: 1.1;
-  }
+  .cal-term-val { font-size: 20px; font-weight: 600; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.1; }
   .cal-term-val.burned { color: var(--success); }
-  .cal-term-val.net { color: var(--text-primary); }
   .cal-term-val.net.over { color: var(--danger); }
   .cal-term-val.net.deficit { color: var(--partial); }
-  @media (prefers-color-scheme: dark) {
-    .cal-term-val.burned { color: var(--success-light); }
-    .cal-term-val.net.deficit { color: var(--partial-light); }
-  }
-  .cal-term-label {
-    font-size: 9px; color: var(--text-tertiary);
-    text-transform: uppercase; letter-spacing: 0.5px;
-    font-weight: 500; margin-top: 3px;
-  }
-  .cal-term-sub {
-    font-size: 10px; color: var(--text-tertiary);
-    margin-top: 2px; font-weight: 400;
-  }
-  .cal-op {
-    font-size: 18px; font-weight: 400; color: var(--text-tertiary);
-    line-height: 1; padding: 0 2px;
-  }
-  @media (max-width: 420px) {
-    .cal-term-val { font-size: 17px; }
-    .cal-op { font-size: 15px; }
-    .cal-term-label { font-size: 8px; }
-    .cal-term-sub { font-size: 9px; }
-    .cal-equation { gap: 4px; }
-  }
+  @media (prefers-color-scheme: dark) { .cal-term-val.burned { color: var(--success-light); } .cal-term-val.net.deficit { color: var(--partial-light); } }
+  .cal-term-label { font-size: 9px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; margin-top: 3px; }
+  .cal-term-sub { font-size: 10px; color: var(--text-tertiary); margin-top: 2px; }
+  .cal-op { font-size: 18px; font-weight: 400; color: var(--text-tertiary); line-height: 1; padding: 0 2px; }
+  @media (max-width: 420px) { .cal-term-val { font-size: 17px; } .cal-op { font-size: 15px; } .cal-term-label { font-size: 8px; } .cal-equation { gap: 4px; } }
 
-  /* Activity section */
-  .activity {
-    background: var(--bg-primary);
-    border: 0.5px solid var(--border-tertiary);
-    border-radius: var(--radius-lg);
-    margin-bottom: 1rem;
-    overflow: hidden;
-  }
+  /* ACTIVITY / COLLAPSIBLES */
+  .activity { background: var(--bg-primary); border: 0.5px solid var(--border-tertiary); border-radius: var(--radius-lg); margin-bottom: 1rem; overflow: hidden; }
   .activity[open] { border-color: var(--border-secondary); }
-  .activity-summary {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 12px 16px; cursor: pointer; list-style: none;
-    user-select: none; gap: 10px;
-  }
+  .activity-summary { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; cursor: pointer; list-style: none; user-select: none; gap: 10px; }
   .activity-summary::-webkit-details-marker { display: none; }
   .activity-left { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
-  .activity-icon {
-    width: 28px; height: 28px; border-radius: 8px;
-    background: var(--bg-secondary); color: var(--text-secondary);
-    display: flex; align-items: center; justify-content: center;
-    flex: 0 0 auto;
-  }
-  .activity-label {
-    font-size: 11px; color: var(--text-tertiary);
-    text-transform: uppercase; letter-spacing: 0.5px;
-    font-weight: 500; display: block; margin-bottom: 1px;
-  }
-  .activity-summary-text {
-    font-size: 13px; color: var(--text-primary); font-weight: 500;
-    display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    max-width: calc(100vw - 140px);
-  }
+  .activity-icon { width: 28px; height: 28px; border-radius: 8px; background: var(--bg-secondary); color: var(--text-secondary); display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+  .activity-label { font-size: 11px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; display: block; margin-bottom: 1px; }
+  .activity-summary-text { font-size: 13px; color: var(--text-primary); font-weight: 500; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: calc(100vw - 140px); }
   .activity-summary-text.has-burn { color: var(--success); }
-  @media (prefers-color-scheme: dark) {
-    .activity-summary-text.has-burn { color: var(--success-light); }
-  }
-  .activity-caret {
-    font-size: 12px; color: var(--text-tertiary);
-    transition: transform 0.15s; flex: 0 0 auto;
-  }
+  @media (prefers-color-scheme: dark) { .activity-summary-text.has-burn { color: var(--success-light); } }
+  .activity-caret { font-size: 12px; color: var(--text-tertiary); transition: transform 0.15s; flex: 0 0 auto; }
   .activity[open] .activity-caret { transform: rotate(180deg); }
-
-  .activity-body {
-    padding: 0 16px 14px;
-    border-top: 0.5px solid var(--border-tertiary);
-  }
-  .activity-hint {
-    font-size: 12px; color: var(--text-secondary);
-    margin: 12px 0 10px; line-height: 1.5;
-  }
-  .activity-presets {
-    display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;
-  }
-  .activity-preset {
-    font-size: 12px; padding: 6px 12px;
-    background: var(--bg-secondary);
-    border: 0.5px solid var(--border-tertiary);
-    border-radius: 20px;
-    color: var(--text-primary);
-    cursor: pointer; font-family: inherit;
-    transition: all 0.15s;
-    display: inline-flex; align-items: center; gap: 6px;
-  }
-  .activity-preset:hover { border-color: var(--border-secondary); background: var(--bg-primary); }
-  .activity-preset .preset-cal {
-    font-size: 10px; color: var(--text-tertiary); font-weight: 500;
-  }
-
-  .activity-custom {
-    display: grid; grid-template-columns: 1fr 80px auto; gap: 6px;
-    margin-bottom: 10px;
-  }
-  .activity-input {
-    padding: 9px 11px; font-size: 13px;
-    background: var(--bg-secondary);
-    border: 0.5px solid var(--border-tertiary);
-    border-radius: var(--radius-md);
-    color: var(--text-primary);
-    font-family: inherit; outline: none;
-    transition: border-color 0.15s;
-  }
+  .activity-body { padding: 0 16px 14px; border-top: 0.5px solid var(--border-tertiary); }
+  .activity-hint { font-size: 12px; color: var(--text-secondary); margin: 12px 0 10px; line-height: 1.5; }
+  .activity-presets { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+  .activity-preset { font-size: 12px; padding: 6px 12px; background: var(--bg-secondary); border: 0.5px solid var(--border-tertiary); border-radius: 20px; color: var(--text-primary); cursor: pointer; font-family: inherit; transition: all 0.15s; display: inline-flex; align-items: center; gap: 6px; }
+  .activity-preset:hover { border-color: var(--border-secondary); }
+  .activity-preset .preset-cal { font-size: 10px; color: var(--text-tertiary); font-weight: 500; }
+  .activity-custom { display: grid; grid-template-columns: 1fr 80px auto; gap: 6px; margin-bottom: 10px; }
+  .activity-input { padding: 9px 11px; font-size: 13px; background: var(--bg-secondary); border: 0.5px solid var(--border-tertiary); border-radius: var(--radius-md); color: var(--text-primary); font-family: inherit; outline: none; transition: border-color 0.15s; }
   .activity-input:focus { border-color: var(--border-info); }
   .activity-input::placeholder { color: var(--text-tertiary); }
-  .activity-add-btn {
-    padding: 9px 16px; font-size: 13px; font-weight: 500;
-    background: var(--success); color: white;
-    border: none; border-radius: var(--radius-md);
-    cursor: pointer; font-family: inherit;
-    transition: opacity 0.15s;
-  }
-  .activity-add-btn:hover { opacity: 0.9; }
-  @media (prefers-color-scheme: dark) {
-    .activity-add-btn { background: var(--success-light); color: #1a1a18; }
-  }
-
-  .activity-list {
-    list-style: none; padding: 0; margin: 0;
-    display: flex; flex-direction: column; gap: 6px;
-  }
+  .activity-add-btn { padding: 9px 16px; font-size: 13px; font-weight: 500; background: var(--success); color: white; border: none; border-radius: var(--radius-md); cursor: pointer; font-family: inherit; }
+  @media (prefers-color-scheme: dark) { .activity-add-btn { background: var(--success-light); color: #1a1a18; } }
+  .activity-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
   .activity-list:empty { display: none; }
-  .activity-item {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 8px 12px;
-    background: var(--bg-secondary);
-    border-radius: var(--radius-md);
-    font-size: 13px; gap: 10px;
-  }
+  .activity-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: var(--bg-secondary); border-radius: var(--radius-md); font-size: 13px; gap: 10px; }
   .activity-item-name { color: var(--text-primary); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .activity-item-cal { color: var(--success); font-weight: 500; font-size: 12px; white-space: nowrap; }
-  @media (prefers-color-scheme: dark) {
-    .activity-item-cal { color: var(--success-light); }
-  }
-  .activity-item-remove {
-    background: transparent; border: none; padding: 2px 6px;
-    color: var(--text-tertiary); cursor: pointer; font-size: 16px;
-    line-height: 1; border-radius: 4px; font-family: inherit;
-  }
+  @media (prefers-color-scheme: dark) { .activity-item-cal { color: var(--success-light); } }
+  .activity-item-remove { background: transparent; border: none; padding: 2px 6px; color: var(--text-tertiary); cursor: pointer; font-size: 16px; line-height: 1; border-radius: 4px; font-family: inherit; }
   .activity-item-remove:hover { background: var(--bg-primary); color: var(--danger); }
 
-  /* Net calorie note in tracker */
-  .net-note { font-size: 10px; color: var(--success); margin-top: 2px; font-weight: 500; }
-  .net-note.deficit { color: var(--partial); }
-  .metric-val.metric-val-deficit { color: var(--partial); }
-  @media (prefers-color-scheme: dark) {
-    .net-note { color: var(--success-light); }
-    .net-note.deficit { color: var(--partial-light); }
-    .metric-val.metric-val-deficit { color: var(--partial-light); }
-  }
+  /* FITNESS */
+  .fitness-list { display: flex; flex-direction: column; gap: 10px; }
+  .fitness-row { padding: 12px 14px; background: var(--bg-secondary); border-radius: var(--radius-md); border: 0.5px solid var(--border-tertiary); transition: border-color 0.2s; }
+  .fitness-row.met { border-color: var(--success); }
+  @media (prefers-color-scheme: dark) { .fitness-row.met { border-color: var(--success-light); } }
+  .fitness-row-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+  .fitness-name { font-size: 13px; font-weight: 500; color: var(--text-primary); margin: 0; flex: 1; }
+  .fitness-tally { font-size: 12px; color: var(--text-secondary); font-weight: 500; flex: 0 0 auto; }
+  .fitness-tally .met-mark { color: var(--success); }
+  @media (prefers-color-scheme: dark) { .fitness-tally .met-mark { color: var(--success-light); } }
+  .fitness-stubs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .stub { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--border-secondary); background: var(--bg-primary); cursor: pointer; padding: 0; transition: all 0.15s; position: relative; font-family: inherit; }
+  .stub:hover { border-color: var(--success); }
+  .stub.filled { background: var(--success); border-color: var(--success); }
+  .stub.filled::after { content: ""; position: absolute; left: 8px; top: 5px; width: 7px; height: 12px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+  @media (prefers-color-scheme: dark) { .stub.filled { background: var(--success-light); border-color: var(--success-light); } .stub.filled::after { border-color: #1a1a18; } }
+  .fitness-week-note { font-size: 11px; color: var(--text-tertiary); text-align: center; margin-top: 12px; padding-top: 10px; border-top: 0.5px solid var(--border-tertiary); }
 
-  /* Weight & goal section */
-  .weight-unit-toggle {
-    display: inline-flex; gap: 0; margin-bottom: 12px;
-    background: var(--bg-secondary); border-radius: var(--radius-md);
-    padding: 3px;
-  }
-  .weight-unit-btn {
-    padding: 5px 14px; font-size: 12px; font-weight: 500;
-    background: transparent; border: none; border-radius: 6px;
-    color: var(--text-secondary); cursor: pointer; font-family: inherit;
-    transition: all 0.15s;
-  }
-  .weight-unit-btn.active {
-    background: var(--bg-primary); color: var(--text-primary);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
-  }
-  .weight-inputs {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
-    margin-bottom: 4px;
-  }
-  .weight-input-group { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-  .weight-input-label {
-    font-size: 10px; color: var(--text-tertiary);
-    text-transform: uppercase; letter-spacing: 0.4px; font-weight: 500;
-  }
+  /* WEIGHT */
+  .weight-unit-toggle { display: inline-flex; gap: 0; margin-bottom: 12px; background: var(--bg-secondary); border-radius: var(--radius-md); padding: 3px; }
+  .weight-unit-btn { padding: 5px 14px; font-size: 12px; font-weight: 500; background: transparent; border: none; border-radius: 6px; color: var(--text-secondary); cursor: pointer; font-family: inherit; transition: all 0.15s; }
+  .weight-unit-btn.active { background: var(--bg-primary); color: var(--text-primary); box-shadow: 0 1px 2px rgba(0,0,0,0.06); }
+  .weight-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 4px; }
+  .weight-input-group { display: flex; flex-direction: column; gap: 4px; }
+  .weight-input-label { font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.4px; font-weight: 500; }
   .weight-input { padding: 9px 11px; font-size: 14px; width: 100%; }
-
   .weight-delta:empty { display: none; }
-  .weight-delta {
-    font-size: 12px; color: var(--text-secondary); margin-top: 10px;
-    padding: 8px 12px; background: var(--bg-secondary);
-    border-radius: var(--radius-md); line-height: 1.5;
-  }
+  .weight-delta { font-size: 12px; color: var(--text-secondary); margin-top: 10px; padding: 8px 12px; background: var(--bg-secondary); border-radius: var(--radius-md); line-height: 1.5; }
   .weight-delta strong { color: var(--text-primary); font-weight: 500; }
 
   .day-panel { display: none; }
   .day-panel.active { display: block; }
 
+  /* ── MEAL ROWS: always green border ── */
   .meal-row {
     background: var(--bg-primary);
-    border: 0.5px solid var(--border-tertiary);
+    border: 1.5px solid var(--success);
     border-radius: var(--radius-lg);
     padding: 14px 16px; margin-bottom: 10px;
-    transition: border-color 0.2s, background 0.2s;
+    transition: border-color 0.2s, background 0.2s, opacity 0.2s;
   }
-  .meal-row.checked { border-color: var(--success); }
-  .meal-row.partial { border-color: var(--partial); }
   @media (prefers-color-scheme: dark) {
-    .meal-row.checked { border-color: var(--success-light); }
-    .meal-row.partial { border-color: var(--partial-light); }
+    .meal-row { border-color: var(--success-light); }
   }
+  .meal-row.checked { opacity: 0.72; }
+  .meal-row.partial { border-color: var(--partial); }
+  @media (prefers-color-scheme: dark) { .meal-row.partial { border-color: var(--partial-light); } }
+
+  /* DESSERT CARD */
+  .meal-row.dessert-card { border-color: var(--dessert-border); background: var(--dessert-bg); }
+  .dessert-badge { display: inline-block; font-size: 10px; font-weight: 600; color: var(--dessert-text); background: var(--dessert-border); border-radius: 4px; padding: 1px 6px; margin-left: 6px; vertical-align: middle; opacity: 0.9; }
+
+  /* PMS LAZY CARD */
+  .meal-row.pms-card { border-color: var(--pms-border); background: var(--pms-bg); }
+  .pms-badge { display: inline-block; font-size: 10px; font-weight: 600; color: var(--pms-text); background: var(--pms-badge-bg); border-radius: 4px; padding: 1px 6px; margin-left: 6px; vertical-align: middle; }
+
   .meal-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 6px; }
   .check-wrap { flex: 0 0 auto; padding-top: 2px; position: relative; }
-  .check {
-    width: 22px; height: 22px;
-    border: 1.5px solid var(--border-secondary);
-    border-radius: 5px; background: transparent;
-    cursor: pointer; position: relative; display: block;
-    transition: all 0.15s;
-  }
+  .check { width: 22px; height: 22px; border: 1.5px solid var(--border-secondary); border-radius: 5px; background: transparent; cursor: pointer; position: relative; display: block; transition: all 0.15s; }
   .check:hover { border-color: var(--success); }
   input[type="checkbox"] { position: absolute; opacity: 0; pointer-events: none; width: 0; height: 0; }
   input[type="checkbox"]:checked + .check { background: var(--success); border-color: var(--success); }
-  input[type="checkbox"]:checked + .check::after {
-    content: ""; position: absolute; left: 6px; top: 2px;
-    width: 6px; height: 11px; border: solid white;
-    border-width: 0 2px 2px 0; transform: rotate(45deg);
-  }
+  input[type="checkbox"]:checked + .check::after { content: ""; position: absolute; left: 6px; top: 2px; width: 6px; height: 11px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); }
   .check.partial-check { border-color: var(--partial); }
-  .check.partial-check::after {
-    content: ""; position: absolute; left: 4px; top: 10px;
-    width: 12px; height: 2px; background: var(--partial); border-radius: 1px;
-  }
-  @media (prefers-color-scheme: dark) {
-    input[type="checkbox"]:checked + .check { background: var(--success-light); border-color: var(--success-light); }
-  }
-
+  .check.partial-check::after { content: ""; position: absolute; left: 4px; top: 10px; width: 12px; height: 2px; background: var(--partial); border-radius: 1px; }
+  @media (prefers-color-scheme: dark) { input[type="checkbox"]:checked + .check { background: var(--success-light); border-color: var(--success-light); } }
   .meal-info { flex: 1; min-width: 0; }
   .meal-info-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
   .meal-time { font-size: 10px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500; }
   .meal-title { font-size: 15px; font-weight: 500; margin: 2px 0 0; }
   .meal-cal { font-size: 13px; color: var(--text-secondary); font-weight: 500; white-space: nowrap; flex: 0 0 auto; }
-  .meal-desc { font-size: 13px; color: var(--text-secondary); margin: 4px 0 10px; line-height: 1.55; transition: opacity 0.2s; }
+  .meal-desc { font-size: 13px; color: var(--text-secondary); margin: 4px 0 10px; line-height: 1.55; }
   .meal-row.checked .meal-desc { opacity: 0.65; }
-  .meal-row.partial .meal-desc { opacity: 0.8; }
 
-  /* Skip items panel */
-  .skip-panel {
-    background: var(--bg-warning);
-    border: 0.5px solid var(--border-warning);
-    border-radius: var(--radius-md);
-    padding: 10px 12px;
-    margin: 0 0 10px;
-    display: none;
-  }
+  /* SKIP PANEL */
+  .skip-panel { background: var(--bg-warning); border: 0.5px solid var(--border-warning); border-radius: var(--radius-md); padding: 10px 12px; margin: 0 0 10px; display: none; }
   .skip-panel.open { display: block; }
   .skip-panel-title { font-size: 11px; font-weight: 500; color: var(--text-warning); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 8px; }
   .skip-items { display: flex; flex-wrap: wrap; gap: 6px; }
-  .skip-item {
-    font-size: 12px; padding: 4px 10px;
-    border-radius: 20px;
-    border: 1px solid var(--border-warning);
-    background: var(--bg-primary);
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: all 0.15s;
-    user-select: none;
-    display: inline-flex; align-items: center; gap: 5px;
-  }
-  .skip-item .item-cal {
-    font-size: 10px; color: var(--text-tertiary); font-weight: 400;
-  }
-  .skip-item.skipped {
-    background: var(--partial);
-    border-color: var(--partial);
-    color: white;
-    text-decoration: line-through;
-    opacity: 0.85;
-  }
+  .skip-item { font-size: 12px; padding: 4px 10px; border-radius: 20px; border: 1px solid var(--border-warning); background: var(--bg-primary); color: var(--text-secondary); cursor: pointer; transition: all 0.15s; user-select: none; display: inline-flex; align-items: center; gap: 5px; }
+  .skip-item .item-cal { font-size: 10px; color: var(--text-tertiary); }
+  .skip-item.skipped { background: var(--partial); border-color: var(--partial); color: white; text-decoration: line-through; opacity: 0.85; }
   .skip-item.skipped .item-cal { color: rgba(255,255,255,0.85); }
-  .skip-done-btn {
-    margin-top: 8px; width: 100%;
-    padding: 7px; font-size: 12px; font-weight: 500;
-    background: var(--partial); color: white;
-    border: none; border-radius: var(--radius-md);
-    cursor: pointer; font-family: inherit;
-  }
-  .partial-badge {
-    font-size: 10px; color: var(--partial);
-    font-weight: 500; margin-top: 3px;
-  }
-  @media (prefers-color-scheme: dark) {
-    .skip-item.skipped { background: var(--partial-light); border-color: var(--partial-light); color: #1a1a18; }
-    .skip-item.skipped .item-cal { color: rgba(26,26,24,0.8); }
-    .skip-done-btn { background: var(--partial-light); color: #1a1a18; }
-  }
+  .skip-done-btn { margin-top: 8px; width: 100%; padding: 7px; font-size: 12px; font-weight: 500; background: var(--partial); color: white; border: none; border-radius: var(--radius-md); cursor: pointer; font-family: inherit; }
+  @media (prefers-color-scheme: dark) { .skip-item.skipped { background: var(--partial-light); border-color: var(--partial-light); color: #1a1a18; } .skip-done-btn { background: var(--partial-light); color: #1a1a18; } }
 
-  .alt-line {
-    font-size: 12px; color: var(--text-info); margin: 4px 0 10px; line-height: 1.5;
-    padding: 8px 10px; background: var(--bg-info); border-radius: var(--radius-md);
-  }
-  .recipe-line {
-    font-size: 12px; color: var(--text-primary); margin: 4px 0 10px; line-height: 1.5;
-    padding: 8px 10px; background: var(--bg-secondary); border-radius: var(--radius-md);
-    border-left: 2px solid var(--border-secondary);
-  }
+  .alt-line { font-size: 12px; color: var(--text-info); margin: 4px 0 10px; line-height: 1.5; padding: 8px 10px; background: var(--bg-info); border-radius: var(--radius-md); }
   .bottom-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
   .macro-pills { display: flex; gap: 6px; flex-wrap: wrap; }
   .pill { font-size: 11px; padding: 3px 9px; border-radius: var(--radius-md); font-weight: 500; }
@@ -430,232 +222,74 @@
   .pill-c { background: var(--pill-c-bg); color: var(--pill-c-tx); }
   .pill-f { background: var(--pill-f-bg); color: var(--pill-f-tx); }
   .pill-fib { background: var(--pill-fib-bg); color: var(--pill-fib-tx); }
-
-  /* Meal action buttons */
   .meal-actions { display: flex; gap: 6px; margin-top: 10px; }
-  .meal-action-btn {
-    font-size: 11px; padding: 5px 10px;
-    border-radius: var(--radius-md);
-    border: 0.5px solid var(--border-tertiary);
-    background: var(--bg-secondary);
-    color: var(--text-secondary);
-    cursor: pointer; font-family: inherit; font-weight: 500;
-    transition: all 0.15s;
-  }
+  .meal-action-btn { font-size: 11px; padding: 5px 10px; border-radius: var(--radius-md); border: 0.5px solid var(--border-tertiary); background: var(--bg-secondary); color: var(--text-secondary); cursor: pointer; font-family: inherit; font-weight: 500; transition: all 0.15s; }
   .meal-action-btn:hover { border-color: var(--border-secondary); color: var(--text-primary); }
   .meal-action-btn.partial-btn { color: var(--partial); border-color: var(--border-warning); background: var(--bg-warning); }
   .meal-action-btn.edit-btn { color: var(--text-info); border-color: var(--border-info); background: var(--bg-info); }
 
   details.groc { font-size: 12px; }
-  details.groc summary {
-    cursor: pointer; color: var(--text-secondary); padding: 4px 10px;
-    border: 0.5px solid var(--border-tertiary); border-radius: var(--radius-md);
-    background: var(--bg-primary); font-weight: 500; list-style: none;
-    user-select: none; display: inline-flex; align-items: center; gap: 4px;
-  }
+  details.groc summary { cursor: pointer; color: var(--text-secondary); padding: 4px 10px; border: 0.5px solid var(--border-tertiary); border-radius: var(--radius-md); background: var(--bg-primary); font-weight: 500; list-style: none; user-select: none; display: inline-flex; align-items: center; gap: 4px; }
   details.groc summary::-webkit-details-marker { display: none; }
-  details.groc summary::after { content: "\25BE"; font-size: 10px; transition: transform 0.15s; }
+  details.groc summary::after { content: "\25BE"; font-size: 10px; }
   details.groc[open] summary::after { transform: rotate(180deg); }
-  .groc-content {
-    margin-top: 8px; padding: 10px 12px; background: var(--bg-secondary);
-    border-radius: var(--radius-md); font-size: 12px; color: var(--text-primary);
-    line-height: 1.6; border-left: 2px solid var(--border-secondary);
-  }
+  .groc-content { margin-top: 8px; padding: 10px 12px; background: var(--bg-secondary); border-radius: var(--radius-md); font-size: 12px; color: var(--text-primary); line-height: 1.6; border-left: 2px solid var(--border-secondary); }
 
-  /* Quantities block — same expand/collapse as groceries but rendered as a block above the macro pills row */
-  details.qty-block { display: block; margin: 6px 0 10px; }
-  details.qty-block summary {
-    display: flex; align-items: center; justify-content: space-between;
-    background: var(--bg-secondary); border: 0.5px solid var(--border-tertiary);
-    color: var(--text-primary); font-weight: 500;
-  }
-  details.qty-block summary::after { margin-left: auto; }
-
-  .day-totals {
-    background: var(--bg-secondary); border-radius: var(--radius-md);
-    padding: 12px 14px; margin-top: 14px;
-    display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
-  }
+  .day-totals { background: var(--bg-secondary); border-radius: var(--radius-md); padding: 12px 14px; margin-top: 14px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
   .tot-label { font-size: 10px; color: var(--text-tertiary); margin: 0; text-transform: uppercase; letter-spacing: 0.4px; font-weight: 500; }
   .tot-val { font-size: 14px; font-weight: 500; margin: 2px 0 0; }
   .note-box { font-size: 12px; color: var(--text-secondary); background: var(--bg-info); padding: 10px 12px; border-radius: var(--radius-md); margin-top: 10px; line-height: 1.55; }
 
-  /* Weekly grocery list (Sunday only) */
-  details.weekly-grocery {
-    margin-top: 24px;
-    background: var(--bg-primary);
-    border: 0.5px solid var(--border-tertiary);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-  }
-  .weekly-grocery-head {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 16px; cursor: pointer; list-style: none;
-    user-select: none; gap: 10px;
-  }
+  details.weekly-grocery { margin-top: 24px; background: var(--bg-primary); border: 0.5px solid var(--border-tertiary); border-radius: var(--radius-lg); overflow: hidden; }
+  .weekly-grocery-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; cursor: pointer; list-style: none; user-select: none; gap: 10px; }
   .weekly-grocery-head::-webkit-details-marker { display: none; }
-  .weekly-grocery-title {
-    display: block; font-size: 16px; font-weight: 500;
-    color: var(--text-primary);
-  }
-  .weekly-grocery-sub {
-    display: block; font-size: 12px; color: var(--text-secondary);
-    margin-top: 2px;
-  }
-  .weekly-grocery-caret {
-    font-size: 12px; color: var(--text-tertiary);
-    transition: transform 0.15s; flex: 0 0 auto;
-  }
+  .weekly-grocery-title { display: block; font-size: 16px; font-weight: 500; color: var(--text-primary); }
+  .weekly-grocery-sub { display: block; font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+  .weekly-grocery-caret { font-size: 12px; color: var(--text-tertiary); transition: transform 0.15s; }
   details.weekly-grocery[open] .weekly-grocery-caret { transform: rotate(180deg); }
-  .weekly-grocery-body {
-    padding: 0 16px 16px;
-    border-top: 0.5px solid var(--border-tertiary);
-    padding-top: 14px;
-  }
+  .weekly-grocery-body { padding: 0 16px 16px; border-top: 0.5px solid var(--border-tertiary); padding-top: 14px; }
   details.grocery-section { margin-bottom: 8px; }
-  details.grocery-section summary {
-    cursor: pointer; padding: 8px 12px;
-    background: var(--bg-secondary); border-radius: var(--radius-md);
-    font-size: 13px; font-weight: 500; color: var(--text-primary);
-    list-style: none; user-select: none;
-    display: flex; align-items: center;
-  }
+  details.grocery-section summary { cursor: pointer; padding: 8px 12px; background: var(--bg-secondary); border-radius: var(--radius-md); font-size: 13px; font-weight: 500; color: var(--text-primary); list-style: none; user-select: none; display: flex; align-items: center; }
   details.grocery-section summary::-webkit-details-marker { display: none; }
-  details.grocery-section summary::after {
-    content: "\25BE"; margin-left: auto; font-size: 10px;
-    transition: transform 0.15s; color: var(--text-tertiary);
-  }
+  details.grocery-section summary::after { content: "\25BE"; margin-left: auto; font-size: 10px; color: var(--text-tertiary); }
   details.grocery-section[open] summary::after { transform: rotate(180deg); }
-  .grocery-list {
-    list-style: none; padding: 8px 4px 4px; margin: 0;
-  }
-  .grocery-list li {
-    padding: 6px 12px; font-size: 13px;
-    color: var(--text-primary); line-height: 1.5;
-    border-bottom: 0.5px solid var(--border-tertiary);
-  }
+  .grocery-list { list-style: none; padding: 8px 4px 4px; margin: 0; }
+  .grocery-list li { padding: 6px 12px; font-size: 13px; color: var(--text-primary); line-height: 1.5; border-bottom: 0.5px solid var(--border-tertiary); }
   .grocery-list li:last-child { border-bottom: none; }
-  .weekly-grocery-note {
-    font-size: 11px; color: var(--text-tertiary);
-    margin: 12px 0 0; line-height: 1.55; font-style: italic;
-  }
+  .weekly-grocery-note { font-size: 11px; color: var(--text-tertiary); margin: 12px 0 0; line-height: 1.55; font-style: italic; }
 
-  /* Add meal button */
-  .add-meal-btn {
-    width: 100%; margin-top: 8px; padding: 12px;
-    font-size: 13px; font-weight: 500;
-    background: var(--bg-primary);
-    border: 1px dashed var(--border-secondary);
-    border-radius: var(--radius-lg);
-    color: var(--text-secondary);
-    cursor: pointer; font-family: inherit;
-    transition: all 0.15s;
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-  }
-  .add-meal-btn:hover { background: var(--bg-secondary); color: var(--text-primary); border-style: solid; }
+  .add-meal-btn { width: 100%; margin-top: 8px; padding: 12px; font-size: 13px; font-weight: 500; background: var(--bg-primary); border: 1px dashed var(--border-secondary); border-radius: var(--radius-lg); color: var(--text-secondary); cursor: pointer; font-family: inherit; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+  .add-meal-btn:hover { background: var(--bg-secondary); border-style: solid; }
 
-  /* Modal overlay */
-  .modal-overlay {
-    display: none; position: fixed; inset: 0;
-    background: rgba(0,0,0,0.5); z-index: 100;
-    align-items: flex-end; justify-content: center;
-    padding: 0;
-  }
+  /* MODALS */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: flex-end; justify-content: center; }
   .modal-overlay.open { display: flex; }
-  .modal {
-    background: var(--bg-primary);
-    border-radius: 20px 20px 0 0;
-    padding: 20px 20px calc(env(safe-area-inset-bottom) + 20px);
-    width: 100%; max-width: 760px;
-    max-height: 90vh; overflow-y: auto;
-    animation: slideUp 0.25s ease;
-  }
+  .modal { background: var(--bg-primary); border-radius: 20px 20px 0 0; padding: 20px 20px calc(env(safe-area-inset-bottom) + 20px); width: 100%; max-width: 760px; max-height: 90vh; overflow-y: auto; animation: slideUp 0.25s ease; }
   @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
   .modal-handle { width: 36px; height: 4px; background: var(--border-secondary); border-radius: 2px; margin: 0 auto 16px; }
   .modal-title { font-size: 17px; font-weight: 500; margin: 0 0 16px; }
   .modal-label { font-size: 12px; font-weight: 500; color: var(--text-secondary); margin: 0 0 6px; text-transform: uppercase; letter-spacing: 0.4px; }
-  .modal-input {
-    width: 100%; padding: 10px 12px; font-size: 14px;
-    background: var(--bg-secondary); border: 0.5px solid var(--border-tertiary);
-    border-radius: var(--radius-md); color: var(--text-primary);
-    font-family: inherit; outline: none; margin-bottom: 12px;
-    transition: border-color 0.15s;
-  }
+  .modal-input { width: 100%; padding: 10px 12px; font-size: 14px; background: var(--bg-secondary); border: 0.5px solid var(--border-tertiary); border-radius: var(--radius-md); color: var(--text-primary); font-family: inherit; outline: none; margin-bottom: 12px; transition: border-color 0.15s; }
   .modal-input:focus { border-color: var(--border-info); }
   .modal-input::placeholder { color: var(--text-tertiary); }
   .modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .modal-row-5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
   .modal-row-5 .modal-input { margin-bottom: 0; }
   .modal-macro-label { font-size: 11px; color: var(--text-tertiary); text-align: center; margin: 4px 0 12px; }
-
-  .ai-estimate-btn {
-    width: 100%; padding: 11px;
-    font-size: 13px; font-weight: 500;
-    background: var(--bg-info); color: var(--text-info);
-    border: 0.5px solid var(--border-info);
-    border-radius: var(--radius-md);
-    cursor: pointer; font-family: inherit;
-    margin-bottom: 12px; transition: opacity 0.15s;
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-  }
+  .ai-estimate-btn { width: 100%; padding: 11px; font-size: 13px; font-weight: 500; background: var(--bg-info); color: var(--text-info); border: 0.5px solid var(--border-info); border-radius: var(--radius-md); cursor: pointer; font-family: inherit; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 6px; }
   .ai-estimate-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-  .ai-status {
-    font-size: 12px; color: var(--text-secondary);
-    text-align: center; margin-bottom: 10px; min-height: 18px;
-  }
+  .ai-status { font-size: 12px; color: var(--text-secondary); text-align: center; margin-bottom: 10px; min-height: 18px; }
   .ai-status.error { color: var(--danger); }
-
   .modal-actions { display: flex; gap: 8px; margin-top: 4px; }
-  .modal-cancel {
-    flex: 1; padding: 12px; font-size: 14px; font-weight: 500;
-    background: var(--bg-secondary); color: var(--text-secondary);
-    border: none; border-radius: var(--radius-lg);
-    cursor: pointer; font-family: inherit;
-  }
-  .modal-save {
-    flex: 2; padding: 12px; font-size: 14px; font-weight: 500;
-    background: var(--success); color: white;
-    border: none; border-radius: var(--radius-lg);
-    cursor: pointer; font-family: inherit;
-    transition: opacity 0.15s;
-  }
-  .modal-save:disabled { opacity: 0.5; cursor: not-allowed; }
-  @media (prefers-color-scheme: dark) {
-    .modal-save { background: var(--success-light); color: #1a1a18; }
-  }
+  .modal-cancel { flex: 1; padding: 12px; font-size: 14px; font-weight: 500; background: var(--bg-secondary); color: var(--text-secondary); border: none; border-radius: var(--radius-lg); cursor: pointer; font-family: inherit; }
+  .modal-save { flex: 2; padding: 12px; font-size: 14px; font-weight: 500; background: var(--success); color: white; border: none; border-radius: var(--radius-lg); cursor: pointer; font-family: inherit; }
+  @media (prefers-color-scheme: dark) { .modal-save { background: var(--success-light); color: #1a1a18; } }
+  .reset-original-btn { width: 100%; padding: 10px; font-size: 12px; font-weight: 500; background: transparent; color: var(--text-secondary); border: 0.5px dashed var(--border-secondary); border-radius: var(--radius-md); cursor: pointer; font-family: inherit; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 6px; }
 
-  /* Edit meal modal */
-  .edit-modal .modal-title { font-size: 15px; }
-  .reset-original-btn {
-    width: 100%; padding: 10px;
-    font-size: 12px; font-weight: 500;
-    background: transparent; color: var(--text-secondary);
-    border: 0.5px dashed var(--border-secondary);
-    border-radius: var(--radius-md);
-    cursor: pointer; font-family: inherit;
-    margin-bottom: 10px;
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-    transition: all 0.15s;
-  }
-  .reset-original-btn:hover { background: var(--bg-secondary); color: var(--text-primary); border-style: solid; }
-
-  .day-tabs {
-    position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
-    display: flex; justify-content: center; gap: 4px;
-    padding: 10px 10px calc(env(safe-area-inset-bottom) + 10px);
-    background: color-mix(in srgb, var(--bg-page) 92%, transparent);
-    backdrop-filter: saturate(180%) blur(12px);
-    -webkit-backdrop-filter: saturate(180%) blur(12px);
-    border-top: 0.5px solid var(--border-tertiary);
-  }
+  /* DAY TABS */
+  .day-tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; display: flex; justify-content: center; gap: 4px; padding: 10px 10px calc(env(safe-area-inset-bottom) + 10px); background: color-mix(in srgb, var(--bg-page) 92%, transparent); backdrop-filter: saturate(180%) blur(12px); -webkit-backdrop-filter: saturate(180%) blur(12px); border-top: 0.5px solid var(--border-tertiary); }
   .day-tabs-inner { display: flex; gap: 4px; max-width: 760px; width: 100%; justify-content: space-between; }
-  .day-tab {
-    flex: 1; min-width: 0; padding: 10px 4px; font-size: 13px; font-weight: 500;
-    background: transparent; border: 0.5px solid var(--border-tertiary);
-    border-radius: var(--radius-md); cursor: pointer; color: var(--text-secondary);
-    font-family: inherit; display: flex; flex-direction: column; align-items: center; gap: 2px;
-    transition: all 0.15s;
-  }
+  .day-tab { flex: 1; min-width: 0; padding: 10px 4px; font-size: 13px; font-weight: 500; background: transparent; border: 0.5px solid var(--border-tertiary); border-radius: var(--radius-md); cursor: pointer; color: var(--text-secondary); font-family: inherit; display: flex; flex-direction: column; align-items: center; gap: 2px; transition: all 0.15s; }
   .day-tab .progress-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--border-tertiary); transition: background 0.2s; }
   .day-tab.has-checks .progress-dot { background: var(--success); }
   .day-tab.has-partial .progress-dot { background: var(--partial); }
@@ -668,55 +302,69 @@
 
 <header>
   <h1>Daily meal plan</h1>
-  <p class="subtitle">1,450 cal · 100g protein · 180g carbs · 35g fat · fiber-rich</p>
+  <p class="subtitle">~1,450 cal · 100g protein · 175g carbs · 42g fat · 25g+ protein per meal</p>
 </header>
+
+<div class="pms-toggle-bar">
+  <div class="pms-toggle-left">
+    <span class="pms-toggle-title">🌙 PMS / Low energy day</span>
+    <span class="pms-toggle-sub">Switch to simple, low-effort meals — same macros, less cooking</span>
+  </div>
+  <span class="pms-active-note">Lazy mode on</span>
+  <label class="pms-toggle-switch">
+    <input type="checkbox" id="pmsModeToggle">
+    <span class="pms-slider"></span>
+  </label>
+</div>
 
 <div class="tracker" id="tracker">
   <div class="tracker-head">
     <span class="tracker-label" id="trackerDayLabel">Monday's progress</span>
     <button class="reset-btn" id="resetBtn">Reset day</button>
   </div>
-
   <div class="cal-equation" id="calEquation"></div>
-
   <div class="tracker-grid" id="trackerGrid"></div>
 </div>
 
 <details class="activity" id="activityBlock">
   <summary class="activity-summary">
     <span class="activity-left">
-      <span class="activity-icon">
-        <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M13 4a3 3 0 11-6 0 3 3 0 016 0zm-3 5.5c-2.2 0-4 1-4 2.5v.5h1.5l.8 5h3.4l.8-5H14v-.5c0-1.5-1.8-2.5-4-2.5z"/></svg>
-      </span>
-      <span>
-        <span class="activity-label">Activity</span>
-        <span class="activity-summary-text" id="activitySummaryText">No activity logged</span>
-      </span>
+      <span class="activity-icon"><svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M13 4a3 3 0 11-6 0 3 3 0 016 0zm-3 5.5c-2.2 0-4 1-4 2.5v.5h1.5l.8 5h3.4l.8-5H14v-.5c0-1.5-1.8-2.5-4-2.5z"/></svg></span>
+      <span><span class="activity-label">Activity</span><span class="activity-summary-text" id="activitySummaryText">No activity logged</span></span>
     </span>
     <span class="activity-caret">▾</span>
   </summary>
   <div class="activity-body">
-    <p class="activity-hint">Quick log — tap a preset or add your own. Calories burned subtract from today's net.</p>
+    <p class="activity-hint">Log activity — calories burned subtract from today's net.</p>
     <div class="activity-presets" id="activityPresets"></div>
     <div class="activity-custom">
-      <input type="text" class="activity-input activity-input-name" id="activityName" placeholder="Activity name">
-      <input type="number" class="activity-input activity-input-cal" id="activityCal" placeholder="Cal" min="0">
+      <input type="text" class="activity-input" id="activityName" placeholder="Activity name">
+      <input type="number" class="activity-input" id="activityCal" placeholder="Cal" min="0">
       <button type="button" class="activity-add-btn" id="activityAddBtn">Add</button>
     </div>
     <ul class="activity-list" id="activityList"></ul>
   </div>
 </details>
 
-<details class="activity weight-block" id="weightBlock">
+<details class="activity" id="fitnessBlock">
   <summary class="activity-summary">
     <span class="activity-left">
-      <span class="activity-icon">
-        <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M4 6a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm6 1a2.5 2.5 0 00-2.45 2h4.9A2.5 2.5 0 0010 7z"/></svg>
-      </span>
-      <span>
-        <span class="activity-label">Weight & goal</span>
-        <span class="activity-summary-text" id="weightSummaryText">Not set</span>
-      </span>
+      <span class="activity-icon"><svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M3 10a1 1 0 011-1h1V7a1 1 0 011-1h1a1 1 0 011 1v6a1 1 0 01-1 1H6a1 1 0 01-1-1v-2H4a1 1 0 01-1-1zm9-4a1 1 0 011-1h1a1 1 0 011 1v2h1a1 1 0 110 2h-1v2a1 1 0 01-1 1h-1a1 1 0 01-1-1V6z"/></svg></span>
+      <span><span class="activity-label">Fitness goals</span><span class="activity-summary-text" id="fitnessSummaryText">Tap to track this week</span></span>
+    </span>
+    <span class="activity-caret">▾</span>
+  </summary>
+  <div class="activity-body">
+    <p class="activity-hint">Weekly targets — tap to mark done. Resets every Monday.</p>
+    <div class="fitness-list" id="fitnessList"></div>
+  </div>
+</details>
+
+<details class="activity" id="weightBlock">
+  <summary class="activity-summary">
+    <span class="activity-left">
+      <span class="activity-icon"><svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M4 6a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm6 1a2.5 2.5 0 00-2.45 2h4.9A2.5 2.5 0 0010 7z"/></svg></span>
+      <span><span class="activity-label">Weight & goal</span><span class="activity-summary-text" id="weightSummaryText">Not set</span></span>
     </span>
     <span class="activity-caret">▾</span>
   </summary>
@@ -725,796 +373,502 @@
       <button type="button" class="weight-unit-btn" data-unit="kg">kg</button>
       <button type="button" class="weight-unit-btn" data-unit="lb">lb</button>
     </div>
-
     <div class="weight-inputs">
-      <div class="weight-input-group">
-        <label class="weight-input-label" for="weightCurrent">Current</label>
-        <input type="number" class="activity-input weight-input" id="weightCurrent" placeholder="0" step="0.1">
-      </div>
-      <div class="weight-input-group">
-        <label class="weight-input-label" for="weightGoal">Goal</label>
-        <input type="number" class="activity-input weight-input" id="weightGoal" placeholder="0" step="0.1">
-      </div>
+      <div class="weight-input-group"><label class="weight-input-label" for="weightCurrent">Current</label><input type="number" class="activity-input weight-input" id="weightCurrent" placeholder="0" step="0.1"></div>
+      <div class="weight-input-group"><label class="weight-input-label" for="weightGoal">Goal</label><input type="number" class="activity-input weight-input" id="weightGoal" placeholder="0" step="0.1"></div>
     </div>
-
     <div class="weight-delta" id="weightDelta"></div>
   </div>
 </details>
 
 <div id="panels"></div>
-
 </div>
 
-<nav class="day-tabs">
-  <div class="day-tabs-inner" id="tabs"></div>
-</nav>
+<nav class="day-tabs"><div class="day-tabs-inner" id="tabs"></div></nav>
 
 <!-- Add Meal Modal -->
 <div class="modal-overlay" id="addMealModal">
   <div class="modal">
     <div class="modal-handle"></div>
     <p class="modal-title">Add a meal</p>
-
-    <p class="modal-label">Meal name</p>
-    <input type="text" class="modal-input" id="newMealTitle" placeholder="e.g. Dal rice + curd">
-
-    <p class="modal-label">Description (ingredients)</p>
-    <input type="text" class="modal-input" id="newMealDesc" placeholder="e.g. Yellow dal, brown rice, cucumber raita">
-
+    <p class="modal-label">Meal name</p><input type="text" class="modal-input" id="newMealTitle" placeholder="e.g. Dal rice + curd">
+    <p class="modal-label">Description</p><input type="text" class="modal-input" id="newMealDesc" placeholder="e.g. Yellow dal, rice, raita">
     <p class="modal-label">Time / label</p>
-    <div class="modal-row">
-      <input type="text" class="modal-input" id="newMealTime" placeholder="e.g. 3pm · Snack">
-      <input type="number" class="modal-input" id="newMealCal" placeholder="Calories">
-    </div>
-
-    <button class="ai-estimate-btn" id="aiEstimateBtn">
-      <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 1.5a6.5 6.5 0 110 13 6.5 6.5 0 010-13zm0 2a1 1 0 00-1 1v3.586L7.707 8.793a1 1 0 10-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 10-1.414-1.414L11 10.086V6.5a1 1 0 00-1-1z"/></svg>
-      Estimate nutrition with AI
-    </button>
+    <div class="modal-row"><input type="text" class="modal-input" id="newMealTime" placeholder="e.g. 3pm · Snack"><input type="number" class="modal-input" id="newMealCal" placeholder="Calories"></div>
+    <button class="ai-estimate-btn" id="aiEstimateBtn"><svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 1.5a6.5 6.5 0 110 13 6.5 6.5 0 010-13zm0 2a1 1 0 00-1 1v3.586L7.707 8.793a1 1 0 10-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 10-1.414-1.414L11 10.086V6.5a1 1 0 00-1-1z"/></svg>Estimate nutrition with AI</button>
     <p class="ai-status" id="aiStatus"></p>
-
-    <p class="modal-label">Macros (edit if needed)</p>
-    <div class="modal-row-5">
-      <input type="number" class="modal-input" id="newMealP" placeholder="P (g)">
-      <input type="number" class="modal-input" id="newMealC" placeholder="C (g)">
-      <input type="number" class="modal-input" id="newMealF" placeholder="F (g)">
-      <input type="number" class="modal-input" id="newMealFib" placeholder="Fib (g)">
-      <input type="number" class="modal-input" id="newMealCal2" placeholder="Cal" style="display:none">
-    </div>
+    <p class="modal-label">Macros</p>
+    <div class="modal-row-5"><input type="number" class="modal-input" id="newMealP" placeholder="P (g)"><input type="number" class="modal-input" id="newMealC" placeholder="C (g)"><input type="number" class="modal-input" id="newMealF" placeholder="F (g)"><input type="number" class="modal-input" id="newMealFib" placeholder="Fib (g)"></div>
     <p class="modal-macro-label">Protein · Carbs · Fat · Fiber</p>
-
-    <div class="modal-actions">
-      <button class="modal-cancel" id="addMealCancel">Cancel</button>
-      <button class="modal-save" id="addMealSave">Add meal</button>
-    </div>
+    <div class="modal-actions"><button class="modal-cancel" id="addMealCancel">Cancel</button><button class="modal-save" id="addMealSave">Add meal</button></div>
   </div>
 </div>
 
 <!-- Edit Meal Modal -->
 <div class="modal-overlay" id="editMealModal">
-  <div class="modal edit-modal">
+  <div class="modal">
     <div class="modal-handle"></div>
     <p class="modal-title" id="editMealModalTitle">Edit meal</p>
-
-    <p class="modal-label">Meal name</p>
-    <input type="text" class="modal-input" id="editMealTitle" placeholder="Meal name">
-
-    <p class="modal-label">Description</p>
-    <input type="text" class="modal-input" id="editMealDesc" placeholder="Ingredients / description">
-
+    <p class="modal-label">Meal name</p><input type="text" class="modal-input" id="editMealTitle">
+    <p class="modal-label">Description</p><input type="text" class="modal-input" id="editMealDesc">
     <p class="modal-label">Time / label</p>
-    <div class="modal-row">
-      <input type="text" class="modal-input" id="editMealTime" placeholder="e.g. 3pm · Snack">
-      <input type="number" class="modal-input" id="editMealCal" placeholder="Calories">
-    </div>
-
-    <button class="ai-estimate-btn" id="editAiEstimateBtn">
-      <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 1.5a6.5 6.5 0 110 13 6.5 6.5 0 010-13zm0 2a1 1 0 00-1 1v3.586L7.707 8.793a1 1 0 10-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 10-1.414-1.414L11 10.086V6.5a1 1 0 00-1-1z"/></svg>
-      Re-estimate nutrition with AI
-    </button>
+    <div class="modal-row"><input type="text" class="modal-input" id="editMealTime"><input type="number" class="modal-input" id="editMealCal" placeholder="Calories"></div>
+    <button class="ai-estimate-btn" id="editAiEstimateBtn"><svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M10 2a8 8 0 100 16A8 8 0 0010 2zm0 1.5a6.5 6.5 0 110 13 6.5 6.5 0 010-13zm0 2a1 1 0 00-1 1v3.586L7.707 8.793a1 1 0 10-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 10-1.414-1.414L11 10.086V6.5a1 1 0 00-1-1z"/></svg>Re-estimate nutrition with AI</button>
     <p class="ai-status" id="editAiStatus"></p>
-
     <p class="modal-label">Macros</p>
-    <div class="modal-row-5">
-      <input type="number" class="modal-input" id="editMealP" placeholder="P (g)">
-      <input type="number" class="modal-input" id="editMealC" placeholder="C (g)">
-      <input type="number" class="modal-input" id="editMealF" placeholder="F (g)">
-      <input type="number" class="modal-input" id="editMealFib" placeholder="Fib (g)">
-    </div>
+    <div class="modal-row-5"><input type="number" class="modal-input" id="editMealP" placeholder="P (g)"><input type="number" class="modal-input" id="editMealC" placeholder="C (g)"><input type="number" class="modal-input" id="editMealF" placeholder="F (g)"><input type="number" class="modal-input" id="editMealFib" placeholder="Fib (g)"></div>
     <p class="modal-macro-label">Protein · Carbs · Fat · Fiber</p>
-
-    <button class="reset-original-btn" id="editMealResetOriginal" style="display:none">
-      <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor"><path d="M4 10a6 6 0 0110.472-4H12a1 1 0 100 2h5a1 1 0 001-1V2a1 1 0 10-2 0v2.5A8 8 0 102 10a1 1 0 102 0z"/></svg>
-      Reset to original
-    </button>
-
-    <div class="modal-actions">
-      <button class="modal-cancel" id="editMealCancel">Cancel</button>
-      <button class="modal-save" id="editMealSave">Save changes</button>
-    </div>
+    <button class="reset-original-btn" id="editMealResetOriginal" style="display:none">↩ Reset to original</button>
+    <div class="modal-actions"><button class="modal-cancel" id="editMealCancel">Cancel</button><button class="modal-save" id="editMealSave">Save changes</button></div>
   </div>
 </div>
 
 <script>
-const TARGETS = { cal: 1450, p: 100, c: 180, f: 35, fib: 25 };
-
-// Aggregated grocery list for the whole 7-day plan. Quantities computed from each meal's
-// quantities field. Round up where it makes sense for shopping (you can't buy 580g of chicken).
-const WEEKLY_GROCERY_LIST = [
-  { section: 'Protein', items: [
-    'Chicken breast — ~700g raw (Mon, Wed, Fri, Sat, Sun)',
-    'Eggs — 9 (note: Sat uses whites only, save 2 yolks)',
-    'Paneer — ~300g (Mon, Tue, Thu)',
-    'Plant protein powder — 7 scoops total (keep tub)'
-  ]},
-  { section: 'Dairy', items: [
-    'Dahi (curd) — ~1.1 kg (used every day)',
-    'Ghee — small jar (~25g used)'
-  ]},
-  { section: 'Pulses & lentils', items: [
-    'Moong dal (yellow) — 200g',
-    'Arhar/toor dal — 50g',
-    'Kala chana (black chickpeas) — 200g (soak overnight)',
-    'Rajma — 50g',
-    'White chickpeas (kabuli) — 50g'
-  ]},
-  { section: 'Grains', items: [
-    'White rice — 400g raw',
-    'Whole wheat spaghetti — 60g (or buy a small pack)',
-    'Wheat atta or 2 small rotis (for Wed + Fri)',
-    'Dosa batter — 120g (Thu) — or make from rice + urad'
-  ]},
-  { section: 'Vegetables', items: [
-    'Cucumber — ~1 kg (used every day)',
-    'Tomato — ~700g',
-    'Onion — ~500g',
-    'Capsicum / bell pepper — ~300g',
-    'Spinach (palak) — ~300g',
-    'Zucchini — 80g (Mon)',
-    'Broccoli — ~200g (Wed, Sat)',
-    'Mushroom — 40g (Wed)',
-    'Carrot — 60g (Sun)',
-    'Lettuce — 40g (Sun)',
-    'Cherry tomato — 40g (Sun)',
-    'Mint leaves — small bunch',
-    'Coriander leaves — small bunch',
-    'Garlic — 1 small head',
-    'Ginger — 1 small piece'
-  ]},
-  { section: 'Fruits', items: [
-    'Apples — 3 medium',
-    'Bananas — 4 small',
-    'Oranges — 2 medium',
-    'Lemons — 4–5',
-    'Seasonal fruit — ~300g (papaya / watermelon / mango)',
-    'Pomegranate — 40g (small handful)'
-  ]},
-  { section: 'Seeds, nuts & dry', items: [
-    'Chia seeds — 60g (used most mornings)',
-    'Raw almonds — ~50g (Tue, soak overnight)',
-    'Sunflower seeds — 20g',
-    'Pumpkin seeds — 10g',
-    'Makhana (fox nuts) — 30g (Fri)',
-    'Potato — ~600g (for aloo tikki — Mon, Wed, Fri) or buy ready frozen tikki'
-  ]},
-  { section: 'Oils & condiments', items: [
-    'Olive oil — small bottle (~50ml used)',
-    'Cooking oil — ~50ml',
-    'Mint chutney — small jar (or make fresh)',
-    'Tamarind chutney — small jar (Fri)',
-    'Coconut water — 1 tetrapak (Fri)',
-    'Cumin, black pepper, salt, rock salt, turmeric, chilli powder — pantry'
-  ]}
-];
-const DAY_NAMES = { mon:'Monday', tue:'Tuesday', wed:'Wednesday', thu:'Thursday', fri:'Friday', sat:'Saturday', sun:'Sunday' };
-const DAY_SHORT = { mon:'Mon', tue:'Tue', wed:'Wed', thu:'Thu', fri:'Fri', sat:'Sat', sun:'Sun' };
+const TARGETS = { cal:1450, p:100, c:175, f:42, fib:25 };
+const DAY_NAMES = {mon:'Monday',tue:'Tuesday',wed:'Wednesday',thu:'Thursday',fri:'Friday',sat:'Saturday',sun:'Sunday'};
+const DAY_SHORT = {mon:'Mon',tue:'Tue',wed:'Wed',thu:'Thu',fri:'Fri',sat:'Sat',sun:'Sun'};
 const DAY_ORDER = ['mon','tue','wed','thu','fri','sat','sun'];
 
-/* ----------------------------------------------------------------
-   Each `items` entry now carries per-item macros: {n, cal, p, c, f, fib}
-   - n: display name
-   - cal/p/c/f/fib: realistic one-serving values for that component
-   Partial-meal math now SUMS the macros of items you actually ate,
-   so skipping a 0-cal black coffee removes 0 cal (not a proportional share).
-   ---------------------------------------------------------------- */
-
+/* ─────────────────────────────────────────────────────────────────────────────
+   MEAL PLAN — updated:
+   • Minimum 25g protein per meal (added dahi/egg/paneer to carb-heavy meals)
+   • Fat raised to ~42g/day (extra ghee, nuts, seeds)
+   • Dessert card every day (~100–150 cal, intentional satisfaction)
+   • pms_meals = simple lazy versions for low-energy days
+   ───────────────────────────────────────────────────────────────────────────── */
 const MEAL_PLAN = {
-  mon: {
-    meals: [
-      { id:'mon-1', time:'7–8am · Pre-meal', title:'Coffee + chia water',
-        desc:'Black coffee + 1 tsp chia seeds soaked 10 min in warm water with lemon.',
-        quantities:'Black coffee (1 cup, no sugar) · Chia seeds (5g / 1 tsp) · Warm water (200ml) · Lemon (½)',
-        items:[
-          { n:'Black coffee', cal:0,  p:0, c:0, f:0, fib:0 },
-          { n:'Chia seeds',   cal:60, p:2, c:4, f:3, fib:4 }
-        ] },
-
-      { id:'mon-2', time:'1–2pm · Meal 1', title:'Chicken spaghetti + cucumber salad',
-        desc:'Grilled chicken breast (lemon, pepper, garlic) tossed with whole wheat spaghetti in olive oil, zucchini, bell pepper, spinach. Side: cucumber + tomato + onion with lemon.',
-        quantities:'Raw chicken breast (120g) · Dry whole wheat spaghetti (60g) · Olive oil (5ml / 1 tsp) · Zucchini (80g) · Bell pepper (60g) · Spinach (40g) · Cucumber (80g) · Tomato (70g) · Onion (30g) · Lemon (½) · Salt + pepper + garlic (to taste)',
-        items:[
-          { n:'Grilled chicken',         cal:200, p:35, c:0,  f:6, fib:0 },
-          { n:'Whole wheat spaghetti',   cal:220, p:8,  c:44, f:2, fib:6 },
-          { n:'Sautéed veggies',         cal:70,  p:2,  c:10, f:2, fib:3 },
-          { n:'Cucumber-tomato-onion',   cal:30,  p:1,  c:5,  f:0, fib:2 }
-        ],
-        zomato:'Grilled chicken breast (150g) from FreshMenu, EatFit, Salad Days. No butter, no cream.' },
-
-      { id:'mon-3', time:'4–5pm · Snack', title:'Aloo tikki + orange',
-        desc:'2 small baked aloo tikkis with mint-coriander chutney + 1 medium orange.',
-        quantities:'Aloo tikki (2 small / ~100g total) · Mint chutney (1 tbsp / 15g) · Orange (1 medium / 130g)',
-        items:[
-          { n:'Aloo tikki (x2)',  cal:160, p:3, c:28, f:4, fib:3 },
-          { n:'Mint chutney',     cal:20,  p:1, c:2,  f:0, fib:1 },
-          { n:'Orange',           cal:70,  p:1, c:16, f:0, fib:3 }
-        ] },
-
-      { id:'mon-4', time:'6–6:30pm · Pre-workout', title:'Apple + plant protein',
-        desc:'Medium apple with skin + Nutrabay plant protein in water.',
-        quantities:'Apple (1 medium / 180g, with skin) · Plant protein (1 scoop / ~30g) · Water (250ml)',
-        items:[
-          { n:'Apple',                cal:80,  p:1,  c:21, f:0, fib:4 },
-          { n:'Plant protein shake',  cal:120, p:25, c:1,  f:2, fib:1 }
-        ] },
-
-      { id:'mon-5', time:'8–8:30pm · Meal 2', title:'Moong dal chilla + dahi',
-        desc:'2 moong dal chillas stuffed with sautéed paneer, onion, capsicum, coriander. Fresh dahi with jeera + chia on the side.',
-        quantities:'Moong dal (60g dry, soaked) · Paneer (60g) · Onion (40g) · Capsicum (40g) · Coriander · Dahi (150g) · Chia seeds (5g / 1 tsp) · Cumin powder · Salt',
-        items:[
-          { n:'Moong dal chilla (x2)',  cal:240, p:14, c:32, f:5, fib:7 },
-          { n:'Paneer filling',         cal:150, p:12, c:4,  f:9, fib:2 },
-          { n:'Dahi with chia',         cal:100, p:6,  c:14, f:2, fib:3 }
-        ] }
+  mon:{
+    meals:[
+      {id:'mon-1',time:'7–8am · Pre-meal',title:'Coffee + chia water',
+       desc:'Black coffee + 1 tsp chia seeds soaked in warm water with lemon.',
+       quantities:'Black coffee (1 cup) · Chia seeds (5g) · Warm water (200ml) · Lemon (½)',
+       items:[{n:'Black coffee',cal:0,p:0,c:0,f:0,fib:0},{n:'Chia seeds',cal:60,p:2,c:4,f:3,fib:4}]},
+      {id:'mon-2',time:'1–2pm · Meal 1',title:'Chicken spaghetti + dahi',
+       desc:'Grilled chicken + whole wheat spaghetti sautéed with zucchini, bell pepper, spinach in olive oil. Cucumber-tomato salad + 100g dahi on side (adds 7g protein to balance the carbs).',
+       quantities:'Chicken (120g raw) · WW spaghetti (60g dry) · Olive oil (5ml) · Zucchini (80g) · Bell pepper (60g) · Spinach (40g) · Cucumber (80g) · Tomato (70g) · Dahi (100g)',
+       items:[{n:'Grilled chicken',cal:200,p:35,c:0,f:6,fib:0},{n:'WW spaghetti',cal:220,p:8,c:44,f:2,fib:6},{n:'Sautéed veggies',cal:70,p:2,c:10,f:2,fib:3},{n:'Cucumber-tomato',cal:30,p:1,c:5,f:0,fib:2},{n:'Dahi (100g)',cal:60,p:7,c:4,f:1,fib:0}],
+       zomato:'Grilled chicken (150g) from FreshMenu / EatFit / Salad Days. No butter.'},
+      {id:'mon-3',time:'4–5pm · Snack',title:'Aloo tikki + dahi dip + orange',
+       desc:'2 baked aloo tikkis with thick dahi dip (replaces plain chutney — adds ~10g protein). Fixes the carb-only tikki problem. + 1 orange.',
+       quantities:'Aloo tikki (2 small / ~100g) · Thick dahi (60g, drained) · Mint chutney (1 tbsp) · Orange (1 medium)',
+       items:[{n:'Aloo tikki (x2)',cal:160,p:3,c:28,f:4,fib:3},{n:'Thick dahi dip',cal:80,p:10,c:4,f:3,fib:0},{n:'Orange',cal:70,p:1,c:16,f:0,fib:3}]},
+      {id:'mon-4',time:'6–6:30pm · Pre-workout',title:'Apple + plant protein',
+       desc:'Medium apple + plant protein shake in water.',
+       items:[{n:'Apple',cal:80,p:1,c:21,f:0,fib:4},{n:'Protein shake',cal:120,p:25,c:1,f:2,fib:1}]},
+      {id:'mon-5',time:'8–8:30pm · Meal 2',title:'Moong dal chilla + paneer + dahi',
+       desc:'2 moong dal chillas with paneer-onion-capsicum filling. Extra ghee (1 tsp) on chilla for hormone support. Dahi with jeera + chia on side.',
+       quantities:'Moong dal (60g dry) · Paneer (70g) · Onion (40g) · Capsicum (40g) · Ghee (5g) · Dahi (150g) · Chia (5g)',
+       items:[{n:'Moong dal chilla (x2)',cal:240,p:14,c:32,f:5,fib:7},{n:'Paneer filling (70g)',cal:180,p:13,c:4,f:12,fib:2},{n:'Dahi with chia',cal:100,p:6,c:14,f:2,fib:3}]},
+      {id:'mon-d',time:'After dinner · Dessert',title:'Dark chocolate + almonds',isDessert:true,
+       desc:'2 squares dark chocolate (70%+) + 4 almonds. Intentional satisfaction — prevents the "ate clean but still want pizza" spiral.',
+       items:[{n:'Dark chocolate (20g)',cal:110,p:2,c:8,f:7,fib:2},{n:'Almonds (4)',cal:40,p:1,c:1,f:4,fib:1}]}
     ],
-    note:'Weight training day. B12 + multivitamin with meal 1. Aloo tikki snack — measure 100g total.'
+    pms_meals:[
+      {id:'mon-pms-1',time:'Morning',title:'Banana + protein shake',isPms:true,
+       desc:'1 banana + 1 scoop protein in milk or water. Done in 2 minutes.',
+       items:[{n:'Banana + protein',cal:220,p:26,c:26,f:3,fib:3}]},
+      {id:'mon-pms-2',time:'Lunch',title:'Curd rice + 2 boiled eggs',isPms:true,
+       desc:'Leftover rice + dahi mixed with salt + jeera. 2 boiled eggs on side.',
+       items:[{n:'Curd rice (200g)',cal:280,p:10,c:48,f:4,fib:2},{n:'Boiled eggs (x2)',cal:160,p:14,c:2,f:10,fib:0}]},
+      {id:'mon-pms-3',time:'Snack',title:'Protein shake + fruit',isPms:true,
+       desc:'1 scoop protein + any fruit. No prep needed.',
+       items:[{n:'Protein shake',cal:120,p:25,c:1,f:2,fib:1},{n:'Fruit',cal:80,p:1,c:20,f:0,fib:3}]},
+      {id:'mon-pms-4',time:'Dinner',title:'Paneer + 2 rotis + dahi',isPms:true,
+       desc:'Paneer sautéed with onion-tomato + 2 rotis + dahi. 15 minutes.',
+       items:[{n:'Paneer (80g)',cal:220,p:16,c:5,f:15,fib:1},{n:'Rotis x2',cal:240,p:6,c:44,f:4,fib:6},{n:'Dahi (100g)',cal:60,p:7,c:4,f:1,fib:0}]},
+      {id:'mon-pms-d',time:'Evening',title:'Dark chocolate',isPms:true,isDessert:true,
+       desc:'2 squares dark chocolate. Non-negotiable comfort.',
+       items:[{n:'Dark chocolate',cal:110,p:2,c:8,f:7,fib:2}]}
+    ],
+    note:'Weight training day. B12 + multivitamin with meal 1. Dahi dip with tikki fixes the carb-only snack problem.'
   },
 
-  tue: {
-    meals: [
-      { id:'tue-1', time:'7–8am · Pre-meal', title:'Coffee + soaked almonds',
-        desc:'Black coffee + 6 overnight-soaked almonds, peel off skins.',
-        quantities:'Black coffee (1 cup) · Soaked almonds (6 / ~8g)',
-        items:[
-          { n:'Black coffee',     cal:0,  p:0, c:0, f:0, fib:0 },
-          { n:'Soaked almonds',   cal:80, p:3, c:3, f:6, fib:2 }
-        ] },
-
-      { id:'tue-2', time:'1–2pm · Meal 1', title:'Kala chana + rice + raita',
-        desc:'Kala chana curry (tomato-onion-ginger), white rice, sautéed palak, cucumber raita.',
-        quantities:'Kala chana (50g dry, soaked & boiled / ~120g cooked) · White rice (50g dry / ~120g cooked) · Spinach (60g) · Cucumber (60g) · Dahi (100g) · Tomato (40g) · Onion (30g) · Ginger · 1 tsp oil · Salt + spices',
-        items:[
-          { n:'Kala chana curry',  cal:200, p:12, c:28, f:5, fib:9 },
-          { n:'White rice',        cal:200, p:4,  c:44, f:0, fib:1 },
-          { n:'Sautéed palak',     cal:60,  p:3,  c:4,  f:3, fib:3 },
-          { n:'Cucumber raita',    cal:60,  p:7,  c:2,  f:1, fib:1 }
-        ] },
-
-      { id:'tue-3', time:'4–5pm · Snack', title:'Fruit + protein shake',
-        desc:'1 scoop plant protein + 1 small pear or apple.',
-        quantities:'Plant protein (1 scoop / ~30g) · Pear or apple (1 small / ~150g) · Water (250ml)',
-        items:[
-          { n:'Protein shake',       cal:120, p:25, c:1,  f:2, fib:1 },
-          { n:'Fruit (pear/apple)',  cal:100, p:1,  c:21, f:0, fib:4 }
-        ] },
-
-      { id:'tue-4', time:'6pm · Pre-dinner', title:'Cucumber + dahi-mint dip',
-        desc:'Cucumber sticks with thick dahi-mint dip (dahi, mint, garlic, black pepper, lemon).',
-        quantities:'Cucumber (150g) · Dahi (60g, drained 30 min) · Mint leaves (5g) · Garlic (1 small clove) · Black pepper · Lemon · Salt',
-        items:[
-          { n:'Cucumber sticks',     cal:20,  p:1, c:4, f:0, fib:2 },
-          { n:'Dahi-mint dip',       cal:80,  p:6, c:6, f:3, fib:1 }
-        ] },
-
-      { id:'tue-5', time:'8–8:30pm · Meal 2', title:'Paneer chilla + cucumber-tomato salad',
-        desc:'2 moong-dal chillas stuffed with paneer bhurji (onion, tomato, capsicum). Side: cucumber-tomato-onion salad with lemon.',
-        quantities:'Moong dal (60g dry) · Paneer (80g, crumbled) · Onion (40g) · Tomato (50g) · Capsicum (40g) · Cucumber (80g) · Lemon · 1 tsp oil · Salt + spices',
-        items:[
-          { n:'Moong dal chilla (x2)',     cal:240, p:14, c:32, f:5, fib:7 },
-          { n:'Paneer bhurji filling',     cal:180, p:14, c:6,  f:11, fib:2 },
-          { n:'Cucumber-tomato salad',     cal:40,  p:1,  c:6,  f:0,  fib:3 }
-        ] }
+  tue:{
+    meals:[
+      {id:'tue-1',time:'7–8am · Pre-meal',title:'Coffee + soaked almonds',
+       desc:'Black coffee + 8 overnight-soaked almonds (upped from 6 for better fat).',
+       items:[{n:'Black coffee',cal:0,p:0,c:0,f:0,fib:0},{n:'Soaked almonds (8)',cal:100,p:3,c:3,f:9,fib:2}]},
+      {id:'tue-2',time:'1–2pm · Meal 1',title:'Kala chana + rice + raita + egg',
+       desc:'Kala chana curry, white rice, sautéed palak, cucumber raita. Added 1 boiled egg — dal+rice alone was only ~16g protein.',
+       quantities:'Kala chana (50g dry) · White rice (50g dry) · Spinach (60g) · Dahi (100g) · Cucumber (60g) · Boiled egg (1)',
+       items:[{n:'Kala chana curry',cal:200,p:12,c:28,f:5,fib:9},{n:'White rice',cal:200,p:4,c:44,f:0,fib:1},{n:'Sautéed palak',cal:60,p:3,c:4,f:3,fib:3},{n:'Cucumber raita',cal:60,p:7,c:2,f:1,fib:1},{n:'Boiled egg',cal:80,p:7,c:1,f:5,fib:0}]},
+      {id:'tue-3',time:'4–5pm · Snack',title:'Fruit + protein shake',
+       desc:'1 scoop plant protein + 1 small apple or pear.',
+       items:[{n:'Protein shake',cal:120,p:25,c:1,f:2,fib:1},{n:'Fruit',cal:100,p:1,c:21,f:0,fib:4}]},
+      {id:'tue-4',time:'6pm · Pre-dinner',title:'Cucumber + dahi-mint dip',
+       desc:'Cucumber sticks with thick dahi-mint-garlic dip.',
+       items:[{n:'Cucumber sticks',cal:20,p:1,c:4,f:0,fib:2},{n:'Dahi-mint dip',cal:80,p:6,c:6,f:3,fib:1}]},
+      {id:'tue-5',time:'8–8:30pm · Meal 2',title:'Paneer chilla + boiled egg + salad',
+       desc:'2 moong dal chillas with paneer bhurji filling + 1 boiled egg on side. Cucumber-tomato salad.',
+       quantities:'Moong dal (60g dry) · Paneer (80g) · Onion (40g) · Tomato (50g) · Capsicum (40g) · Egg (1) · Cucumber (80g) · Ghee (3g)',
+       items:[{n:'Moong dal chilla (x2)',cal:240,p:14,c:32,f:5,fib:7},{n:'Paneer bhurji (80g)',cal:180,p:14,c:6,f:11,fib:2},{n:'Boiled egg',cal:80,p:7,c:1,f:5,fib:0},{n:'Cucumber-tomato',cal:40,p:1,c:6,f:0,fib:3}]},
+      {id:'tue-d',time:'After dinner · Dessert',title:'Hung curd with honey + seeds',isDessert:true,
+       desc:'100g thick hung curd + ½ tsp honey + 1 tsp mixed seeds. High protein, creamy, satisfying.',
+       items:[{n:'Hung curd (100g)',cal:80,p:9,c:5,f:2,fib:0},{n:'Honey + seeds',cal:50,p:1,c:5,f:3,fib:1}]}
     ],
-    note:'Vegetarian day (no chicken/eggs). Steps/run day. Lots of dahi-based protein.'
+    pms_meals:[
+      {id:'tue-pms-1',time:'Morning',title:'Protein oats',isPms:true,
+       desc:'Instant oats (40g) + 1 scoop protein powder + milk. Stir and eat.',
+       items:[{n:'Oats + protein + milk',cal:300,p:28,c:34,f:6,fib:4}]},
+      {id:'tue-pms-2',time:'Lunch',title:'Ready rajma + rice + dahi',isPms:true,
+       desc:'Canned/ready rajma heated up + white rice + dahi. 10 minutes.',
+       items:[{n:'Rajma (150g cooked)',cal:200,p:12,c:28,f:3,fib:8},{n:'White rice',cal:200,p:4,c:44,f:0,fib:1},{n:'Dahi',cal:60,p:7,c:4,f:1,fib:0}]},
+      {id:'tue-pms-3',time:'Snack',title:'Protein shake + banana',isPms:true,
+       desc:'Shake + banana.',
+       items:[{n:'Protein shake',cal:120,p:25,c:1,f:2,fib:1},{n:'Banana',cal:90,p:1,c:22,f:0,fib:2}]},
+      {id:'tue-pms-4',time:'Dinner',title:'Scrambled eggs + toast + dahi',isPms:true,
+       desc:'3 scrambled eggs + 2 slices WW toast + dahi. 10-minute dinner.',
+       items:[{n:'Scrambled eggs (3)',cal:230,p:18,c:2,f:16,fib:0},{n:'WW toast (2 slices)',cal:160,p:6,c:30,f:2,fib:4},{n:'Dahi',cal:60,p:7,c:4,f:1,fib:0}]},
+      {id:'tue-pms-d',time:'Evening',title:'Dark chocolate',isPms:true,isDessert:true,
+       desc:'2 squares dark chocolate.',
+       items:[{n:'Dark chocolate',cal:110,p:2,c:8,f:7,fib:2}]}
+    ],
+    note:'Vegetarian day. Boiled egg added to dal-rice lunch fixes the protein gap (16g → 23g).'
   },
 
-  wed: {
-    meals: [
-      { id:'wed-1', time:'7–8am · Pre-meal', title:'Coffee + chia water',
-        desc:'Black coffee + 1 tsp chia seeds in warm water with lemon.',
-        quantities:'Black coffee (1 cup) · Chia seeds (5g / 1 tsp) · Warm water (200ml) · Lemon (½)',
-        items:[
-          { n:'Black coffee', cal:0,  p:0, c:0, f:0, fib:0 },
-          { n:'Chia water',   cal:60, p:2, c:4, f:3, fib:4 }
-        ] },
-
-      { id:'wed-2', time:'1–2pm · Meal 1', title:'Rajma + white rice + cucumber salad + egg',
-        desc:'Rajma in minimal-oil gravy, white rice, cucumber + tomato + onion salad, 1 boiled egg.',
-        quantities:'Rajma (50g dry / ~120g cooked) · White rice (50g dry / ~120g cooked) · Cucumber (80g) · Tomato (60g) · Onion (30g) · Lemon · 1 boiled egg (50g) · 1 tsp oil · Salt + spices',
-        items:[
-          { n:'Rajma curry',              cal:210, p:13, c:28, f:6, fib:10 },
-          { n:'White rice',               cal:200, p:4,  c:44, f:0, fib:1 },
-          { n:'Cucumber-tomato-onion',    cal:50,  p:1,  c:7,  f:1, fib:3 },
-          { n:'Boiled egg',               cal:80,  p:7,  c:1,  f:5, fib:0 }
-        ] },
-
-      { id:'wed-3', time:'4–5pm · Snack', title:'Aloo tikki + orange',
-        desc:'2 small baked aloo tikkis with mint chutney + 1 medium orange.',
-        quantities:'Aloo tikki (2 small / ~100g total) · Mint chutney (1 tbsp / 15g) · Orange (1 medium / 130g)',
-        items:[
-          { n:'Aloo tikki (x2)',  cal:160, p:3, c:28, f:4, fib:3 },
-          { n:'Mint chutney',     cal:20,  p:1, c:2,  f:0, fib:1 },
-          { n:'Orange',           cal:70,  p:1, c:16, f:0, fib:3 }
-        ] },
-
-      { id:'wed-4', time:'6–6:30pm · Pre-workout', title:'Banana + protein',
-        desc:'Plant protein in water + 1 small banana.',
-        quantities:'Plant protein (1 scoop / ~30g) · Banana (1 small / ~100g) · Water (250ml)',
-        items:[
-          { n:'Protein shake', cal:120, p:25, c:1,  f:2, fib:1 },
-          { n:'Banana',        cal:90,  p:1,  c:22, f:0, fib:2 }
-        ] },
-
-      { id:'wed-5', time:'8–8:30pm · Meal 2', title:'Tandoori chicken + grilled veg + roti',
-        desc:'Tandoori chicken (yogurt-marinated), grilled mixed veg (capsicum, broccoli, mushroom, onion) in olive oil, mint chutney, 1 small wheat roti.',
-        quantities:'Raw chicken (120g) · Marinade dahi (30g) · Capsicum (40g) · Broccoli (60g) · Mushroom (40g) · Onion (30g) · Olive oil (5ml / 1 tsp) · Wheat roti (1 small / 30g) · Mint chutney (15g) · Spices',
-        items:[
-          { n:'Tandoori chicken',  cal:220, p:32, c:4,  f:8, fib:1 },
-          { n:'Grilled mixed veg', cal:90,  p:4,  c:12, f:3, fib:5 },
-          { n:'Wheat roti',        cal:120, p:3,  c:22, f:2, fib:3 },
-          { n:'Mint chutney',      cal:30,  p:1,  c:2,  f:0, fib:0 }
-        ],
-        zomato:'Tandoori chicken half-plate from Barbeque Nation, Absolute BBQ, Pind Balluchi. No butter.' }
+  wed:{
+    meals:[
+      {id:'wed-1',time:'7–8am · Pre-meal',title:'Coffee + chia water',
+       desc:'Black coffee + chia seeds in warm water with lemon.',
+       items:[{n:'Black coffee',cal:0,p:0,c:0,f:0,fib:0},{n:'Chia water',cal:60,p:2,c:4,f:3,fib:4}]},
+      {id:'wed-2',time:'1–2pm · Meal 1',title:'Rajma + rice + cucumber salad + 2 eggs',
+       desc:'Rajma curry, white rice, cucumber-tomato salad. 2 boiled eggs added — rajma alone was only ~13g protein.',
+       quantities:'Rajma (50g dry) · White rice (50g dry) · Cucumber (80g) · Tomato (60g) · Boiled eggs (2)',
+       items:[{n:'Rajma curry',cal:210,p:13,c:28,f:6,fib:10},{n:'White rice',cal:200,p:4,c:44,f:0,fib:1},{n:'Cucumber-tomato',cal:50,p:1,c:7,f:1,fib:3},{n:'Boiled eggs (x2)',cal:160,p:14,c:2,f:10,fib:0}]},
+      {id:'wed-3',time:'4–5pm · Snack',title:'Aloo tikki + dahi dip + orange',
+       desc:'2 baked aloo tikkis with thick dahi dip + orange.',
+       items:[{n:'Aloo tikki (x2)',cal:160,p:3,c:28,f:4,fib:3},{n:'Thick dahi dip',cal:80,p:10,c:4,f:3,fib:0},{n:'Orange',cal:70,p:1,c:16,f:0,fib:3}]},
+      {id:'wed-4',time:'6–6:30pm · Pre-workout',title:'Banana + protein',
+       desc:'Plant protein + 1 small banana.',
+       items:[{n:'Protein shake',cal:120,p:25,c:1,f:2,fib:1},{n:'Banana',cal:90,p:1,c:22,f:0,fib:2}]},
+      {id:'wed-5',time:'8–8:30pm · Meal 2',title:'Tandoori chicken + grilled veg + roti',
+       desc:'Tandoori chicken, grilled veg (capsicum, broccoli, mushroom), 1 small wheat roti with ghee, mint chutney.',
+       quantities:'Chicken (120g raw) · Marinade dahi (30g) · Mixed veg (130g) · Olive oil (5ml) · Roti (1 small / 30g) · Ghee (3g)',
+       items:[{n:'Tandoori chicken',cal:220,p:32,c:4,f:8,fib:1},{n:'Grilled mixed veg',cal:90,p:4,c:12,f:3,fib:5},{n:'Wheat roti + ghee',cal:140,p:3,c:22,f:5,fib:3},{n:'Mint chutney',cal:30,p:1,c:2,f:0,fib:0}],
+       zomato:'Tandoori chicken half-plate from BBQ Nation / Absolute BBQ. No butter.'},
+      {id:'wed-d',time:'After dinner · Dessert',title:'Dark chocolate + walnuts',isDessert:true,
+       desc:'2 squares dark chocolate + 3 walnut halves. Walnuts add omega-3 — good for hormones.',
+       items:[{n:'Dark chocolate (20g)',cal:110,p:2,c:8,f:7,fib:2},{n:'Walnuts (3 halves)',cal:50,p:1,c:1,f:5,fib:1}]}
     ],
-    note:'Weight training day. White rice + tikki at lunch + snack — high-carb day for training fuel.'
+    pms_meals:[
+      {id:'wed-pms-1',time:'Morning',title:'Banana + protein shake',isPms:true,
+       desc:'Banana + shake.',
+       items:[{n:'Banana + protein',cal:220,p:26,c:26,f:3,fib:3}]},
+      {id:'wed-pms-2',time:'Lunch',title:'Egg bhurji + 2 rotis + dahi',isPms:true,
+       desc:'3-egg bhurji (onion-tomato) + 2 rotis + dahi. Fast and satisfying.',
+       items:[{n:'Egg bhurji (3 eggs)',cal:230,p:18,c:6,f:15,fib:1},{n:'Rotis x2',cal:240,p:6,c:44,f:4,fib:6},{n:'Dahi (100g)',cal:60,p:7,c:4,f:1,fib:0}]},
+      {id:'wed-pms-3',time:'Snack',title:'Protein shake + fruit',isPms:true,
+       desc:'Shake + any fruit.',
+       items:[{n:'Protein shake',cal:120,p:25,c:1,f:2,fib:1},{n:'Fruit',cal:80,p:1,c:20,f:0,fib:3}]},
+      {id:'wed-pms-4',time:'Dinner',title:'Ready chicken + rice + dahi',isPms:true,
+       desc:'Buy grilled / rotisserie chicken + white rice + dahi. No cooking.',
+       items:[{n:'Grilled chicken (120g)',cal:200,p:35,c:0,f:6,fib:0},{n:'White rice',cal:200,p:4,c:44,f:0,fib:1},{n:'Dahi',cal:60,p:7,c:4,f:1,fib:0}]},
+      {id:'wed-pms-d',time:'Evening',title:'Dark chocolate',isPms:true,isDessert:true,
+       desc:'2 squares dark chocolate.',
+       items:[{n:'Dark chocolate',cal:110,p:2,c:8,f:7,fib:2}]}
+    ],
+    note:'Weight training day. Eggs added to rajma-rice fixes protein gap (13g → 27g). Tikki snack now has protein via dahi dip.'
   },
 
-  thu: {
-    meals: [
-      { id:'thu-1', time:'7–8am · Pre-meal', title:'Coffee + chia water',
-        desc:'Black coffee + 1 tsp chia seeds in warm water with lemon.',
-        quantities:'Black coffee (1 cup) · Chia seeds (5g / 1 tsp) · Warm water (200ml) · Lemon (½)',
-        items:[
-          { n:'Black coffee', cal:0,  p:0, c:0, f:0, fib:0 },
-          { n:'Chia water',   cal:60, p:2, c:4, f:3, fib:4 }
-        ] },
-
-      { id:'thu-2', time:'1–2pm · Meal 1', title:'Paneer bhurji + 2 dosas + dahi',
-        desc:'Paneer bhurji (onion, tomato, capsicum). 2 plain dosas. Fresh dahi with jeera + black salt, mint-coriander chutney.',
-        quantities:'Paneer (80g) · Onion (40g) · Tomato (50g) · Capsicum (40g) · Dosa batter for 2 (~120g) · 1 tsp ghee · Dahi (100g) · Cumin powder · Mint chutney (15g) · Salt + spices',
-        items:[
-          { n:'Paneer bhurji',     cal:200, p:14, c:6,  f:13, fib:2 },
-          { n:'Dosa (x2)',         cal:260, p:7,  c:46, f:4,  fib:2 },
-          { n:'Dahi with jeera',   cal:60,  p:7,  c:4,  f:1,  fib:0 },
-          { n:'Chutney',           cal:20,  p:1,  c:2,  f:0,  fib:2 }
-        ] },
-
-      { id:'thu-3', time:'4–5pm · Snack', title:'Dahi + fruit + chia',
-        desc:'Fresh dahi with chopped seasonal fruit (apple/pear/papaya) and 1 tsp chia.',
-        quantities:'Dahi (150g) · Seasonal fruit (100g, chopped) · Chia seeds (5g / 1 tsp)',
-        items:[
-          { n:'Dahi',            cal:90, p:7, c:8,  f:2, fib:0 },
-          { n:'Seasonal fruit',  cal:50, p:1, c:12, f:0, fib:3 },
-          { n:'Chia seeds',      cal:60, p:2, c:4,  f:3, fib:4 }
-        ] },
-
-      { id:'thu-4', time:'6pm · Pre-dinner', title:'Protein shake + apple',
-        desc:'1 scoop plant protein + 1 medium apple.',
-        quantities:'Plant protein (1 scoop / ~30g) · Apple (1 medium / 180g) · Water (250ml)',
-        items:[
-          { n:'Protein shake', cal:120, p:25, c:1,  f:2, fib:1 },
-          { n:'Apple',         cal:80,  p:1,  c:21, f:0, fib:4 }
-        ] },
-
-      { id:'thu-5', time:'8–8:30pm · Meal 2', title:'Chickpea + egg salad bowl',
-        desc:'Boiled chickpeas + cucumber, tomato, onion, pomegranate, coriander, lemon, olive oil, 2 boiled eggs, sunflower seeds.',
-        quantities:'Boiled chickpeas (100g cooked / ~40g dry) · Cucumber (80g) · Tomato (60g) · Onion (30g) · Pomegranate (40g) · Coriander · Olive oil (5ml / 1 tsp) · Lemon · Boiled eggs (2 / ~100g) · Sunflower seeds (8g / 1 tsp)',
-        items:[
-          { n:'Boiled chickpeas',  cal:180, p:10, c:30, f:3, fib:8 },
-          { n:'Salad veggies',     cal:60,  p:2,  c:12, f:0, fib:4 },
-          { n:'Boiled eggs (x2)',  cal:160, p:14, c:2,  f:10, fib:0 },
-          { n:'Sunflower seeds',   cal:50,  p:2,  c:2,  f:4, fib:1 }
-        ] }
+  thu:{
+    meals:[
+      {id:'thu-1',time:'7–8am · Pre-meal',title:'Coffee + chia water',
+       desc:'Black coffee + chia seeds in warm water with lemon.',
+       items:[{n:'Black coffee',cal:0,p:0,c:0,f:0,fib:0},{n:'Chia water',cal:60,p:2,c:4,f:3,fib:4}]},
+      {id:'thu-2',time:'1–2pm · Meal 1',title:'Paneer bhurji + 2 dosas + dahi',
+       desc:'Paneer bhurji (100g paneer — upped from 80g to fix protein ratio). 2 dosas with ghee. Fresh dahi with jeera. Previously this meal was fat+carb-heavy with low protein.',
+       quantities:'Paneer (100g) · Onion (40g) · Tomato (50g) · Capsicum (40g) · Dosa batter (120g) · Ghee (5g) · Dahi (100g)',
+       items:[{n:'Paneer bhurji (100g)',cal:240,p:17,c:6,f:16,fib:2},{n:'Dosa (x2)',cal:260,p:7,c:46,f:4,fib:2},{n:'Dahi with jeera',cal:60,p:7,c:4,f:1,fib:0},{n:'Chutney',cal:20,p:1,c:2,f:0,fib:2}]},
+      {id:'thu-3',time:'4–5pm · Snack',title:'Dahi + fruit + chia',
+       desc:'Thick dahi with chopped seasonal fruit + chia seeds.',
+       items:[{n:'Dahi (150g)',cal:90,p:7,c:8,f:2,fib:0},{n:'Seasonal fruit',cal:50,p:1,c:12,f:0,fib:3},{n:'Chia seeds',cal:60,p:2,c:4,f:3,fib:4}]},
+      {id:'thu-4',time:'6pm · Pre-dinner',title:'Protein shake + apple',
+       desc:'Plant protein shake + medium apple.',
+       items:[{n:'Protein shake',cal:120,p:25,c:1,f:2,fib:1},{n:'Apple',cal:80,p:1,c:21,f:0,fib:4}]},
+      {id:'thu-5',time:'8–8:30pm · Meal 2',title:'Chickpea + egg salad + seeds',
+       desc:'Boiled chickpeas + cucumber, tomato, onion, pomegranate, olive oil + 2 boiled eggs + sunflower & pumpkin seeds. Seeds added for fat + hormone support.',
+       quantities:'Boiled chickpeas (100g) · Cucumber (80g) · Tomato (60g) · Onion (30g) · Pomegranate (40g) · Olive oil (5ml) · Boiled eggs (2) · Seeds (13g)',
+       items:[{n:'Boiled chickpeas',cal:180,p:10,c:30,f:3,fib:8},{n:'Salad veggies',cal:60,p:2,c:12,f:0,fib:4},{n:'Boiled eggs (x2)',cal:160,p:14,c:2,f:10,fib:0},{n:'Sunflower + pumpkin seeds',cal:70,p:3,c:2,f:6,fib:2}]},
+      {id:'thu-d',time:'After dinner · Dessert',title:'Protein frozen yogurt',isDessert:true,
+       desc:'100g dahi + ½ scoop protein + 1 tsp honey. Blend and freeze 2 hrs. Creamy high-protein dessert.',
+       items:[{n:'Dahi + protein',cal:130,p:14,c:7,f:2,fib:0},{n:'Honey',cal:20,p:0,c:5,f:0,fib:0}]}
     ],
-    note:'Rest or light cardio day. Dahi-heavy day for protein from non-meat sources.'
+    pms_meals:[
+      {id:'thu-pms-1',time:'Morning',title:'Protein shake + almonds',isPms:true,
+       desc:'Protein shake + 6 almonds. Zero prep.',
+       items:[{n:'Protein shake',cal:120,p:25,c:1,f:2,fib:1},{n:'Almonds (6)',cal:100,p:3,c:3,f:9,fib:2}]},
+      {id:'thu-pms-2',time:'Lunch',title:'Curd + chana salad',isPms:true,
+       desc:'Boiled kala chana (canned/ready) + dahi + cucumber + lemon. No cooking.',
+       items:[{n:'Kala chana (120g)',cal:180,p:12,c:28,f:3,fib:8},{n:'Dahi (150g)',cal:90,p:7,c:8,f:2,fib:0},{n:'Cucumber + lemon',cal:20,p:1,c:4,f:0,fib:2}]},
+      {id:'thu-pms-3',time:'Snack',title:'Banana + protein',isPms:true,
+       desc:'Shake + banana.',
+       items:[{n:'Protein shake',cal:120,p:25,c:1,f:2,fib:1},{n:'Banana',cal:90,p:1,c:22,f:0,fib:2}]},
+      {id:'thu-pms-4',time:'Dinner',title:'Boiled eggs + toast + dahi',isPms:true,
+       desc:'3 boiled eggs + 2 WW toast + dahi. Easiest dinner.',
+       items:[{n:'Boiled eggs (3)',cal:240,p:21,c:3,f:15,fib:0},{n:'WW toast (2)',cal:160,p:6,c:30,f:2,fib:4},{n:'Dahi',cal:60,p:7,c:4,f:1,fib:0}]},
+      {id:'thu-pms-d',time:'Evening',title:'Dark chocolate',isPms:true,isDessert:true,
+       desc:'2 squares dark chocolate.',
+       items:[{n:'Dark chocolate',cal:110,p:2,c:8,f:7,fib:2}]}
+    ],
+    note:'Rest/light cardio day. Paneer upped to 100g to fix the dosa protein gap.'
   },
 
-  fri: {
-    meals: [
-      { id:'fri-1', time:'7–8am · Pre-meal', title:'Coffee + chia water',
-        desc:'Black coffee + 1 tsp chia seeds in warm water with lemon.',
-        quantities:'Black coffee (1 cup) · Chia seeds (5g / 1 tsp) · Warm water (200ml) · Lemon (½)',
-        items:[
-          { n:'Black coffee', cal:0,  p:0, c:0, f:0, fib:0 },
-          { n:'Chia water',   cal:60, p:2, c:4, f:3, fib:4 }
-        ] },
-
-      { id:'fri-2', time:'1–2pm · Meal 1', title:'Chicken tikka wrap + cucumber salad',
-        desc:'Chicken tikka (curd-marinated, grilled) rolled in 1 wheat roti with thick dahi spread, onion, capsicum, mint chutney. Side: cucumber + tomato + onion salad.',
-        quantities:'Raw chicken (100g) · Marinade dahi (30g) · Wheat roti (1 / 35g) · Thick dahi spread (50g, drained 30 min) · Onion (30g) · Capsicum (30g) · Mint chutney (15g) · Cucumber (80g) · Tomato (60g) · Lemon · Spices',
-        items:[
-          { n:'Chicken tikka wrap',       cal:400, p:36, c:36, f:12, fib:4 },
-          { n:'Thick dahi spread',        cal:60,  p:5,  c:4,  f:2,  fib:0 },
-          { n:'Cucumber-tomato salad',    cal:50,  p:1,  c:8,  f:0,  fib:4 }
-        ],
-        zomato:'Chicken tikka from Behrouz, Faasos, or tandoor places. No butter/cream. Cook wraps at home.' },
-
-      { id:'fri-3', time:'4–5pm · Snack', title:'Makhana + coconut water',
-        desc:'25g ghee-roasted makhana with rock salt + 200ml coconut water + 1 tsp chia.',
-        quantities:'Makhana (25g) · Ghee (3g / ½ tsp) · Rock salt · Coconut water (200ml) · Chia (5g / 1 tsp)',
-        items:[
-          { n:'Roasted makhana', cal:130, p:3, c:22, f:4, fib:3 },
-          { n:'Coconut water',   cal:50,  p:1, c:6,  f:1, fib:2 }
-        ] },
-
-      { id:'fri-4', time:'6–6:30pm · Pre-workout', title:'Banana + protein',
-        desc:'1 scoop plant protein + 1 small banana.',
-        quantities:'Plant protein (1 scoop / ~30g) · Banana (1 small / ~100g) · Water (250ml)',
-        items:[
-          { n:'Protein shake', cal:120, p:25, c:1,  f:2, fib:1 },
-          { n:'Banana',        cal:90,  p:1,  c:22, f:0, fib:2 }
-        ] },
-
-      { id:'fri-5', time:'8–8:30pm · Meal 2', title:'Aloo tikki + kala chana chaat',
-        desc:'2 baked aloo tikkis on kala chana chaat with cucumber, tomato, onion, coriander, lemon. Thick dahi on top + tamarind-mint chutney.',
-        quantities:'Aloo tikki (2 small / ~100g) · Kala chana cooked (120g / ~50g dry) · Cucumber (60g) · Tomato (50g) · Onion (30g) · Coriander · Lemon · Thick dahi (40g) · Tamarind-mint chutney (15g)',
-        items:[
-          { n:'Aloo tikki (x2)',   cal:220, p:5,  c:36, f:6, fib:4 },
-          { n:'Kala chana chaat',  cal:180, p:14, c:28, f:3, fib:7 },
-          { n:'Thick dahi',        cal:70,  p:6,  c:6,  f:1, fib:0 },
-          { n:'Chutney',           cal:30,  p:0,  c:5,  f:0, fib:1 }
-        ] }
+  fri:{
+    meals:[
+      {id:'fri-1',time:'7–8am · Pre-meal',title:'Coffee + chia water',
+       desc:'Black coffee + chia seeds in warm water with lemon.',
+       items:[{n:'Black coffee',cal:0,p:0,c:0,f:0,fib:0},{n:'Chia water',cal:60,p:2,c:4,f:3,fib:4}]},
+      {id:'fri-2',time:'1–2pm · Meal 1',title:'Chicken tikka wrap + dahi',
+       desc:'Chicken tikka rolled in roti with thick dahi spread + onion + capsicum + mint chutney. Extra dahi on side for more protein.',
+       quantities:'Chicken (100g raw) · Dahi (30g marinade + 80g spread/side) · Roti (1 / 35g) · Onion (30g) · Capsicum (30g) · Cucumber (80g)',
+       items:[{n:'Chicken tikka wrap',cal:400,p:36,c:36,f:12,fib:4},{n:'Thick dahi (80g)',cal:90,p:10,c:5,f:2,fib:0},{n:'Cucumber-tomato salad',cal:50,p:1,c:8,f:0,fib:4}],
+       zomato:'Chicken tikka from Behrouz / Faasos. No butter/cream.'},
+      {id:'fri-3',time:'4–5pm · Snack',title:'Makhana + coconut water + chia',
+       desc:'Ghee-roasted makhana with rock salt + coconut water + chia.',
+       items:[{n:'Roasted makhana',cal:130,p:3,c:22,f:4,fib:3},{n:'Coconut water',cal:50,p:1,c:6,f:1,fib:2}]},
+      {id:'fri-4',time:'6–6:30pm · Pre-workout',title:'Banana + protein',
+       desc:'Plant protein + 1 small banana.',
+       items:[{n:'Protein shake',cal:120,p:25,c:1,f:2,fib:1},{n:'Banana',cal:90,p:1,c:22,f:0,fib:2}]},
+      {id:'fri-5',time:'8–8:30pm · Meal 2',title:'Aloo tikki + kala chana chaat + dahi',
+       desc:'2 baked aloo tikkis on kala chana chaat with thick dahi + tamarind-mint chutney.',
+       items:[{n:'Aloo tikki (x2)',cal:220,p:5,c:36,f:6,fib:4},{n:'Kala chana chaat',cal:180,p:14,c:28,f:3,fib:7},{n:'Thick dahi (40g)',cal:70,p:6,c:6,f:1,fib:0},{n:'Chutney',cal:30,p:0,c:5,f:0,fib:1}]},
+      {id:'fri-d',time:'After dinner · Dessert',title:'Dark chocolate + peanut butter',isDessert:true,
+       desc:'2 squares dark chocolate + ½ tsp peanut butter. Fat + satisfaction combo — kills the post-dinner cravings.',
+       items:[{n:'Dark chocolate (20g)',cal:110,p:2,c:8,f:7,fib:2},{n:'Peanut butter (½ tsp)',cal:30,p:1,c:1,f:3,fib:0}]}
     ],
-    note:'Weight training day. Aloo tikki + kala chana chaat dinner — clean version, baked not fried.'
+    pms_meals:[
+      {id:'fri-pms-1',time:'Morning',title:'Banana + protein shake',isPms:true,
+       desc:'Banana + shake.',
+       items:[{n:'Banana + protein',cal:220,p:26,c:26,f:3,fib:3}]},
+      {id:'fri-pms-2',time:'Lunch',title:'Egg roll (2 eggs in roti)',isPms:true,
+       desc:'2 eggs beaten + fried in roti with onion. Comfort food that stays on track.',
+       items:[{n:'Egg roll (2 eggs + 2 rotis)',cal:480,p:22,c:52,f:18,fib:6}]},
+      {id:'fri-pms-3',time:'Snack',title:'Dahi + banana',isPms:true,
+       desc:'Dahi + banana. Potassium + protein.',
+       items:[{n:'Dahi (150g)',cal:90,p:7,c:8,f:2,fib:0},{n:'Banana',cal:90,p:1,c:22,f:0,fib:2}]},
+      {id:'fri-pms-4',time:'Dinner',title:'Paneer wrap + dahi',isPms:true,
+       desc:'2 rotis + paneer + dahi wrap. 10 minutes.',
+       items:[{n:'Paneer (80g)',cal:220,p:16,c:5,f:15,fib:1},{n:'Rotis x2',cal:240,p:6,c:44,f:4,fib:6},{n:'Dahi',cal:60,p:7,c:4,f:1,fib:0}]},
+      {id:'fri-pms-d',time:'Evening',title:'Dark chocolate',isPms:true,isDessert:true,
+       desc:'2 squares dark chocolate.',
+       items:[{n:'Dark chocolate',cal:110,p:2,c:8,f:7,fib:2}]}
+    ],
+    note:'Weight training day. Tikki snack now has dahi protein. Aloo tikki + kala chana chaat — baked, not fried.'
   },
 
-  sat: {
-    meals: [
-      { id:'sat-1', time:'7–8am · Pre-dance', title:'Coffee + banana',
-        desc:'Black coffee + ½ small banana with 1 tsp chia.',
-        quantities:'Black coffee (1 cup) · Banana (½ small / ~50g) · Chia (5g / 1 tsp)',
-        items:[
-          { n:'Black coffee', cal:0,  p:0, c:0,  f:0, fib:0 },
-          { n:'Banana',       cal:60, p:1, c:15, f:0, fib:2 },
-          { n:'Chia',         cal:50, p:1, c:5,  f:2, fib:2 }
-        ] },
-
-      { id:'sat-2', time:'10:30am · Post-dance', title:'Protein shake',
-        desc:'1 scoop Nutrabay plant protein in 200ml water.',
-        quantities:'Plant protein (1 scoop / ~30g) · Water (200ml)',
-        items:[
-          { n:'Protein shake', cal:130, p:25, c:3, f:2, fib:1 }
-        ] },
-
-      { id:'sat-3', time:'1–2pm · Meal 1', title:'Yellow dal + white rice + dahi',
-        desc:'Yellow dal tadka (moong/arhar), white rice, fresh dahi, cucumber-tomato salad, 2 boiled egg whites.',
-        quantities:'Yellow dal (50g dry / ~150g cooked) · White rice (50g dry / ~120g cooked) · Dahi (100g) · Cucumber (60g) · Tomato (50g) · Egg whites (2 / ~70g) · 1 tsp ghee · Cumin · Spices',
-        items:[
-          { n:'Yellow dal tadka',    cal:170, p:11, c:22, f:4, fib:4 },
-          { n:'White rice',          cal:200, p:4,  c:44, f:0, fib:1 },
-          { n:'Dahi',                cal:60,  p:6,  c:6,  f:1, fib:0 },
-          { n:'Cucumber-tomato',     cal:40,  p:1,  c:7,  f:1, fib:2 },
-          { n:'Boiled egg whites',   cal:35,  p:7,  c:0,  f:0, fib:0 }
-        ] },
-
-      { id:'sat-4', time:'5pm · Snack', title:'Dahi + fruit + seeds',
-        desc:'150g fresh dahi + 100g chopped seasonal fruit + 1 tsp chia + 1 tsp pumpkin seeds.',
-        quantities:'Dahi (150g) · Seasonal fruit (100g) · Chia seeds (5g) · Pumpkin seeds (5g)',
-        items:[
-          { n:'Dahi',            cal:90, p:7, c:8,  f:2, fib:0 },
-          { n:'Seasonal fruit',  cal:50, p:1, c:12, f:0, fib:3 },
-          { n:'Seeds mix',       cal:40, p:1, c:2,  f:3, fib:2 }
-        ] },
-
-      { id:'sat-5', time:'8–8:30pm · Meal 2', title:'Chicken curry + white rice + sautéed veg',
-        desc:'Home-style chicken curry (tomato-onion-ginger gravy, minimal oil), white rice, sautéed broccoli + capsicum with garlic, cucumber salad.',
-        quantities:'Raw chicken (120g) · Tomato (60g) · Onion (40g) · Ginger-garlic · 1 tsp oil · White rice (50g dry / ~120g cooked) · Broccoli (80g) · Capsicum (40g) · Cucumber (60g) · Spices',
-        items:[
-          { n:'Chicken curry',       cal:240, p:30, c:8,  f:9, fib:2 },
-          { n:'White rice',          cal:200, p:4,  c:44, f:0, fib:1 },
-          { n:'Sautéed broccoli',    cal:80,  p:4,  c:6,  f:5, fib:3 },
-          { n:'Cucumber salad',      cal:20,  p:1,  c:4,  f:0, fib:2 }
-        ] }
+  sat:{
+    meals:[
+      {id:'sat-1',time:'7–8am · Pre-dance',title:'Coffee + banana',
+       desc:'Black coffee + ½ small banana + chia.',
+       items:[{n:'Black coffee',cal:0,p:0,c:0,f:0,fib:0},{n:'Banana (½)',cal:60,p:1,c:15,f:0,fib:2},{n:'Chia',cal:50,p:1,c:5,f:2,fib:2}]},
+      {id:'sat-2',time:'10:30am · Post-dance',title:'Protein shake + fruit',
+       desc:'1 scoop plant protein + seasonal fruit within 30 min of dance.',
+       items:[{n:'Protein shake',cal:130,p:25,c:3,f:2,fib:1},{n:'Seasonal fruit',cal:50,p:0,c:13,f:0,fib:2}]},
+      {id:'sat-3',time:'1–2pm · Meal 1',title:'Yellow dal + rice + dahi + egg whites + ghee',
+       desc:'Yellow dal tadka, white rice + 1 tsp ghee, fresh dahi, 3 boiled egg whites (upped from 2 to fix the dal-rice protein gap), cucumber-tomato salad.',
+       quantities:'Yellow dal (50g dry) · White rice (50g dry) · Dahi (100g) · Egg whites (3) · Ghee (5g) · Cucumber + tomato',
+       items:[{n:'Yellow dal tadka',cal:170,p:11,c:22,f:4,fib:4},{n:'White rice + ghee',cal:230,p:4,c:44,f:4,fib:1},{n:'Dahi',cal:60,p:6,c:6,f:1,fib:0},{n:'Cucumber-tomato',cal:40,p:1,c:7,f:1,fib:2},{n:'Boiled egg whites (3)',cal:50,p:10,c:0,f:0,fib:0}]},
+      {id:'sat-4',time:'5pm · Snack',title:'Dahi + fruit + seeds',
+       desc:'Fresh dahi + seasonal fruit + chia + pumpkin seeds.',
+       items:[{n:'Dahi (150g)',cal:90,p:7,c:8,f:2,fib:0},{n:'Seasonal fruit',cal:50,p:1,c:12,f:0,fib:3},{n:'Seeds mix',cal:50,p:2,c:2,f:4,fib:2}]},
+      {id:'sat-5',time:'8–8:30pm · Meal 2',title:'Chicken curry + rice + sautéed broccoli',
+       desc:'Home-style chicken curry, white rice, sautéed broccoli + capsicum with garlic, cucumber salad.',
+       quantities:'Chicken (120g raw) · Tomato (60g) · Onion (40g) · Ghee (3g) · White rice (50g dry) · Broccoli (80g) · Capsicum (40g) · Cucumber (60g)',
+       items:[{n:'Chicken curry',cal:240,p:30,c:8,f:9,fib:2},{n:'White rice',cal:200,p:4,c:44,f:0,fib:1},{n:'Sautéed broccoli',cal:80,p:4,c:6,f:5,fib:3},{n:'Cucumber salad',cal:20,p:1,c:4,f:0,fib:2}]},
+      {id:'sat-d',time:'After dinner · Dessert',title:'Dark chocolate + almond butter',isDessert:true,
+       desc:'2 squares dark chocolate + ½ tsp almond butter. Dance recovery fats.',
+       items:[{n:'Dark chocolate (20g)',cal:110,p:2,c:8,f:7,fib:2},{n:'Almond butter (½ tsp)',cal:35,p:1,c:1,f:3,fib:0}]}
     ],
-    note:'Dance day. Post-dance protein shake within 30 min. Chicken curry dinner — no double dal today.'
+    pms_meals:[
+      {id:'sat-pms-1',time:'Morning',title:'Banana + protein shake',isPms:true,
+       desc:'Banana + shake. Quick pre-dance fuel.',
+       items:[{n:'Banana + protein',cal:220,p:26,c:26,f:3,fib:3}]},
+      {id:'sat-pms-2',time:'Post-dance',title:'Protein shake',isPms:true,
+       desc:'Just drink the shake.',
+       items:[{n:'Protein shake',cal:120,p:25,c:1,f:2,fib:1}]},
+      {id:'sat-pms-3',time:'Lunch',title:'Curd rice + 2 eggs',isPms:true,
+       desc:'Leftover rice + dahi + 2 eggs. 5 minutes.',
+       items:[{n:'Curd rice',cal:280,p:10,c:48,f:4,fib:2},{n:'Eggs (x2)',cal:160,p:14,c:2,f:10,fib:0}]},
+      {id:'sat-pms-4',time:'Dinner',title:'Ready chicken + 2 rotis + dahi',isPms:true,
+       desc:'Buy grilled chicken + 2 rotis + dahi.',
+       items:[{n:'Grilled chicken (120g)',cal:200,p:35,c:0,f:6,fib:0},{n:'Rotis x2',cal:240,p:6,c:44,f:4,fib:6},{n:'Dahi',cal:60,p:7,c:4,f:1,fib:0}]},
+      {id:'sat-pms-d',time:'Evening',title:'Dark chocolate',isPms:true,isDessert:true,
+       desc:'2 squares dark chocolate.',
+       items:[{n:'Dark chocolate',cal:110,p:2,c:8,f:7,fib:2}]}
+    ],
+    note:'Dance day. Egg whites upped to 3 to fix dal-rice protein gap. Ghee added for hormone support.'
   },
 
-  sun: {
-    meals: [
-      { id:'sun-1', time:'7–8am · Pre-dance', title:'Coffee + banana',
-        desc:'Black coffee + 1 small banana.',
-        quantities:'Black coffee (1 cup) · Banana (1 small / ~100g)',
-        items:[
-          { n:'Black coffee', cal:0,  p:0, c:0,  f:0, fib:0 },
-          { n:'Banana',       cal:90, p:1, c:22, f:0, fib:2 }
-        ] },
-
-      { id:'sun-2', time:'10:30am · Post-dance', title:'Protein + fruit',
-        desc:'1 scoop plant protein + 100g seasonal fruit (watermelon, papaya, mango, or apple).',
-        quantities:'Plant protein (1 scoop / ~30g) · Seasonal fruit (100g) · Water (250ml)',
-        items:[
-          { n:'Protein shake',   cal:120, p:25, c:1,  f:2, fib:1 },
-          { n:'Seasonal fruit',  cal:40,  p:0,  c:11, f:0, fib:2 }
-        ] },
-
-      { id:'sun-3', time:'1–2pm · Meal 1', title:'Chicken + rice + cucumber salad',
-        desc:'Grilled chicken over white rice, sautéed lettuce + spinach, cucumber + cherry tomato + olive oil-lemon dressing, sunflower seeds.',
-        quantities:'Raw chicken (120g) · White rice (50g dry / ~120g cooked) · Lettuce (40g) · Spinach (40g) · Cucumber (80g) · Cherry tomato (40g) · Olive oil (5ml / 1 tsp) · Lemon · Sunflower seeds (5g)',
-        items:[
-          { n:'Grilled chicken',         cal:200, p:35, c:0,  f:6, fib:0 },
-          { n:'White rice',              cal:200, p:4,  c:44, f:0, fib:1 },
-          { n:'Lettuce + spinach',       cal:30,  p:2,  c:3,  f:0, fib:3 },
-          { n:'Cucumber + cherry tomato',cal:30,  p:1,  c:6,  f:0, fib:2 },
-          { n:'Olive oil-lemon dressing',cal:50,  p:0,  c:1,  f:5, fib:0 }
-        ],
-        zomato:'Grilled chicken salad bowl from EatFit, Salad Days, FreshMenu.' },
-
-      { id:'sun-4', time:'5pm · Snack', title:'Cucumber sticks + dahi dip',
-        desc:'Cucumber + carrot sticks with thick dahi dip (garlic, mint, black pepper, lemon).',
-        quantities:'Cucumber (100g) · Carrot (60g) · Thick dahi (60g, drained 30 min) · Garlic (1 small clove) · Mint · Black pepper · Lemon · Salt',
-        items:[
-          { n:'Cucumber sticks',  cal:20, p:1, c:4, f:0, fib:2 },
-          { n:'Carrot sticks',    cal:30, p:1, c:6, f:0, fib:2 },
-          { n:'Thick dahi dip',   cal:80, p:6, c:2, f:5, fib:0 }
-        ] },
-
-      { id:'sun-5', time:'8–8:30pm · Meal 2', title:'Egg curry + white rice + palak',
-        desc:'3 hard-boiled eggs in tomato-onion-ginger curry, white rice, sautéed spinach with garlic, cucumber raita.',
-        quantities:'Eggs (3 / ~150g) · Tomato (60g) · Onion (40g) · Ginger-garlic · 1 tsp oil · White rice (50g dry / ~120g cooked) · Spinach (80g) · Cucumber (60g) · Dahi (60g) · Spices',
-        items:[
-          { n:'Egg curry (3 eggs)',  cal:260, p:20, c:8,  f:16, fib:2 },
-          { n:'White rice',          cal:200, p:4,  c:44, f:0,  fib:1 },
-          { n:'Sautéed palak',       cal:50,  p:2,  c:5,  f:2,  fib:3 },
-          { n:'Cucumber raita',      cal:40,  p:2,  c:5,  f:1,  fib:3 }
-        ] }
+  sun:{
+    meals:[
+      {id:'sun-1',time:'7–8am · Pre-dance',title:'Coffee + banana',
+       desc:'Black coffee + 1 small banana.',
+       items:[{n:'Black coffee',cal:0,p:0,c:0,f:0,fib:0},{n:'Banana',cal:90,p:1,c:22,f:0,fib:2}]},
+      {id:'sun-2',time:'10:30am · Post-dance',title:'Protein + fruit',
+       desc:'1 scoop protein + seasonal fruit within 30 min.',
+       items:[{n:'Protein shake',cal:120,p:25,c:1,f:2,fib:1},{n:'Seasonal fruit',cal:40,p:0,c:11,f:0,fib:2}]},
+      {id:'sun-3',time:'1–2pm · Meal 1',title:'Chicken + rice + salad + dahi',
+       desc:'Grilled chicken, white rice, sautéed lettuce + spinach, cucumber-cherry tomato salad. 100g dahi on side for extra protein.',
+       quantities:'Chicken (120g raw) · White rice (50g dry) · Lettuce (40g) · Spinach (40g) · Cucumber (80g) · Cherry tomato (40g) · Olive oil (5ml) · Dahi (100g)',
+       items:[{n:'Grilled chicken',cal:200,p:35,c:0,f:6,fib:0},{n:'White rice',cal:200,p:4,c:44,f:0,fib:1},{n:'Lettuce + spinach',cal:30,p:2,c:3,f:0,fib:3},{n:'Cucumber + cherry tomato',cal:30,p:1,c:6,f:0,fib:2},{n:'Dahi (100g)',cal:60,p:7,c:4,f:1,fib:0}],
+       zomato:'Grilled chicken salad bowl from EatFit / Salad Days / FreshMenu.'},
+      {id:'sun-4',time:'5pm · Snack',title:'Cucumber + carrot + dahi dip',
+       desc:'Cucumber + carrot sticks with thick dahi dip (garlic, mint, black pepper).',
+       items:[{n:'Cucumber sticks',cal:20,p:1,c:4,f:0,fib:2},{n:'Carrot sticks',cal:30,p:1,c:6,f:0,fib:2},{n:'Thick dahi dip',cal:80,p:6,c:2,f:5,fib:0}]},
+      {id:'sun-5',time:'8–8:30pm · Meal 2',title:'Egg curry + rice + palak + raita',
+       desc:'3 boiled eggs in tomato-onion curry, white rice, sautéed spinach, cucumber raita.',
+       quantities:'Eggs (3) · Tomato (60g) · Onion (40g) · White rice (50g dry) · Spinach (80g) · Dahi (60g)',
+       items:[{n:'Egg curry (3 eggs)',cal:260,p:20,c:8,f:16,fib:2},{n:'White rice',cal:200,p:4,c:44,f:0,fib:1},{n:'Sautéed palak',cal:50,p:2,c:5,f:2,fib:3},{n:'Cucumber raita',cal:40,p:2,c:5,f:1,fib:3}]},
+      {id:'sun-d',time:'After dinner · Dessert',title:'Dark chocolate + cashews',isDessert:true,
+       desc:'2 squares dark chocolate + 3 cashews. End-of-week intentional treat.',
+       items:[{n:'Dark chocolate (20g)',cal:110,p:2,c:8,f:7,fib:2},{n:'Cashews (3)',cal:50,p:1,c:3,f:4,fib:0}]}
     ],
-    note:'Dance day. 10-min walk after dinner for digestion. White rice all day for energy.'
+    pms_meals:[
+      {id:'sun-pms-1',time:'Morning',title:'Banana + protein shake',isPms:true,
+       desc:'Banana + shake.',
+       items:[{n:'Banana + protein',cal:220,p:26,c:26,f:3,fib:3}]},
+      {id:'sun-pms-2',time:'Post-dance',title:'Protein shake',isPms:true,
+       desc:'Protein shake.',
+       items:[{n:'Protein shake',cal:120,p:25,c:1,f:2,fib:1}]},
+      {id:'sun-pms-3',time:'Lunch',title:'Egg curry + rice + dahi',isPms:true,
+       desc:'Make a big batch of egg curry, eat with rice + dahi.',
+       items:[{n:'Egg curry (3 eggs)',cal:260,p:20,c:8,f:16,fib:2},{n:'White rice',cal:200,p:4,c:44,f:0,fib:1},{n:'Dahi',cal:60,p:7,c:4,f:1,fib:0}]},
+      {id:'sun-pms-4',time:'Dinner',title:'Curd rice + paneer',isPms:true,
+       desc:'Curd rice + 80g paneer sautéed with salt + jeera. Zero effort.',
+       items:[{n:'Curd rice',cal:280,p:10,c:48,f:4,fib:2},{n:'Paneer (80g)',cal:220,p:16,c:5,f:15,fib:1}]},
+      {id:'sun-pms-d',time:'Evening',title:'Dark chocolate',isPms:true,isDessert:true,
+       desc:'2 squares dark chocolate.',
+       items:[{n:'Dark chocolate',cal:110,p:2,c:8,f:7,fib:2}]}
+    ],
+    note:'Dance day. Dahi added to lunch for extra protein. 10-min walk after dinner. White rice all day for energy.'
   }
 };
 
-/* ---------- derive meal-level totals from items (single source of truth) ---------- */
-function computeMealTotals(meal) {
-  const t = { cal:0, p:0, c:0, f:0, fib:0 };
-  (meal.items || []).forEach(it => {
-    t.cal += it.cal || 0; t.p += it.p || 0; t.c += it.c || 0; t.f += it.f || 0; t.fib += it.fib || 0;
-  });
-  return t;
-}
-
-function applyDerivedMacros(meal) {
-  const t = computeMealTotals(meal);
-  meal.cal = t.cal; meal.p = t.p; meal.c = t.c; meal.f = t.f; meal.fib = t.fib;
-}
-
-function applyDerivedDayTotals(day) {
-  const tot = { cal:0, p:0, c:0, f:0, fib:0 };
-  MEAL_PLAN[day].meals.forEach(m => {
-    applyDerivedMacros(m);
-    tot.cal += m.cal; tot.p += m.p; tot.c += m.c; tot.f += m.f; tot.fib += m.fib;
-  });
-  MEAL_PLAN[day].totals = tot;
-}
-
-DAY_ORDER.forEach(applyDerivedDayTotals);
-
-/* Deep-clone the original base plan so "Reset to original" can always restore. */
-const PRISTINE_PLAN = JSON.parse(JSON.stringify(MEAL_PLAN));
-
-let currentDay = 'mon';
-let editingMealId = null;
-
-function getOverrides(day) {
-  try { return JSON.parse(localStorage.getItem('mealPlan_overrides_' + day) || '{}'); } catch { return {}; }
-}
-function setOverrides(day, data) {
-  try { localStorage.setItem('mealPlan_overrides_' + day, JSON.stringify(data)); } catch {}
-}
-function findPristineMeal(day, mealId) {
-  if (!PRISTINE_PLAN[day]) return null;
-  return PRISTINE_PLAN[day].meals.find(m => m.id === mealId) || null;
-}
-function isBaseMeal(day, mealId) {
-  return !!findPristineMeal(day, mealId);
-}
-function hasOverride(day, mealId) {
-  const ov = getOverrides(day);
-  return Object.prototype.hasOwnProperty.call(ov, mealId);
-}
-
-/* ---------- storage helpers ---------- */
-function getCustomMeals(day) {
-  try { return JSON.parse(localStorage.getItem('mealPlan_custom_' + day) || '[]'); } catch { return []; }
-}
-function setCustomMeals(day, meals) {
-  try { localStorage.setItem('mealPlan_custom_' + day, JSON.stringify(meals)); } catch {}
-}
-function getCheckedIds(day) {
-  try { return JSON.parse(localStorage.getItem('mealPlan_checked_' + day) || '[]'); } catch { return []; }
-}
-function setCheckedIds(day, ids) {
-  try { localStorage.setItem('mealPlan_checked_' + day, JSON.stringify(ids)); } catch {}
-}
-function getSkippedItems(day) {
-  try { return JSON.parse(localStorage.getItem('mealPlan_skipped_' + day) || '{}'); } catch { return {}; }
-}
-function setSkippedItems(day, data) {
-  try { localStorage.setItem('mealPlan_skipped_' + day, JSON.stringify(data)); } catch {}
-}
-
-/* ---------- activity storage ---------- */
-const ACTIVITY_PRESETS = [
-  { name: 'Weight training', cal: 250 },
-  { name: 'Dance class',     cal: 350 },
-  { name: '30-min walk',     cal: 120 },
-  { name: '5k run',          cal: 350 },
-  { name: '10k steps',       cal: 400 }
+const WEEKLY_GROCERY_LIST=[
+  {section:'Protein',items:['Chicken breast — ~700g raw','Eggs — 12–14','Paneer — ~400g (upped due to portion increases)','Plant protein powder — 7 scoops']},
+  {section:'Dairy',items:['Dahi (curd) — ~1.5 kg (used heavily every day + dips)','Ghee — small jar (~40g used)','Almond/peanut butter — small jar (for desserts)']},
+  {section:'Pulses & lentils',items:['Moong dal (yellow) — 200g','Arhar/toor dal — 50g','Kala chana — 200g (soak overnight)','Rajma — 50g','White chickpeas — 50g']},
+  {section:'Grains',items:['White rice — 400g raw','WW spaghetti — 60g','Wheat atta for rotis — ~200g','Dosa batter — 120g (Thu)','Oats — 40g (PMS)','WW bread — 1 small loaf (PMS)']},
+  {section:'Vegetables',items:['Cucumber — ~1.2 kg','Tomato — ~700g','Onion — ~500g','Capsicum — ~300g','Spinach — ~300g','Zucchini — 80g (Mon)','Broccoli — ~200g','Mushroom — 40g','Carrot — 60g','Lettuce — 40g','Cherry tomato — 40g','Mint, coriander, garlic, ginger']},
+  {section:'Fruits',items:['Apples — 4','Bananas — 6 small','Oranges — 3','Lemons — 5','Seasonal fruit — ~400g','Pomegranate — 40g']},
+  {section:'Seeds & nuts',items:['Chia seeds — 60g','Soaked almonds — ~70g','Sunflower seeds — 25g','Pumpkin seeds — 20g','Walnuts — 30g','Makhana — 30g (Fri)','Cashews — 20g']},
+  {section:'Dark chocolate',items:['Dark chocolate 70%+ — 2 small bars (~140g). Daily dessert = 20g/day × 7 = 140g.']},
+  {section:'Oils & condiments',items:['Olive oil — ~60ml','Cooking oil — ~50ml','Mint chutney — small jar','Tamarind chutney — small jar (Fri)','Coconut water — 1 tetrapak (Fri)','Spice pantry: cumin, turmeric, chilli, black pepper, rock salt']}
 ];
-function getActivities(day) {
-  try { return JSON.parse(localStorage.getItem('mealPlan_activities_' + day) || '[]'); } catch { return []; }
-}
-function setActivities(day, list) {
-  try { localStorage.setItem('mealPlan_activities_' + day, JSON.stringify(list)); } catch {}
-}
-function totalBurned(day) {
-  return getActivities(day).reduce((a, x) => a + (parseInt(x.cal) || 0), 0);
-}
 
-function getMealsForDay(day) {
-  const base = MEAL_PLAN[day].meals;
-  const custom = getCustomMeals(day);
-  return [...base, ...custom];
-}
+// Derived totals
+function mealMacros(m){const t={cal:0,p:0,c:0,f:0,fib:0};(m.items||[]).forEach(i=>{t.cal+=i.cal||0;t.p+=i.p||0;t.c+=i.c||0;t.f+=i.f||0;t.fib+=i.fib||0;});return t;}
+function applyMacros(m){const t=mealMacros(m);m.cal=t.cal;m.p=t.p;m.c=t.c;m.f=t.f;m.fib=t.fib;}
+function deriveDayTotals(d){const t={cal:0,p:0,c:0,f:0,fib:0};MEAL_PLAN[d].meals.forEach(m=>{applyMacros(m);t.cal+=m.cal;t.p+=m.p;t.c+=m.c;t.f+=m.f;t.fib+=m.fib;});MEAL_PLAN[d].totals=t;}
+DAY_ORDER.forEach(deriveDayTotals);
+const PRISTINE=JSON.parse(JSON.stringify(MEAL_PLAN));
 
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-}
+let currentDay='mon', editingMealId=null, pmsMode=false;
 
-/* ---------- correct partial-meal math (sum actually-eaten item macros) ---------- */
-function computeEffectiveMacros(meal, skippedIdxs) {
-  const items = meal.items || [];
-  if (!skippedIdxs || skippedIdxs.length === 0 || items.length === 0) {
-    return { cal: meal.cal, p: meal.p, c: meal.c, f: meal.f, fib: meal.fib };
-  }
-  const skipped = new Set(skippedIdxs);
-  const t = { cal:0, p:0, c:0, f:0, fib:0 };
-  items.forEach((it, idx) => {
-    if (skipped.has(idx)) return;
-    // backward-compat: if an item is a plain string, treat as 0 macros
-    if (typeof it !== 'object' || it === null) return;
-    t.cal += it.cal || 0; t.p += it.p || 0; t.c += it.c || 0; t.f += it.f || 0; t.fib += it.fib || 0;
-  });
+// Storage
+const S=k=>{try{return JSON.parse(localStorage.getItem(k)||'null');}catch{return null;}};
+const W=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch{}};
+const getChecked=d=>S('mp2_ck_'+d)||[];
+const setChecked=(d,v)=>W('mp2_ck_'+d,v);
+const getSkipped=d=>S('mp2_sk_'+d)||{};
+const setSkipped=(d,v)=>W('mp2_sk_'+d,v);
+const getCustom=d=>S('mp2_cm_'+d)||[];
+const setCustom=(d,v)=>W('mp2_cm_'+d,v);
+const getActivities=d=>S('mp2_act_'+d)||[];
+const setActivities=(d,v)=>W('mp2_act_'+d,v);
+const getOverrides=d=>S('mp2_ov_'+d)||{};
+const setOverrides=(d,v)=>W('mp2_ov_'+d,v);
+function totalBurned(d){return getActivities(d).reduce((a,x)=>a+(parseInt(x.cal)||0),0);}
+
+const PRESETS=[{name:'Weight training',cal:250},{name:'Dance class',cal:350},{name:'30-min walk',cal:120},{name:'5k run',cal:350},{name:'10k steps',cal:400}];
+const FITNESS_GOALS=[{key:'strength',name:'Strength training',min:3,max:4},{key:'pilates',name:'Pilates',min:1,max:2},{key:'dance',name:'Dance',min:2,max:2},{key:'running',name:'Running',min:3,max:3},{key:'steps10k',name:'10k steps',min:5,max:7}];
+
+function getMeals(d,pms){
+  const plan=MEAL_PLAN[d];
+  const base=pms?(plan.pms_meals||[]):plan.meals;
+  const custom=pms?[]:getCustom(d);
+  return [...base,...custom];
+}
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+
+function effMacros(meal,skIdxs){
+  const items=meal.items||[];
+  if(!skIdxs||!skIdxs.length||!items.length)return{cal:meal.cal,p:meal.p,c:meal.c,f:meal.f,fib:meal.fib};
+  const sk=new Set(skIdxs),t={cal:0,p:0,c:0,f:0,fib:0};
+  items.forEach((it,i)=>{if(!sk.has(i)&&it&&typeof it==='object'){t.cal+=it.cal||0;t.p+=it.p||0;t.c+=it.c||0;t.f+=it.f||0;t.fib+=it.fib||0;}});
   return t;
 }
+function iLabel(it){return typeof it==='string'?it:(it&&it.n?it.n:'');}
+function iCal(it){return(typeof it==='object'&&it!==null)?(it.cal||0):0;}
 
-/* ---------- helpers that tolerate both object-items and legacy string-items ---------- */
-function itemLabel(it) {
-  return typeof it === 'string' ? it : (it && it.n ? it.n : '');
-}
-function itemCal(it) {
-  return (typeof it === 'object' && it !== null) ? (it.cal || 0) : 0;
-}
-
-function renderTabs() {
-  const tabs = document.getElementById('tabs');
-  tabs.innerHTML = DAY_ORDER.map(day => {
-    const checkedIds = getCheckedIds(day);
-    const skipped = getSkippedItems(day);
-    const hasChecks = checkedIds.length > 0;
-    const hasPartial = Object.keys(skipped).length > 0;
-    return `<button class="day-tab${day === currentDay ? ' active' : ''}${hasChecks ? ' has-checks' : ''}${!hasChecks && hasPartial ? ' has-partial' : ''}" data-day="${day}">
-      <span>${DAY_SHORT[day]}</span>
-      <span class="progress-dot"></span>
-    </button>`;
+// Render tabs
+function renderTabs(){
+  const el=document.getElementById('tabs');
+  el.innerHTML=DAY_ORDER.map(d=>{
+    const hc=getChecked(d).length>0,hp=Object.keys(getSkipped(d)).length>0;
+    return `<button class="day-tab${d===currentDay?' active':''}${hc?' has-checks':''}${!hc&&hp?' has-partial':''}" data-day="${d}"><span>${DAY_SHORT[d]}</span><span class="progress-dot"></span></button>`;
   }).join('');
-  tabs.querySelectorAll('.day-tab').forEach(btn => {
-    btn.addEventListener('click', () => switchDay(btn.dataset.day));
-  });
+  el.querySelectorAll('.day-tab').forEach(b=>b.addEventListener('click',()=>switchDay(b.dataset.day)));
 }
 
-function renderMealRow(m, checkedIds, skippedData) {
-  const checked = checkedIds.includes(m.id);
-  const items = m.items || [];
-  // Filter stored skip indices against the current items list so stale/invalid indices
-  // (e.g. from a custom meal that was migrated or edited) don't pollute the display.
-  const rawSkippedIdxs = skippedData[m.id] || [];
-  const skippedIdxs = rawSkippedIdxs.filter(idx => idx >= 0 && idx < items.length);
-  const isPartial = skippedIdxs.length > 0 && !checked;
-  const effective = computeEffectiveMacros(m, isPartial ? skippedIdxs : []);
-  const calDisplay = isPartial ? effective.cal : m.cal;
-  const itemsHtml = items.length ? items.map((item, idx) => {
-    const isSkipped = skippedIdxs.includes(idx);
-    const label = itemLabel(item);
-    const cal = itemCal(item);
-    return `<button type="button" class="skip-item${isSkipped ? ' skipped' : ''}" data-meal-id="${m.id}" data-item-idx="${idx}">${escapeHtml(label)}<span class="item-cal">${cal} cal</span></button>`;
-  }).join('') : '';
+// Render single meal
+function renderMeal(m,checked,skData){
+  const isChecked=checked.includes(m.id);
+  const items=m.items||[];
+  const rawSk=skData[m.id]||[];
+  const validSk=rawSk.filter(i=>i>=0&&i<items.length);
+  const isPartial=validSk.length>0&&!isChecked;
+  const eff=effMacros(m,isPartial?validSk:[]);
+  const calDisp=isPartial?eff.cal:m.cal;
 
-  const skipPanelId = `skip-${m.id}`;
+  const extraClass=m.isDessert?' dessert-card':(m.isPms?' pms-card':'');
+  const badge=m.isDessert?`<span class="dessert-badge">🍫 dessert</span>`:(m.isPms?`<span class="pms-badge">🌙 lazy</span>`:'');
 
-  return `<div class="meal-row${checked ? ' checked' : ''}${isPartial ? ' partial' : ''}" data-meal-id="${m.id}">
+  const itemsHtml=items.map((it,idx)=>{
+    const sk=validSk.includes(idx);
+    return `<button type="button" class="skip-item${sk?' skipped':''}" data-mid="${m.id}" data-idx="${idx}">${esc(iLabel(it))}<span class="item-cal">${iCal(it)} cal</span></button>`;
+  }).join('');
+
+  return `<div class="meal-row${isChecked?' checked':''}${isPartial?' partial':''}${extraClass}" data-mid="${m.id}">
     <div class="meal-header">
       <label class="check-wrap">
-        <input type="checkbox" ${checked ? 'checked' : ''} data-meal-id="${m.id}">
-        <span class="check${isPartial && !checked ? ' partial-check' : ''}"></span>
+        <input type="checkbox" ${isChecked?'checked':''} data-mid="${m.id}">
+        <span class="check${isPartial&&!isChecked?' partial-check':''}"></span>
       </label>
       <div class="meal-info">
         <div class="meal-info-top">
-          <div>
-            <div class="meal-time">${escapeHtml(m.time)}</div>
-            <div class="meal-title">${escapeHtml(m.title)}</div>
-          </div>
-          <div class="meal-cal">${calDisplay} cal${isPartial ? ' <span style="color:var(--partial);font-size:11px">partial</span>' : ''}</div>
+          <div><div class="meal-time">${esc(m.time)}</div><div class="meal-title">${esc(m.title)}${badge}</div></div>
+          <div class="meal-cal">${calDisp} cal${isPartial?` <span style="color:var(--partial);font-size:11px">partial</span>`:''}</div>
         </div>
       </div>
     </div>
-    <p class="meal-desc">${escapeHtml(m.desc)}</p>
-    ${m.recipe ? `<div class="recipe-line"><strong>Recipe:</strong> ${escapeHtml(m.recipe.replace(/^Hung curd recipe: /, ''))}</div>` : ''}
-    ${m.zomato ? `<div class="alt-line"><strong>Zomato alt:</strong> ${escapeHtml(m.zomato)}</div>` : ''}
-
-    ${itemsHtml ? `<div class="skip-panel" id="${skipPanelId}">
-      <div class="skip-panel-title">Tap items you skipped</div>
-      <div class="skip-items">${itemsHtml}</div>
-      <button type="button" class="skip-done-btn" data-meal-id="${m.id}">Done — log partial meal</button>
-    </div>` : ''}
-
-    ${m.quantities ? `<details class="groc qty-block"><summary>Quantities (weigh out)</summary><div class="groc-content">${escapeHtml(m.quantities)}</div></details>` : ''}
-
+    <p class="meal-desc">${esc(m.desc)}</p>
+    ${m.zomato?`<div class="alt-line"><strong>Zomato alt:</strong> ${esc(m.zomato)}</div>`:''}
+    ${itemsHtml?`<div class="skip-panel" id="sp-${m.id}"><div class="skip-panel-title">Tap items you skipped</div><div class="skip-items">${itemsHtml}</div><button type="button" class="skip-done-btn" data-mid="${m.id}">Done — log partial meal</button></div>`:''}
+    ${m.quantities?`<details class="groc"><summary>Quantities</summary><div class="groc-content">${esc(m.quantities)}</div></details>`:''}
     <div class="bottom-row">
       <div class="macro-pills">
-        <span class="pill pill-p">${isPartial ? effective.p : m.p}g P</span>
-        <span class="pill pill-c">${isPartial ? effective.c : m.c}g C</span>
-        <span class="pill pill-f">${isPartial ? effective.f : m.f}g F</span>
-        <span class="pill pill-fib">${isPartial ? effective.fib : m.fib}g fiber</span>
+        <span class="pill pill-p">${isPartial?eff.p:m.p}g P</span>
+        <span class="pill pill-c">${isPartial?eff.c:m.c}g C</span>
+        <span class="pill pill-f">${isPartial?eff.f:m.f}g F</span>
+        <span class="pill pill-fib">${isPartial?eff.fib:m.fib}g fiber</span>
       </div>
-      ${m.groceries ? `<details class="groc"><summary>Groceries</summary><div class="groc-content">${escapeHtml(m.groceries)}</div></details>` : ''}
     </div>
-    ${itemsHtml ? `<div class="meal-actions">
-      <button type="button" class="meal-action-btn partial-btn" data-toggle-skip="${m.id}">
-        ${isPartial ? 'Edit skipped' : 'Ate part of this'}
-      </button>
-      <button type="button" class="meal-action-btn edit-btn" data-edit-meal="${m.id}">Edit meal</button>
-    </div>` : `<div class="meal-actions">
-      <button type="button" class="meal-action-btn edit-btn" data-edit-meal="${m.id}">Edit meal</button>
-    </div>`}
+    <div class="meal-actions">
+      ${itemsHtml?`<button type="button" class="meal-action-btn partial-btn" data-tsk="${m.id}">${isPartial?'Edit skipped':'Ate part of this'}</button>`:''}
+      ${!m.isPms?`<button type="button" class="meal-action-btn edit-btn" data-edit="${m.id}">Edit</button>`:''}
+    </div>
   </div>`;
 }
 
-function renderPanel(day) {
-  const plan = MEAL_PLAN[day];
-  const checkedIds = getCheckedIds(day);
-  const skippedData = getSkippedItems(day);
-  const allMeals = getMealsForDay(day);
-
-  const mealsHtml = allMeals.map(m => renderMealRow(m, checkedIds, skippedData)).join('');
-
-  // Weekly grocery list shown only on Sunday (end-of-week shopping prep)
-  const groceryHtml = day === 'sun' ? `
-    <details class="weekly-grocery">
-      <summary class="weekly-grocery-head">
-        <span>
-          <span class="weekly-grocery-title">Weekly grocery list</span>
-          <span class="weekly-grocery-sub">Everything you need for the next 7 days</span>
-        </span>
-        <span class="weekly-grocery-caret">▾</span>
-      </summary>
-      <div class="weekly-grocery-body">
-        ${WEEKLY_GROCERY_LIST.map(s => `
-          <details class="grocery-section" open>
-            <summary>${escapeHtml(s.section)}</summary>
-            <ul class="grocery-list">
-              ${s.items.map(it => `<li>${escapeHtml(it)}</li>`).join('')}
-            </ul>
-          </details>
-        `).join('')}
-        <p class="weekly-grocery-note">Quantities are aggregated across all 7 days' meals. Most are rounded up to a sensible buying amount — you can store extras for next week.</p>
-      </div>
-    </details>
-  ` : '';
-
-  return `<div class="day-panel active" id="panel-${day}">
+// Render panel
+function renderPanel(d){
+  const plan=MEAL_PLAN[d], ck=getChecked(d), sk=getSkipped(d), meals=getMeals(d,pmsMode);
+  const mealsHtml=meals.map(m=>renderMeal(m,ck,sk)).join('');
+  const grocery=d==='sun'?`<details class="weekly-grocery"><summary class="weekly-grocery-head"><span><span class="weekly-grocery-title">Weekly grocery list</span><span class="weekly-grocery-sub">Everything for the next 7 days</span></span><span class="weekly-grocery-caret">▾</span></summary><div class="weekly-grocery-body">${WEEKLY_GROCERY_LIST.map(s=>`<details class="grocery-section" open><summary>${esc(s.section)}</summary><ul class="grocery-list">${s.items.map(i=>`<li>${esc(i)}</li>`).join('')}</ul></details>`).join('')}<p class="weekly-grocery-note">Dark chocolate is now a daily staple — buy 2 small 70%+ bars.</p></div></details>`:'';
+  return `<div class="day-panel active" id="panel-${d}">
     ${mealsHtml}
-    <button type="button" class="add-meal-btn" id="addMealBtn">
-      <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/></svg>
-      Add a meal
-    </button>
+    ${!pmsMode?`<button type="button" class="add-meal-btn" id="addMealBtn"><svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/></svg>Add a meal</button>`:''}
     <div class="day-totals">
       <div><p class="tot-label">Calories</p><p class="tot-val">${plan.totals.cal.toLocaleString()}</p></div>
       <div><p class="tot-label">Protein</p><p class="tot-val">${plan.totals.p}g</p></div>
@@ -1522,800 +876,241 @@ function renderPanel(day) {
       <div><p class="tot-label">Fat</p><p class="tot-val">${plan.totals.f}g</p></div>
       <div><p class="tot-label">Fiber</p><p class="tot-val">${plan.totals.fib}g</p></div>
     </div>
-    <div class="note-box">${escapeHtml(plan.note)}</div>
-    ${groceryHtml}
+    <div class="note-box">${esc(plan.note)}</div>
+    ${grocery}
   </div>`;
 }
 
-function renderPanels() {
-  document.getElementById('panels').innerHTML = renderPanel(currentDay);
-  attachHandlers();
-}
+function renderPanels(){document.getElementById('panels').innerHTML=renderPanel(currentDay);attachHandlers();}
 
-function attachHandlers() {
-  document.querySelectorAll('input[type="checkbox"][data-meal-id]').forEach(cb => {
-    cb.addEventListener('change', (e) => {
-      const mealId = e.target.dataset.mealId;
-      let ids = getCheckedIds(currentDay);
-      if (e.target.checked) {
-        if (!ids.includes(mealId)) ids.push(mealId);
-        const skipped = getSkippedItems(currentDay);
-        delete skipped[mealId];
-        setSkippedItems(currentDay, skipped);
-      } else {
-        ids = ids.filter(i => i !== mealId);
-      }
-      setCheckedIds(currentDay, ids);
-      renderPanels();
-      renderTracker();
-      renderTabs();
+function attachHandlers(){
+  document.querySelectorAll('input[type="checkbox"][data-mid]').forEach(cb=>{
+    cb.addEventListener('change',e=>{
+      const id=e.target.dataset.mid; let ids=getChecked(currentDay);
+      if(e.target.checked){if(!ids.includes(id))ids.push(id);const sk=getSkipped(currentDay);delete sk[id];setSkipped(currentDay,sk);}
+      else ids=ids.filter(i=>i!==id);
+      setChecked(currentDay,ids);renderPanels();renderTracker();renderTabs();
     });
   });
-
-  document.querySelectorAll('[data-toggle-skip]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const mealId = btn.dataset.toggleSkip;
-      const panel = document.getElementById('skip-' + mealId);
-      if (panel) panel.classList.toggle('open');
+  document.querySelectorAll('[data-tsk]').forEach(b=>b.addEventListener('click',()=>{const p=document.getElementById('sp-'+b.dataset.tsk);if(p)p.classList.toggle('open');}));
+  document.querySelectorAll('.skip-item').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const mId=b.dataset.mid,idx=parseInt(b.dataset.idx),sk=getSkipped(currentDay);
+      if(!sk[mId])sk[mId]=[];
+      if(sk[mId].includes(idx))sk[mId]=sk[mId].filter(i=>i!==idx);else sk[mId].push(idx);
+      if(!sk[mId].length)delete sk[mId];
+      setSkipped(currentDay,sk);b.classList.toggle('skipped');renderTracker();
     });
   });
-
-  document.querySelectorAll('.skip-item').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const mealId = btn.dataset.mealId;
-      const idx = parseInt(btn.dataset.itemIdx);
-      const skipped = getSkippedItems(currentDay);
-      if (!skipped[mealId]) skipped[mealId] = [];
-      if (skipped[mealId].includes(idx)) {
-        skipped[mealId] = skipped[mealId].filter(i => i !== idx);
-        if (skipped[mealId].length === 0) delete skipped[mealId];
-      } else {
-        skipped[mealId].push(idx);
-      }
-      setSkippedItems(currentDay, skipped);
-      btn.classList.toggle('skipped');
-      const row = btn.closest('.meal-row');
-      if (row) {
-        const allMeals = getMealsForDay(currentDay);
-        const meal = allMeals.find(m => m.id === mealId);
-        const currentSkipped = getSkippedItems(currentDay);
-        const skippedIdxs = currentSkipped[mealId] || [];
-        if (meal) {
-          const eff = computeEffectiveMacros(meal, skippedIdxs);
-          const calEl = row.querySelector('.meal-cal');
-          if (calEl) calEl.innerHTML = eff.cal + ' cal <span style="color:var(--partial);font-size:11px">partial</span>';
-          const pills = row.querySelectorAll('.macro-pills .pill');
-          if (pills[0]) pills[0].textContent = eff.p + 'g P';
-          if (pills[1]) pills[1].textContent = eff.c + 'g C';
-          if (pills[2]) pills[2].textContent = eff.f + 'g F';
-          if (pills[3]) pills[3].textContent = eff.fib + 'g fiber';
-        }
-      }
-      renderTracker();
-    });
+  document.querySelectorAll('.skip-done-btn').forEach(b=>{
+    b.addEventListener('click',()=>{const p=document.getElementById('sp-'+b.dataset.mid);if(p)p.classList.remove('open');renderPanels();renderTracker();renderTabs();});
   });
-
-  document.querySelectorAll('.skip-done-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const mealId = btn.dataset.mealId;
-      const skipped = getSkippedItems(currentDay);
-      const panel = document.getElementById('skip-' + mealId);
-      const row = document.querySelector('.meal-row[data-meal-id="' + mealId + '"]');
-
-      // Always collapse the skip panel
-      if (panel) panel.classList.remove('open');
-
-      const hasSkips = skipped[mealId] && skipped[mealId].length > 0;
-
-      if (hasSkips && row) {
-        // Apply the "partial" visual state in-place (no full re-render — that would re-open the panel)
-        const allMeals = getMealsForDay(currentDay);
-        const meal = allMeals.find(m => m.id === mealId);
-        const checkedIds = getCheckedIds(currentDay);
-        const isChecked = checkedIds.includes(mealId);
-
-        if (!isChecked && meal) {
-          row.classList.remove('checked');
-          row.classList.add('partial');
-          const check = row.querySelector('.check');
-          if (check) check.classList.add('partial-check');
-
-          const eff = computeEffectiveMacros(meal, skipped[mealId]);
-          const calEl = row.querySelector('.meal-cal');
-          if (calEl) calEl.innerHTML = eff.cal + ' cal <span style="color:var(--partial);font-size:11px">partial</span>';
-          const pills = row.querySelectorAll('.macro-pills .pill');
-          if (pills[0]) pills[0].textContent = eff.p + 'g P';
-          if (pills[1]) pills[1].textContent = eff.c + 'g C';
-          if (pills[2]) pills[2].textContent = eff.f + 'g F';
-          if (pills[3]) pills[3].textContent = eff.fib + 'g fiber';
-
-          // Update the partial/edit button label
-          const partialBtn = row.querySelector('[data-toggle-skip="' + mealId + '"]');
-          if (partialBtn) partialBtn.textContent = 'Edit skipped';
-        }
-
-        renderTracker();
-        renderTabs();
-      } else if (!hasSkips && row) {
-        // No items were marked skipped — just clear the partial look
-        row.classList.remove('partial');
-        const check = row.querySelector('.check');
-        if (check) check.classList.remove('partial-check');
-      }
-    });
-  });
-
-  const addBtn = document.getElementById('addMealBtn');
-  if (addBtn) addBtn.addEventListener('click', openAddModal);
-
-  document.querySelectorAll('[data-edit-meal]').forEach(btn => {
-    btn.addEventListener('click', () => openEditModal(btn.dataset.editMeal));
-  });
+  const ab=document.getElementById('addMealBtn');if(ab)ab.addEventListener('click',openAddModal);
+  document.querySelectorAll('[data-edit]').forEach(b=>b.addEventListener('click',()=>openEditModal(b.dataset.edit)));
 }
 
-/* ---------- ADD MEAL MODAL ---------- */
-function openAddModal() {
-  ['newMealTitle','newMealDesc','newMealTime','newMealCal','newMealP','newMealC','newMealF','newMealFib'].forEach(id => {
-    document.getElementById(id).value = '';
-  });
-  document.getElementById('aiStatus').textContent = '';
-  document.getElementById('addMealModal').classList.add('open');
-}
-
-document.getElementById('addMealCancel').addEventListener('click', () => {
-  document.getElementById('addMealModal').classList.remove('open');
-});
-
-document.getElementById('addMealModal').addEventListener('click', (e) => {
-  if (e.target === document.getElementById('addMealModal'))
-    document.getElementById('addMealModal').classList.remove('open');
-});
-
-document.getElementById('aiEstimateBtn').addEventListener('click', async () => {
-  const title = document.getElementById('newMealTitle').value.trim();
-  const desc = document.getElementById('newMealDesc').value.trim();
-  if (!title && !desc) {
-    document.getElementById('aiStatus').textContent = 'Enter meal name or description first.';
-    document.getElementById('aiStatus').className = 'ai-status error';
-    return;
-  }
-  await runAiEstimate(title, desc, 'aiEstimateBtn', 'aiStatus', {
-    calId: 'newMealCal', pId: 'newMealP', cId: 'newMealC', fId: 'newMealF', fibId: 'newMealFib'
-  });
-});
-
-document.getElementById('addMealSave').addEventListener('click', () => {
-  const title = document.getElementById('newMealTitle').value.trim();
-  const desc = document.getElementById('newMealDesc').value.trim();
-  const time = document.getElementById('newMealTime').value.trim() || 'Added meal';
-  const cal = parseInt(document.getElementById('newMealCal').value) || 0;
-  const p = parseInt(document.getElementById('newMealP').value) || 0;
-  const c = parseInt(document.getElementById('newMealC').value) || 0;
-  const f = parseInt(document.getElementById('newMealF').value) || 0;
-  const fib = parseInt(document.getElementById('newMealFib').value) || 0;
-
-  if (!title) {
-    document.getElementById('aiStatus').textContent = 'Please enter a meal name.';
-    document.getElementById('aiStatus').className = 'ai-status error';
-    return;
-  }
-
-  // For a custom meal, the user entered TOTAL macros — we don't know how to distribute
-  // them across named ingredients without per-item knowledge (e.g. water has 0 protein,
-  // whey has all of it). So we store one atomic item that carries the full macros.
-  // This means custom meals behave as "check/uncheck whole thing" — no partial skipping,
-  // which is honest: we can't guess what fraction of the user's 100g protein belongs
-  // to each ingredient they typed.
-  const items = [{ n: title, cal, p, c, f, fib }];
-
-  const newMeal = {
-    id: 'custom-' + Date.now(),
-    time, title, desc, cal, p, c, f, fib,
-    items,
-    isCustom: true
-  };
-
-  const customs = getCustomMeals(currentDay);
-  customs.push(newMeal);
-  setCustomMeals(currentDay, customs);
-
-  document.getElementById('addMealModal').classList.remove('open');
-  renderPanels();
-  renderTracker();
-  renderTabs();
-});
-
-/* ---------- EDIT MEAL MODAL ---------- */
-function openEditModal(mealId) {
-  editingMealId = mealId;
-  const allMeals = getMealsForDay(currentDay);
-  const meal = allMeals.find(m => m.id === mealId);
-  if (!meal) return;
-
-  document.getElementById('editMealModalTitle').textContent = 'Edit: ' + meal.title;
-  document.getElementById('editMealTitle').value = meal.title;
-  document.getElementById('editMealDesc').value = meal.desc || '';
-  document.getElementById('editMealTime').value = meal.time || '';
-  document.getElementById('editMealCal').value = meal.cal || '';
-  document.getElementById('editMealP').value = meal.p || '';
-  document.getElementById('editMealC').value = meal.c || '';
-  document.getElementById('editMealF').value = meal.f || '';
-  document.getElementById('editMealFib').value = meal.fib || '';
-  document.getElementById('editAiStatus').textContent = '';
-
-  // Show "Reset to original" only when this is a base meal with a saved override
-  const resetBtn = document.getElementById('editMealResetOriginal');
-  if (isBaseMeal(currentDay, mealId) && hasOverride(currentDay, mealId)) {
-    resetBtn.style.display = 'flex';
-  } else {
-    resetBtn.style.display = 'none';
-  }
-
-  document.getElementById('editMealModal').classList.add('open');
-}
-
-document.getElementById('editMealCancel').addEventListener('click', () => {
-  document.getElementById('editMealModal').classList.remove('open');
-  editingMealId = null;
-});
-
-document.getElementById('editMealResetOriginal').addEventListener('click', () => {
-  if (!editingMealId) return;
-  const pristine = findPristineMeal(currentDay, editingMealId);
-  if (!pristine) return;
-  if (!confirm('Reset "' + pristine.title + '" back to its original values? Your edits to this meal will be discarded.')) return;
-
-  // Remove the override for this meal
-  const ov = getOverrides(currentDay);
-  delete ov[editingMealId];
-  setOverrides(currentDay, ov);
-
-  // Restore the in-memory base meal from the pristine snapshot (deep clone so future edits don't mutate it)
-  const idx = MEAL_PLAN[currentDay].meals.findIndex(m => m.id === editingMealId);
-  if (idx !== -1) {
-    MEAL_PLAN[currentDay].meals[idx] = JSON.parse(JSON.stringify(pristine));
-  }
-
-  // Re-derive day totals and refresh UI
-  applyDerivedDayTotals(currentDay);
-  document.getElementById('editMealModal').classList.remove('open');
-  editingMealId = null;
-  renderPanels();
-  renderTracker();
-  renderTabs();
-});
-
-document.getElementById('editMealModal').addEventListener('click', (e) => {
-  if (e.target === document.getElementById('editMealModal')) {
-    document.getElementById('editMealModal').classList.remove('open');
-    editingMealId = null;
-  }
-});
-
-document.getElementById('editAiEstimateBtn').addEventListener('click', async () => {
-  const title = document.getElementById('editMealTitle').value.trim();
-  const desc = document.getElementById('editMealDesc').value.trim();
-  if (!title && !desc) {
-    document.getElementById('editAiStatus').textContent = 'Enter meal name or description first.';
-    document.getElementById('editAiStatus').className = 'ai-status error';
-    return;
-  }
-  await runAiEstimate(title, desc, 'editAiEstimateBtn', 'editAiStatus', {
-    calId: 'editMealCal', pId: 'editMealP', cId: 'editMealC', fId: 'editMealF', fibId: 'editMealFib'
-  });
-});
-
-document.getElementById('editMealSave').addEventListener('click', () => {
-  if (!editingMealId) return;
-  const title = document.getElementById('editMealTitle').value.trim();
-  const desc = document.getElementById('editMealDesc').value.trim();
-  const time = document.getElementById('editMealTime').value.trim();
-  const cal = parseInt(document.getElementById('editMealCal').value) || 0;
-  const p = parseInt(document.getElementById('editMealP').value) || 0;
-  const c = parseInt(document.getElementById('editMealC').value) || 0;
-  const f = parseInt(document.getElementById('editMealF').value) || 0;
-  const fib = parseInt(document.getElementById('editMealFib').value) || 0;
-
-  // Find existing meal so we can preserve its items if possible
-  const allMeals = getMealsForDay(currentDay);
-  const existing = allMeals.find(m => m.id === editingMealId);
-  const prevItems = existing && existing.items ? existing.items : [];
-  const isCustom = existing && existing.isCustom;
-
-  let newItems;
-  if (isCustom) {
-    // Custom meals: user-entered totals, no per-item knowledge. Store atomically
-    // so partial-skipping never silently loses macros. See addMealSave for rationale.
-    newItems = [{ n: title, cal, p, c, f, fib }];
-  } else {
-    // Base meals have real per-item macros. Rebuild items from new description,
-    // keeping per-item macros when names match; otherwise fall back to even distribution.
-    const parts = desc ? desc.split(',').map(s => s.trim()).filter(Boolean) : [];
-    if (parts.length === 0) {
-      newItems = [{ n: title, cal, p, c, f, fib }];
-    } else {
-      // Try to preserve prev items if same count and all names still line up
-      const sameCount = parts.length === prevItems.length;
-      const prevMatched = sameCount && parts.every((name, i) => {
-        const prev = prevItems[i];
-        return prev && itemLabel(prev).toLowerCase() === name.toLowerCase();
-      });
-      if (prevMatched) {
-        // user didn't rewrite description — keep per-item macros but scale to new totals
-        const scale = (key, newVal) => {
-          const prevSum = prevItems.reduce((a, it) => a + (it[key] || 0), 0);
-          return prevSum > 0 ? (newVal / prevSum) : 0;
-        };
-        const sCal = scale('cal', cal), sP = scale('p', p), sC = scale('c', c), sF = scale('f', f), sFib = scale('fib', fib);
-        newItems = prevItems.map(it => ({
-          n: itemLabel(it),
-          cal: Math.round((it.cal || 0) * sCal),
-          p:   Math.round((it.p   || 0) * sP),
-          c:   Math.round((it.c   || 0) * sC),
-          f:   Math.round((it.f   || 0) * sF),
-          fib: Math.round((it.fib || 0) * sFib),
-        }));
-      } else {
-        const share = (v) => Math.round(v / parts.length);
-        newItems = parts.map(n => ({ n, cal: share(cal), p: share(p), c: share(c), f: share(f), fib: share(fib) }));
-      }
-      // Fix rounding drift
-      const sum = k => newItems.reduce((a, it) => a + it[k], 0);
-      newItems[0].cal += (cal - sum('cal'));
-      newItems[0].p   += (p   - sum('p'));
-      newItems[0].c   += (c   - sum('c'));
-      newItems[0].f   += (f   - sum('f'));
-      newItems[0].fib += (fib - sum('fib'));
-    }
-  }
-
-  const customs = getCustomMeals(currentDay);
-  const customIdx = customs.findIndex(m => m.id === editingMealId);
-
-  const patch = { title, desc, time, cal, p, c, f, fib, items: newItems };
-
-  if (customIdx !== -1) {
-    customs[customIdx] = { ...customs[customIdx], ...patch };
-    setCustomMeals(currentDay, customs);
-  } else {
-    const overrides = getOverrides(currentDay);
-    overrides[editingMealId] = patch;
-    setOverrides(currentDay, overrides);
-    const baseMeal = MEAL_PLAN[currentDay].meals.find(m => m.id === editingMealId);
-    if (baseMeal) Object.assign(baseMeal, patch);
-  }
-
-  // Re-derive day totals in case macros changed
-  applyDerivedDayTotals(currentDay);
-
-  document.getElementById('editMealModal').classList.remove('open');
-  editingMealId = null;
-  renderPanels();
-  renderTracker();
-});
-
-/* ---------- AI ESTIMATION ---------- */
-async function runAiEstimate(title, desc, btnId, statusId, fields) {
-  const btn = document.getElementById(btnId);
-  const status = document.getElementById(statusId);
-  btn.disabled = true;
-  status.textContent = 'Estimating nutrition…';
-  status.className = 'ai-status';
-
-  try {
-    const prompt = `You are a nutrition expert. Estimate the nutritional values for this Indian meal as typically served for one person.
-
-Meal: ${title}
-${desc ? `Description: ${desc}` : ''}
-
-Respond ONLY with a JSON object (no markdown, no extra text):
-{"cal": number, "p": number, "c": number, "f": number, "fib": number}
-
-Where: cal=calories, p=protein(g), c=carbs(g), f=fat(g), fib=fiber(g)
-Use realistic Indian home-cooked or restaurant portions.`;
-
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 200,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-
-    const data = await response.json();
-    const text = data.content?.map(b => b.text || '').join('') || '';
-    const clean = text.replace(/```json|```/g, '').trim();
-    const parsed = JSON.parse(clean);
-
-    document.getElementById(fields.calId).value = parsed.cal || '';
-    document.getElementById(fields.pId).value = parsed.p || '';
-    document.getElementById(fields.cId).value = parsed.c || '';
-    document.getElementById(fields.fId).value = parsed.f || '';
-    document.getElementById(fields.fibId).value = parsed.fib || '';
-
-    status.textContent = `Estimated: ${parsed.cal} cal · ${parsed.p}g P · ${parsed.c}g C · ${parsed.f}g F · ${parsed.fib}g fiber`;
-    status.className = 'ai-status';
-  } catch (err) {
-    status.textContent = 'Could not estimate — please enter manually.';
-    status.className = 'ai-status error';
-  } finally {
-    btn.disabled = false;
-  }
-}
-
-/* ---------- TRACKER ---------- */
-function computeConsumed(day) {
-  const ids = getCheckedIds(day);
-  const skippedData = getSkippedItems(day);
-  const allMeals = getMealsForDay(day);
-  const totals = { cal:0, p:0, c:0, f:0, fib:0 };
-
-  allMeals.forEach(m => {
-    if (ids.includes(m.id)) {
-      totals.cal += m.cal; totals.p += m.p; totals.c += m.c; totals.f += m.f; totals.fib += m.fib;
-    } else if (skippedData[m.id] && skippedData[m.id].length > 0 && m.items && m.items.length > 0) {
-      // Only count skip indices that are still valid for the current items list.
-      // (Legacy data may reference indices that no longer exist after migration/edit.)
-      const validSkips = skippedData[m.id].filter(idx => idx >= 0 && idx < m.items.length);
-      if (validSkips.length === 0) {
-        // All stored skips are stale — treat as "nothing skipped, nothing eaten" → 0 contribution.
-        // User should re-check the meal if they ate it.
-        return;
-      }
-      if (validSkips.length < m.items.length) {
-        const eff = computeEffectiveMacros(m, validSkips);
-        totals.cal += eff.cal; totals.p += eff.p; totals.c += eff.c; totals.f += eff.f; totals.fib += eff.fib;
-      }
+// Tracker
+function computeConsumed(d){
+  const ck=getChecked(d),sk=getSkipped(d),meals=getMeals(d,pmsMode),t={cal:0,p:0,c:0,f:0,fib:0};
+  meals.forEach(m=>{
+    if(ck.includes(m.id)){t.cal+=m.cal;t.p+=m.p;t.c+=m.c;t.f+=m.f;t.fib+=m.fib;}
+    else if(sk[m.id]&&sk[m.id].length&&m.items&&m.items.length){
+      const vs=sk[m.id].filter(i=>i>=0&&i<m.items.length);
+      if(vs.length&&vs.length<m.items.length){const e=effMacros(m,vs);t.cal+=e.cal;t.p+=e.p;t.c+=e.c;t.f+=e.f;t.fib+=e.fib;}
     }
   });
-  return totals;
+  return t;
 }
-
-function renderTracker() {
-  const consumed = computeConsumed(currentDay);
-  const burned = totalBurned(currentDay);
-  const netCal = consumed.cal - burned;
-  const target = TARGETS.cal;
-  const isDeficit = netCal < 0;
-  const isOver = netCal > target;
-  const fmt = (v) => v.toLocaleString();
-
-  document.getElementById('trackerDayLabel').textContent = DAY_NAMES[currentDay] + "'s progress";
-
-  // --- Calorie equation: consumed − burned = net (of target) ---
-  const netDisplay = isDeficit ? `−${fmt(Math.abs(netCal))}` : fmt(netCal);
-  const netClass = isOver ? ' over' : (isDeficit ? ' deficit' : '');
-  let netSub = `of ${fmt(target)}`;
-  if (isOver) netSub = `+${fmt(netCal - target)} over`;
-  else if (isDeficit) netSub = `${fmt(Math.abs(netCal))} cal deficit`;
-  else netSub = `${fmt(target - netCal)} left`;
-
-  document.getElementById('calEquation').innerHTML = `
-    <div class="cal-term">
-      <div class="cal-term-val">${fmt(consumed.cal)}</div>
-      <div class="cal-term-label">Eaten</div>
-    </div>
+function renderTracker(){
+  const c=computeConsumed(currentDay),burned=totalBurned(currentDay),net=c.cal-burned,target=TARGETS.cal;
+  const isOver=net>target,isDeficit=net<0,fmt=v=>v.toLocaleString();
+  document.getElementById('trackerDayLabel').textContent=DAY_NAMES[currentDay]+"'s progress";
+  document.getElementById('calEquation').innerHTML=`
+    <div class="cal-term"><div class="cal-term-val">${fmt(c.cal)}</div><div class="cal-term-label">Eaten</div></div>
     <div class="cal-op">−</div>
-    <div class="cal-term">
-      <div class="cal-term-val burned">${fmt(burned)}</div>
-      <div class="cal-term-label">Burned</div>
-    </div>
+    <div class="cal-term"><div class="cal-term-val burned">${fmt(burned)}</div><div class="cal-term-label">Burned</div></div>
     <div class="cal-op">=</div>
-    <div class="cal-term">
-      <div class="cal-term-val net${netClass}">${netDisplay}</div>
-      <div class="cal-term-sub">${netSub}</div>
-    </div>
-  `;
-
-  // --- Macro grid below: protein, carbs, fat, fiber ---
-  const macros = [
-    { key:'p',   label:'Protein', cls:'p',   value:consumed.p,   target:TARGETS.p   },
-    { key:'c',   label:'Carbs',   cls:'c',   value:consumed.c,   target:TARGETS.c   },
-    { key:'f',   label:'Fat',     cls:'f',   value:consumed.f,   target:TARGETS.f   },
-    { key:'fib', label:'Fiber',   cls:'fib', value:consumed.fib, target:TARGETS.fib }
-  ];
-
-  document.getElementById('trackerGrid').innerHTML = macros.map(m => {
-    const pct = Math.min(100, Math.round((m.value / m.target) * 100));
-    const over = m.value > m.target;
-    const overBy = over ? m.value - m.target : 0;
-    return `<div class="metric">
-      <p class="metric-label">${m.label}</p>
-      <div class="metric-val">${m.value}g<span class="target"> / ${m.target}g</span></div>
-      <div class="bar"><div class="bar-fill ${m.cls}${over ? ' over' : ''}" style="width:${over ? 100 : pct}%"></div></div>
-      ${over ? `<div class="over-note">+${overBy}g over</div>` : ''}
-    </div>`;
+    <div class="cal-term"><div class="cal-term-val net${isOver?' over':isDeficit?' deficit':''}">${isDeficit?'−'+fmt(Math.abs(net)):fmt(net)}</div><div class="cal-term-sub">${isOver?'+'+fmt(net-target)+' over':isDeficit?fmt(Math.abs(net))+' deficit':fmt(target-net)+' left'}</div></div>`;
+  [{key:'p',label:'Protein',cls:'p',val:c.p,tgt:TARGETS.p},{key:'c',label:'Carbs',cls:'c',val:c.c,tgt:TARGETS.c},{key:'f',label:'Fat',cls:'f',val:c.f,tgt:TARGETS.f},{key:'fib',label:'Fiber',cls:'fib',val:c.fib,tgt:TARGETS.fib}].forEach;
+  document.getElementById('trackerGrid').innerHTML=[{label:'Protein',cls:'p',val:c.p,tgt:TARGETS.p},{label:'Carbs',cls:'c',val:c.c,tgt:TARGETS.c},{label:'Fat',cls:'f',val:c.f,tgt:TARGETS.f},{label:'Fiber',cls:'fib',val:c.fib,tgt:TARGETS.fib}].map(m=>{
+    const pct=Math.min(100,Math.round(m.val/m.tgt*100)),over=m.val>m.tgt;
+    return `<div class="metric"><p class="metric-label">${m.label}</p><div class="metric-val">${m.val}g<span class="target"> / ${m.tgt}g</span></div><div class="bar"><div class="bar-fill ${m.cls}${over?' over':''}" style="width:${over?100:pct}%"></div></div>${over?`<div class="over-note">+${m.val-m.tgt}g over</div>`:''}</div>`;
   }).join('');
 }
 
-/* ---------- activity rendering ---------- */
-function renderActivity() {
-  const list = getActivities(currentDay);
-  const burned = totalBurned(currentDay);
-
-  // Summary line in the collapsed header
-  const sumEl = document.getElementById('activitySummaryText');
-  if (list.length === 0) {
-    sumEl.textContent = 'No activity logged';
-    sumEl.classList.remove('has-burn');
-  } else {
-    sumEl.textContent = `${list.length} logged · −${burned.toLocaleString()} cal burned`;
-    sumEl.classList.add('has-burn');
-  }
-
-  // Presets
-  const presetsEl = document.getElementById('activityPresets');
-  presetsEl.innerHTML = ACTIVITY_PRESETS.map((p, i) =>
-    `<button type="button" class="activity-preset" data-preset-idx="${i}">${escapeHtml(p.name)}<span class="preset-cal">~${p.cal} cal</span></button>`
-  ).join('');
-  presetsEl.querySelectorAll('[data-preset-idx]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const p = ACTIVITY_PRESETS[parseInt(btn.dataset.presetIdx)];
-      addActivity(p.name, p.cal);
-    });
-  });
-
-  // Logged entries
-  const listEl = document.getElementById('activityList');
-  listEl.innerHTML = list.map((a, i) =>
-    `<li class="activity-item">
-      <span class="activity-item-name">${escapeHtml(a.name)}</span>
-      <span class="activity-item-cal">−${(parseInt(a.cal)||0).toLocaleString()} cal</span>
-      <button type="button" class="activity-item-remove" data-remove-idx="${i}" aria-label="Remove">×</button>
-    </li>`
-  ).join('');
-  listEl.querySelectorAll('[data-remove-idx]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const idx = parseInt(btn.dataset.removeIdx);
-      const current = getActivities(currentDay);
-      current.splice(idx, 1);
-      setActivities(currentDay, current);
-      renderActivity();
-      renderTracker();
-    });
-  });
+// Activity
+function renderActivity(){
+  const list=getActivities(currentDay),burned=totalBurned(currentDay);
+  const sumEl=document.getElementById('activitySummaryText');
+  if(!list.length){sumEl.textContent='No activity logged';sumEl.classList.remove('has-burn');}
+  else{sumEl.textContent=`${list.length} logged · −${burned.toLocaleString()} cal burned`;sumEl.classList.add('has-burn');}
+  const pe=document.getElementById('activityPresets');
+  pe.innerHTML=PRESETS.map((p,i)=>`<button type="button" class="activity-preset" data-pi="${i}">${esc(p.name)}<span class="preset-cal">~${p.cal} cal</span></button>`).join('');
+  pe.querySelectorAll('[data-pi]').forEach(b=>b.addEventListener('click',()=>{const p=PRESETS[parseInt(b.dataset.pi)];addActivity(p.name,p.cal);}));
+  const le=document.getElementById('activityList');
+  le.innerHTML=list.map((a,i)=>`<li class="activity-item"><span class="activity-item-name">${esc(a.name)}</span><span class="activity-item-cal">−${(parseInt(a.cal)||0).toLocaleString()} cal</span><button type="button" class="activity-item-remove" data-ri="${i}">×</button></li>`).join('');
+  le.querySelectorAll('[data-ri]').forEach(b=>b.addEventListener('click',()=>{const cur=getActivities(currentDay);cur.splice(parseInt(b.dataset.ri),1);setActivities(currentDay,cur);renderActivity();renderTracker();}));
+}
+function addActivity(name,cal){
+  const t=String(name||'').trim(),c=parseInt(cal);if(!t||!c||c<=0)return;
+  const cur=getActivities(currentDay);cur.push({name:t,cal:c});setActivities(currentDay,cur);renderActivity();renderTracker();
 }
 
-function addActivity(name, cal) {
-  const trimmed = String(name || '').trim();
-  const c = parseInt(cal);
-  if (!trimmed || !c || c <= 0) return;
-  const current = getActivities(currentDay);
-  current.push({ name: trimmed, cal: c, ts: Date.now() });
-  setActivities(currentDay, current);
-  renderActivity();
-  renderTracker();
+// Fitness
+function weekKey(){const d=new Date();d.setHours(0,0,0,0);const dy=d.getDay(),df=dy===0?6:dy-1;d.setDate(d.getDate()-df);return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+function getFit(){try{const s=S('mp2_fit');return(s&&s.week===weekKey())?s.counts||{}:{};}catch{return{};}}
+function setFit(c){W('mp2_fit',{week:weekKey(),counts:c});}
+function bumpFit(key,n){const c=getFit();if(n<=0)delete c[key];else c[key]=n;setFit(c);renderFitness();}
+function renderFitness(){
+  const counts=getFit(),le=document.getElementById('fitnessList'),se=document.getElementById('fitnessSummaryText');
+  le.innerHTML=FITNESS_GOALS.map(g=>{
+    const n=counts[g.key]||0,met=n>=g.min;
+    const stubs=Array.from({length:g.max},(_,i)=>{const f=n>i,tc=(f&&n===i+1)?i:i+1;return`<button type="button" class="stub${f?' filled':''}" data-fk="${g.key}" data-fc="${tc}"></button>`;}).join('');
+    return`<div class="fitness-row${met?' met':''}"><div class="fitness-row-top"><p class="fitness-name">${esc(g.name)}</p><span class="fitness-tally"><span class="${met?'met-mark':''}">${n}</span> / ${g.min===g.max?g.min+'×/wk':g.min+'–'+g.max+'×/wk'}${met?' ✓':''}</span></div><div class="fitness-stubs">${stubs}</div></div>`;
+  }).join('')+`<p class="fitness-week-note">Week of ${weekKey()} — resets Monday</p>`;
+  le.querySelectorAll('[data-fk]').forEach(b=>b.addEventListener('click',()=>bumpFit(b.dataset.fk,parseInt(b.dataset.fc))));
+  const met=FITNESS_GOALS.filter(g=>(counts[g.key]||0)>=g.min).length;
+  if(!met&&!Object.keys(counts).length){se.textContent='Tap to track this week';se.classList.remove('has-burn');}
+  else{se.textContent=`${met} of ${FITNESS_GOALS.length} targets hit this week`;met===FITNESS_GOALS.length?se.classList.add('has-burn'):se.classList.remove('has-burn');}
 }
 
-/* ---------- weight & goal (simple) ---------- */
-const WEIGHT_KEY = 'mealPlan_weight';
-const LB_PER_KG = 2.20462;
-
-function getWeight() {
-  try { return JSON.parse(localStorage.getItem(WEIGHT_KEY) || '{}'); } catch { return {}; }
+// Weight
+const LB=2.20462;
+function getWt(){return S('mp2_wt')||{};}
+function setWt(d){W('mp2_wt',d);}
+function fmtW(v,u){return(v==null||isNaN(v))?'—':`${Math.round(v*10)/10} ${u}`;}
+function renderWeight(){
+  const w=getWt(),unit=w.unit||'kg';
+  document.querySelectorAll('.weight-unit-btn').forEach(b=>b.classList.toggle('active',b.dataset.unit===unit));
+  const ce=document.getElementById('weightCurrent'),ge=document.getElementById('weightGoal');
+  if(ce&&document.activeElement!==ce)ce.value=w.current||'';
+  if(ge&&document.activeElement!==ge)ge.value=w.goal||'';
+  const se=document.getElementById('weightSummaryText');
+  if(w.current&&w.goal){se.textContent=`${fmtW(parseFloat(w.current),unit)} → ${fmtW(parseFloat(w.goal),unit)}`;se.classList.add('has-burn');}
+  else if(w.current){se.textContent=fmtW(parseFloat(w.current),unit);se.classList.remove('has-burn');}
+  else{se.textContent='Not set';se.classList.remove('has-burn');}
+  const de=document.getElementById('weightDelta');
+  if(w.current&&w.goal){const cur=parseFloat(w.current),goal=parseFloat(w.goal);if(cur===goal)de.innerHTML='You\'re at your goal.';else{const diff=Math.abs(cur-goal),verb=goal<cur?'lose':'gain';de.innerHTML=`<strong>${verb==='lose'?'−':'+'}${fmtW(diff,unit)}</strong> to reach your goal.`;}}else de.innerHTML='';
 }
-function setWeight(data) {
-  try { localStorage.setItem(WEIGHT_KEY, JSON.stringify(data)); } catch {}
-}
-function formatWeight(value, unit) {
-  if (value == null || isNaN(value)) return '—';
-  return `${(Math.round(value * 10) / 10).toLocaleString()} ${unit}`;
-}
-
-function renderWeight() {
-  const w = getWeight();
-  const unit = w.unit || 'kg';
-
-  // Unit toggle active state
-  document.querySelectorAll('.weight-unit-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.unit === unit);
-  });
-
-  // Populate inputs from storage (unless user is currently typing in them)
-  const curEl = document.getElementById('weightCurrent');
-  const goalEl = document.getElementById('weightGoal');
-  if (curEl && document.activeElement !== curEl) curEl.value = w.current || '';
-  if (goalEl && document.activeElement !== goalEl) goalEl.value = w.goal || '';
-
-  // Header summary line
-  const sumEl = document.getElementById('weightSummaryText');
-  if (w.current && w.goal) {
-    const curTxt = formatWeight(parseFloat(w.current), unit);
-    const goalTxt = formatWeight(parseFloat(w.goal), unit);
-    sumEl.textContent = `${curTxt} → ${goalTxt}`;
-    sumEl.classList.add('has-burn');
-  } else if (w.current) {
-    sumEl.textContent = formatWeight(parseFloat(w.current), unit);
-    sumEl.classList.remove('has-burn');
-  } else {
-    sumEl.textContent = 'Not set';
-    sumEl.classList.remove('has-burn');
-  }
-
-  // Delta line — just the arithmetic difference, no projections
-  const deltaEl = document.getElementById('weightDelta');
-  if (w.current && w.goal) {
-    const cur = parseFloat(w.current);
-    const goal = parseFloat(w.goal);
-    if (cur === goal) {
-      deltaEl.innerHTML = `You're at your goal.`;
-    } else {
-      const diff = Math.abs(cur - goal);
-      const verb = goal < cur ? 'lose' : 'gain';
-      deltaEl.innerHTML = `<strong>${verb === 'lose' ? '−' : '+'}${formatWeight(diff, unit)}</strong> to ${verb === 'lose' ? 'reach' : 'reach'} your goal.`;
-    }
-  } else {
-    deltaEl.innerHTML = '';
-  }
+function saveWt(){
+  const unit=(document.querySelector('.weight-unit-btn.active')||{}).dataset?.unit||'kg';
+  const c=parseFloat(document.getElementById('weightCurrent').value),g=parseFloat(document.getElementById('weightGoal').value);
+  const d={unit};if(!isNaN(c)&&c>0)d.current=c;if(!isNaN(g)&&g>0)d.goal=g;setWt(d);renderWeight();
 }
 
-function saveWeightFromInputs() {
-  const unit = (document.querySelector('.weight-unit-btn.active') || {}).dataset?.unit || 'kg';
-  const current = parseFloat(document.getElementById('weightCurrent').value);
-  const goal = parseFloat(document.getElementById('weightGoal').value);
-  const data = { unit };
-  if (!isNaN(current) && current > 0) data.current = current;
-  if (!isNaN(goal) && goal > 0) data.goal = goal;
-  setWeight(data);
-  renderWeight();
-}
+// Switch day
+function switchDay(d){currentDay=d;renderTabs();renderPanels();renderTracker();renderActivity();window.scrollTo({top:0,behavior:'smooth'});}
 
-
-function switchDay(day) {
-  currentDay = day;
-  renderTabs();
-  renderPanels();
-  renderTracker();
-  renderActivity();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-document.getElementById('resetBtn').addEventListener('click', () => {
-  const customCount = getCustomMeals(currentDay).length;
-  const customNote = customCount > 0
-    ? `\n\nThis will also delete ${customCount} added meal${customCount > 1 ? 's' : ''}.`
-    : '';
-  if (!confirm('Reset all check-offs and activity for ' + DAY_NAMES[currentDay] + '?' + customNote)) return;
-  setCheckedIds(currentDay, []);
-  setSkippedItems(currentDay, {});
-  setActivities(currentDay, []);
-  setCustomMeals(currentDay, []);
-  renderPanels();
-  renderTracker();
-  renderTabs();
-  renderActivity();
+// Reset
+document.getElementById('resetBtn').addEventListener('click',()=>{
+  if(!confirm('Reset '+DAY_NAMES[currentDay]+'?'))return;
+  setChecked(currentDay,[]);setSkipped(currentDay,{});setActivities(currentDay,[]);setCustom(currentDay,[]);
+  renderPanels();renderTracker();renderTabs();renderActivity();
 });
 
-(function initDay() {
-  const todayIdx = new Date().getDay();
-  const map = [6, 0, 1, 2, 3, 4, 5];
-  currentDay = DAY_ORDER[map[todayIdx]];
-})();
-
-/* Load overrides (may include items[] for correct partial math) */
-DAY_ORDER.forEach(day => {
-  try {
-    const overrides = getOverrides(day);
-    Object.entries(overrides).forEach(([id, data]) => {
-      const meal = MEAL_PLAN[day].meals.find(m => m.id === id);
-      if (meal) Object.assign(meal, data);
-    });
-    applyDerivedDayTotals(day);
-  } catch {}
+// PMS toggle
+document.getElementById('pmsModeToggle').addEventListener('change',e=>{
+  pmsMode=e.target.checked;document.body.classList.toggle('pms-mode',pmsMode);renderPanels();renderTracker();
 });
 
-/* ---------- one-time migration for custom meals ---------- */
-/* Older custom meals stored with even-distributed per-item macros (e.g. 100g protein
-   split across 6 ingredients) could silently lose macros when items were skipped.
-   Collapse any multi-item custom meal into a single atomic item carrying the stored
-   totals. The stored `p`, `c`, `f`, `fib`, `cal` on the meal were always correct —
-   they came straight from the user's input at add time. */
-DAY_ORDER.forEach(day => {
-  try {
-    const customs = getCustomMeals(day);
-    let changed = false;
-    customs.forEach(meal => {
-      if (meal && meal.isCustom && Array.isArray(meal.items) && meal.items.length > 1) {
-        meal.items = [{
-          n: meal.title || (meal.items[0] && meal.items[0].n) || 'Meal',
-          cal: meal.cal || 0, p: meal.p || 0, c: meal.c || 0, f: meal.f || 0, fib: meal.fib || 0
-        }];
-        changed = true;
-      }
-    });
-    if (changed) setCustomMeals(day, customs);
-  } catch {}
-
-  // Clean stale skip indices: if a meal no longer has the items that were skipped
-  // (e.g. items count shrank due to migration or edits), drop indices that point
-  // past the end. This keeps the tracker honest.
-  try {
-    const skipped = getSkippedItems(day);
-    const allMeals = [...MEAL_PLAN[day].meals, ...getCustomMeals(day)];
-    const mealById = {};
-    allMeals.forEach(m => { mealById[m.id] = m; });
-    let skipChanged = false;
-    Object.keys(skipped).forEach(mealId => {
-      const meal = mealById[mealId];
-      if (!meal || !Array.isArray(meal.items)) {
-        // Meal no longer exists — nuke its skip entry
-        delete skipped[mealId];
-        skipChanged = true;
-        return;
-      }
-      const validIdxs = skipped[mealId].filter(i => i >= 0 && i < meal.items.length);
-      if (validIdxs.length !== skipped[mealId].length) {
-        if (validIdxs.length === 0) {
-          delete skipped[mealId];
-        } else {
-          skipped[mealId] = validIdxs;
-        }
-        skipChanged = true;
-      }
-    });
-    if (skipChanged) setSkippedItems(day, skipped);
-  } catch {}
+// Add meal modal
+function openAddModal(){
+  ['newMealTitle','newMealDesc','newMealTime','newMealCal','newMealP','newMealC','newMealF','newMealFib'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('aiStatus').textContent='';document.getElementById('addMealModal').classList.add('open');
+}
+document.getElementById('addMealCancel').addEventListener('click',()=>document.getElementById('addMealModal').classList.remove('open'));
+document.getElementById('addMealModal').addEventListener('click',e=>{if(e.target===document.getElementById('addMealModal'))document.getElementById('addMealModal').classList.remove('open');});
+document.getElementById('aiEstimateBtn').addEventListener('click',async()=>{
+  const t=document.getElementById('newMealTitle').value.trim(),d=document.getElementById('newMealDesc').value.trim();
+  if(!t&&!d){document.getElementById('aiStatus').textContent='Enter meal name first.';document.getElementById('aiStatus').className='ai-status error';return;}
+  await doAI(t,d,'aiEstimateBtn','aiStatus',{cal:'newMealCal',p:'newMealP',c:'newMealC',f:'newMealF',fib:'newMealFib'});
+});
+document.getElementById('addMealSave').addEventListener('click',()=>{
+  const title=document.getElementById('newMealTitle').value.trim();
+  if(!title){document.getElementById('aiStatus').textContent='Please enter a meal name.';document.getElementById('aiStatus').className='ai-status error';return;}
+  const cal=parseInt(document.getElementById('newMealCal').value)||0,p=parseInt(document.getElementById('newMealP').value)||0,c=parseInt(document.getElementById('newMealC').value)||0,f=parseInt(document.getElementById('newMealF').value)||0,fib=parseInt(document.getElementById('newMealFib').value)||0;
+  const nm={id:'custom-'+Date.now(),time:document.getElementById('newMealTime').value.trim()||'Added meal',title,desc:document.getElementById('newMealDesc').value.trim(),cal,p,c,f,fib,items:[{n:title,cal,p,c,f,fib}],isCustom:true};
+  const customs=getCustom(currentDay);customs.push(nm);setCustom(currentDay,customs);
+  document.getElementById('addMealModal').classList.remove('open');renderPanels();renderTracker();renderTabs();
 });
 
-renderTabs();
-renderPanels();
-renderTracker();
-
-/* ---------- activity handlers ---------- */
-document.getElementById('activityAddBtn').addEventListener('click', () => {
-  const name = document.getElementById('activityName').value;
-  const cal = document.getElementById('activityCal').value;
-  if (!name.trim() || !cal) return;
-  addActivity(name, cal);
-  document.getElementById('activityName').value = '';
-  document.getElementById('activityCal').value = '';
+// Edit meal modal
+function openEditModal(mealId){
+  editingMealId=mealId;const meal=getMeals(currentDay,pmsMode).find(m=>m.id===mealId);if(!meal)return;
+  document.getElementById('editMealModalTitle').textContent='Edit: '+meal.title;
+  document.getElementById('editMealTitle').value=meal.title;document.getElementById('editMealDesc').value=meal.desc||'';
+  document.getElementById('editMealTime').value=meal.time||'';document.getElementById('editMealCal').value=meal.cal||'';
+  document.getElementById('editMealP').value=meal.p||'';document.getElementById('editMealC').value=meal.c||'';
+  document.getElementById('editMealF').value=meal.f||'';document.getElementById('editMealFib').value=meal.fib||'';
+  document.getElementById('editAiStatus').textContent='';
+  const rb=document.getElementById('editMealResetOriginal');
+  const pristineMeal=PRISTINE[currentDay]?.meals.find(m=>m.id===mealId);
+  rb.style.display=(pristineMeal&&Object.prototype.hasOwnProperty.call(getOverrides(currentDay),mealId))?'flex':'none';
+  document.getElementById('editMealModal').classList.add('open');
+}
+document.getElementById('editMealCancel').addEventListener('click',()=>{document.getElementById('editMealModal').classList.remove('open');editingMealId=null;});
+document.getElementById('editMealModal').addEventListener('click',e=>{if(e.target===document.getElementById('editMealModal')){document.getElementById('editMealModal').classList.remove('open');editingMealId=null;}});
+document.getElementById('editMealResetOriginal').addEventListener('click',()=>{
+  if(!editingMealId)return;
+  const pristine=PRISTINE[currentDay]?.meals.find(m=>m.id===editingMealId);if(!pristine)return;
+  if(!confirm('Reset "'+pristine.title+'" back to original?'))return;
+  const ov=getOverrides(currentDay);delete ov[editingMealId];setOverrides(currentDay,ov);
+  const idx=MEAL_PLAN[currentDay].meals.findIndex(m=>m.id===editingMealId);
+  if(idx!==-1)MEAL_PLAN[currentDay].meals[idx]=JSON.parse(JSON.stringify(pristine));
+  deriveDayTotals(currentDay);document.getElementById('editMealModal').classList.remove('open');editingMealId=null;renderPanels();renderTracker();renderTabs();
 });
-['activityName', 'activityCal'].forEach(id => {
-  document.getElementById(id).addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') document.getElementById('activityAddBtn').click();
+document.getElementById('editAiEstimateBtn').addEventListener('click',async()=>{
+  const t=document.getElementById('editMealTitle').value.trim(),d=document.getElementById('editMealDesc').value.trim();
+  if(!t&&!d){document.getElementById('editAiStatus').textContent='Enter meal name first.';document.getElementById('editAiStatus').className='ai-status error';return;}
+  await doAI(t,d,'editAiEstimateBtn','editAiStatus',{cal:'editMealCal',p:'editMealP',c:'editMealC',f:'editMealF',fib:'editMealFib'});
+});
+document.getElementById('editMealSave').addEventListener('click',()=>{
+  if(!editingMealId)return;
+  const title=document.getElementById('editMealTitle').value.trim(),desc=document.getElementById('editMealDesc').value.trim(),time=document.getElementById('editMealTime').value.trim();
+  const cal=parseInt(document.getElementById('editMealCal').value)||0,p=parseInt(document.getElementById('editMealP').value)||0,c=parseInt(document.getElementById('editMealC').value)||0,f=parseInt(document.getElementById('editMealF').value)||0,fib=parseInt(document.getElementById('editMealFib').value)||0;
+  const patch={title,desc,time,cal,p,c,f,fib,items:[{n:title,cal,p,c,f,fib}]};
+  const customs=getCustom(currentDay),ci=customs.findIndex(m=>m.id===editingMealId);
+  if(ci!==-1){customs[ci]={...customs[ci],...patch};setCustom(currentDay,customs);}
+  else{const ov=getOverrides(currentDay);ov[editingMealId]=patch;setOverrides(currentDay,ov);const bm=MEAL_PLAN[currentDay].meals.find(m=>m.id===editingMealId);if(bm)Object.assign(bm,patch);}
+  deriveDayTotals(currentDay);document.getElementById('editMealModal').classList.remove('open');editingMealId=null;renderPanels();renderTracker();
+});
+
+// AI estimation
+async function doAI(title,desc,btnId,statusId,fields){
+  const btn=document.getElementById(btnId),st=document.getElementById(statusId);
+  btn.disabled=true;st.textContent='Estimating…';st.className='ai-status';
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:200,messages:[{role:'user',content:`Estimate nutrition for one Indian home-cooked serving:\nMeal: ${title}\n${desc?'Desc: '+desc:''}\nRespond ONLY with JSON (no markdown): {"cal":N,"p":N,"c":N,"f":N,"fib":N}`}]})});
+    const data=await r.json(),text=data.content?.map(b=>b.text||'').join('')||'',parsed=JSON.parse(text.replace(/```json|```/g,'').trim());
+    document.getElementById(fields.cal).value=parsed.cal||'';document.getElementById(fields.p).value=parsed.p||'';document.getElementById(fields.c).value=parsed.c||'';document.getElementById(fields.f).value=parsed.f||'';document.getElementById(fields.fib).value=parsed.fib||'';
+    st.textContent=`Est: ${parsed.cal} cal · ${parsed.p}g P · ${parsed.c}g C · ${parsed.f}g F`;st.className='ai-status';
+  }catch{st.textContent='Could not estimate — enter manually.';st.className='ai-status error';}
+  finally{btn.disabled=false;}
+}
+
+// Weight handlers
+document.querySelectorAll('.weight-unit-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const nu=b.dataset.unit,cur=getWt(),ou=cur.unit||'kg';if(nu===ou)return;
+    const conv=v=>{if(!v)return v;const n=parseFloat(v);if(isNaN(n))return v;return ou==='kg'&&nu==='lb'?Math.round(n*LB*10)/10:Math.round(n/LB*10)/10;};
+    setWt({unit:nu,current:conv(cur.current),goal:conv(cur.goal)});renderWeight();
   });
 });
+['weightCurrent','weightGoal'].forEach(id=>{const el=document.getElementById(id);el.addEventListener('input',saveWt);el.addEventListener('keydown',e=>{if(e.key==='Enter')el.blur();});});
 
-renderActivity();
+// Activity handlers
+document.getElementById('activityAddBtn').addEventListener('click',()=>{addActivity(document.getElementById('activityName').value,document.getElementById('activityCal').value);document.getElementById('activityName').value='';document.getElementById('activityCal').value='';});
+['activityName','activityCal'].forEach(id=>document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('activityAddBtn').click();}));
 
-/* ---------- weight handlers ---------- */
-document.querySelectorAll('.weight-unit-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const newUnit = btn.dataset.unit;
-    const current = getWeight();
-    const oldUnit = current.unit || 'kg';
-    if (newUnit === oldUnit) return;
-    // Convert existing values between units so the numbers make sense
-    const convert = (val) => {
-      if (!val) return val;
-      const num = parseFloat(val);
-      if (isNaN(num)) return val;
-      if (oldUnit === 'kg' && newUnit === 'lb') return Math.round(num * LB_PER_KG * 10) / 10;
-      if (oldUnit === 'lb' && newUnit === 'kg') return Math.round((num / LB_PER_KG) * 10) / 10;
-      return num;
-    };
-    const next = {
-      unit: newUnit,
-      current: convert(current.current),
-      goal: convert(current.goal)
-    };
-    setWeight(next);
-    renderWeight();
-  });
+// Init — open on today's day
+(function(){const todayIdx=new Date().getDay(),map=[6,0,1,2,3,4,5];currentDay=DAY_ORDER[map[todayIdx]];})();
+
+// Apply saved overrides
+DAY_ORDER.forEach(d=>{
+  try{const ov=getOverrides(d);Object.entries(ov).forEach(([id,data])=>{const m=MEAL_PLAN[d].meals.find(m=>m.id===id);if(m)Object.assign(m,data);});deriveDayTotals(d);}catch{}
 });
 
-// Live-save as user types in the two weight inputs
-['weightCurrent', 'weightGoal'].forEach(id => {
-  const el = document.getElementById(id);
-  el.addEventListener('input', saveWeightFromInputs);
-  el.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') el.blur();
-  });
-});
-
-renderWeight();
+renderTabs();renderPanels();renderTracker();renderActivity();renderFitness();renderWeight();
 </script>
 </body>
 </html>
