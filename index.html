@@ -1137,11 +1137,11 @@ const LAZY_MEALS = {
     ] },
 
   // === WED ===
-  'wed-2': { time:'1–1:30pm · Meal 1', title:'Canned rajma + 2-egg omelette',
-    desc:'Lazy. Canned rajma (no soaking/cooking) + 2-egg omelette + cucumber salad.',
-    quantities:'Canned rajma (~120g drained) · Eggs (2, omelette) · Cucumber (100g) · Tomato (60g) · Onion (30g) · Olive oil (5ml) · Lemon',
+  'wed-2': { time:'1–1:30pm · Meal 1', title:'Pre-cooked chicken + 2-egg omelette',
+    desc:'Lazy. Pre-cooked/rotisserie chicken + 2-egg omelette + cucumber salad.',
+    quantities:'Pre-cooked chicken (100g) · Eggs (2, omelette) · Cucumber (100g) · Tomato (60g) · Onion (30g) · Olive oil (5ml) · Lemon',
     items:[
-      { n:'Canned rajma',        cal:160, p:10, c:24, f:1,  fib:8 },
+      { n:'Pre-cooked chicken',  cal:170, p:32, c:0,  f:4,  fib:0 },
       { n:'2-egg omelette',      cal:180, p:14, c:2,  f:12, fib:0 },
       { n:'Cuc-tom-onion side',  cal:50,  p:2,  c:10, f:0,  fib:3 },
       { n:'Olive oil + lemon',   cal:50,  p:0,  c:1,  f:5,  fib:0 }
@@ -1157,13 +1157,14 @@ const LAZY_MEALS = {
     ] },
 
   // === THU ===
-  'thu-2': { time:'1–1:30pm · Meal 1', title:'Paneer cubes + hung curd (no dosa)',
-    desc:'Lazy. Pan-toss raw paneer cubes with spices (3 min) + hung curd + cucumber. Skips the dosa.',
-    quantities:'Paneer (120g, cubed) · Hung curd (140g) · Cucumber (80g) · 1 tsp ghee · Spices · Lemon',
+  'thu-2': { time:'1–1:30pm · Meal 1', title:'Pre-cooked chicken + 1 dosa',
+    desc:'Lazy. Pre-cooked/rotisserie chicken + 1 dosa with chutney + cucumber salad.',
+    quantities:'Pre-cooked chicken (120g) · Dosa batter (40g) or ready dosa · Coconut chutney (20g) · Cucumber (80g) · Tomato (50g) · Onion (30g) · Lemon',
     items:[
-      { n:'Spiced paneer cubes', cal:285, p:22, c:5,  f:20, fib:1 },
-      { n:'Hung curd',           cal:120, p:11, c:6,  f:6,  fib:0 },
-      { n:'Cucumber + lemon',    cal:25,  p:1,  c:5,  f:0,  fib:2 }
+      { n:'Pre-cooked chicken', cal:200, p:38, c:0,  f:5,  fib:0 },
+      { n:'Small dosa (1)',     cal:115, p:3,  c:23, f:1,  fib:1 },
+      { n:'Coconut chutney',    cal:30,  p:1,  c:3,  f:2,  fib:1 },
+      { n:'Cuc-tom-onion side', cal:50,  p:2,  c:10, f:0,  fib:3 }
     ] },
   'thu-5': { time:'8–8:30pm · Meal 2', title:'Canned chickpeas + 2-egg omelette',
     desc:'Lazy. Canned chickpeas + 2-egg omelette + cucumber sticks + olive oil + lemon. Zero chopping.',
@@ -1207,13 +1208,13 @@ const LAZY_MEALS = {
       { n:'Hung curd',       cal:70,  p:6,  c:3,  f:3,  fib:0 },
       { n:'Ghee + lemon',    cal:20,  p:0,  c:0,  f:2,  fib:0 }
     ] },
-  'sat-5': { time:'8–8:30pm · Meal 2', title:'Paneer pasta (quick)',
-    desc:'Lazy. Boil pasta, toss with pan-fried paneer + store-bought marinara + microwaved veg.',
-    quantities:'Paneer (100g, cubed) · Whole wheat pasta (40g dry) · Store-bought marinara (50g) · Broccoli (80g, microwaved) · Capsicum (40g) · Cucumber (60g) · Basil',
+  'sat-5': { time:'8–8:30pm · Meal 2', title:'Microwave paneer + ready chilla',
+    desc:'Lazy. Microwave paneer with onion+capsicum (4 min) + store-bought ready chilla + salad.',
+    quantities:'Paneer (80g, crumbled) · Capsicum (40g) · Onion (40g) · Ready moong dal chilla (store-bought) · Cucumber (80g) · Tomato (60g) · 1 tsp oil',
     items:[
-      { n:'Paneer pasta',                cal:310, p:22, c:32, f:11, fib:5 },
-      { n:'Microwaved broccoli + capsicum', cal:80, p:4, c:12, f:2, fib:5 },
-      { n:'Cucumber salad',              cal:30,  p:1,  c:6,  f:0,  fib:2 }
+      { n:'Microwave paneer',       cal:200, p:16, c:5,  f:13, fib:2 },
+      { n:'Ready chilla (x2)',      cal:230, p:16, c:28, f:6,  fib:7 },
+      { n:'Cucumber-tomato salad',  cal:40,  p:1,  c:6,  f:0,  fib:3 }
     ] },
 
   // === SUN ===
@@ -1240,9 +1241,9 @@ const LAZY_MEALS = {
 // quantities field. Round up where it makes sense for shopping (you can't buy 600g of chicken).
 const WEEKLY_GROCERY_LIST = [
   { section: 'Protein', items: [
-    'Chicken breast — ~360g raw (Mon 120g, Fri 120g, Sun 120g — LUNCH ONLY)',
+    'Chicken breast — ~460g raw (Mon 120g, Wed 100g, Thu 120g, Fri 120g — LUNCH ONLY)',
     'Eggs — 11 total (Wed 2 omelette, Thu 2 omelette, Sat 2 whites only, Sun 1 scrambled + 3 curry)',
-    'Paneer — ~770g (Mon 70g, Tue 140g, Wed 120g, Thu 100g, Sat 160g)',
+    'Paneer — ~630g (Mon 70g, Tue 140g, Wed 120g, Sat 140g)',
     'Plant protein powder — 5 scoops total (Mon, Wed, Thu, Fri, Sat)'
   ]},
   { section: 'Dairy', items: [
@@ -1252,14 +1253,12 @@ const WEEKLY_GROCERY_LIST = [
   ]},
   { section: 'Pulses & lentils', items: [
     'Kala chana (black chickpeas) — 80g dry (Tue + Fri, soak overnight)',
-    'Rajma — 40g (Wed, soak overnight)',
     'Arhar/toor dal — 60g (Sat + Sun)',
     'White chickpeas (kabuli) — 80g (Thu)'
   ]},
   { section: 'Grains & batters', items: [
-    'Moong dal batter (store-bought) — ~280g (Mon, Tue chillas)',
-    'Dosa batter (store-bought) — ~120g (Mon, Thu, Sat — 3 small dosas total)',
-    'Whole wheat pasta — 40g dry (Sat dinner)',
+    'Moong dal batter (store-bought) — ~420g (Mon, Tue, Sat chillas)',
+    'Dosa batter (store-bought) — ~160g (Mon, Thu, Sat — 4 small dosas total)',
     'Multigrain bread — 1 slice (Sun avocado toast)'
   ]},
   { section: 'Vegetables', items: [
@@ -1299,8 +1298,7 @@ const WEEKLY_GROCERY_LIST = [
     'Cooking oil — ~50ml',
     'Mint chutney — small jar',
     'Tamarind chutney — small jar (Fri)',
-    'Sambar or coconut chutney — for dosas (Mon, Thu, Sat)',
-    'Marinara or tomato-basil sauce — ~50g (Sat pasta, or make fresh)',
+    'Coconut chutney — for dosas (Mon, Thu, Sat)',
     'Cumin, black pepper, salt, rock salt, turmeric, chilli powder, basil — pantry'
   ]}
 ];
@@ -1426,11 +1424,11 @@ const MEAL_PLAN = {
           { n:'Chia water',         cal:30, p:1, c:2, f:2, fib:4 }
         ] },
 
-      { id:'wed-2', time:'1–1:30pm · Meal 1', title:'Rajma + 2-egg omelette + salad',
-        desc:'Boiled rajma + 2-egg omelette (onion-tomato) + chopped salad. No rice — protein-forward.',
-        quantities:'Rajma (40g dry / ~100g cooked) · Eggs (2) · Cucumber (100g) · Tomato (60g) · Onion (30g) · Lemon · 1 tsp oil · Spices',
+      { id:'wed-2', time:'1–1:30pm · Meal 1', title:'Chicken + 2-egg omelette + salad',
+        desc:'Grilled chicken breast (100g) + 2-egg omelette + chopped salad. High protein.',
+        quantities:'Raw chicken (100g, grilled) · Eggs (2) · Cucumber (100g) · Tomato (60g) · Onion (30g) · Lemon · 1 tsp oil · Spices',
         items:[
-          { n:'Boiled rajma',        cal:140, p:10, c:22, f:1,  fib:8 },
+          { n:'Grilled chicken',     cal:170, p:32, c:0,  f:4,  fib:0 },
           { n:'2-egg omelette',      cal:180, p:14, c:2,  f:12, fib:0 },
           { n:'Cuc-tom-onion side',  cal:50,  p:2,  c:10, f:0,  fib:3 },
           { n:'Olive oil + lemon',   cal:50,  p:0,  c:1,  f:5,  fib:0 }
@@ -1475,13 +1473,14 @@ const MEAL_PLAN = {
           { n:'Chia water',         cal:30, p:1, c:2, f:2, fib:4 }
         ] },
 
-      { id:'thu-2', time:'1–1:30pm · Meal 1', title:'Paneer bhurji + small dosa + hung curd',
-        desc:'Paneer bhurji (100g paneer) + 1 small dosa + hung curd.',
-        quantities:'Paneer (100g, crumbled) · Onion (40g) · Tomato (50g) · Capsicum (40g) · Dosa batter (40g) · Hung curd (100g) · 1 tsp ghee · Spices',
+      { id:'thu-2', time:'1–1:30pm · Meal 1', title:'Chicken + small dosa + salad',
+        desc:'Grilled chicken breast (120g) + 1 small dosa with chutney + cucumber-tomato salad.',
+        quantities:'Raw chicken (120g, grilled) · Dosa batter (40g) · Coconut chutney (20g) · Cucumber (80g) · Tomato (50g) · Onion (30g) · Lemon · Spices',
         items:[
-          { n:'Paneer bhurji',  cal:245, p:20, c:5,  f:16, fib:2 },
-          { n:'Small dosa (1)', cal:115, p:3,  c:23, f:1,  fib:1 },
-          { n:'Hung curd',      cal:85,  p:8,  c:4,  f:4,  fib:0 }
+          { n:'Grilled chicken',    cal:200, p:38, c:0,  f:5,  fib:0 },
+          { n:'Small dosa (1)',     cal:115, p:3,  c:23, f:1,  fib:1 },
+          { n:'Coconut chutney',    cal:30,  p:1,  c:3,  f:2,  fib:1 },
+          { n:'Cuc-tom-onion side', cal:50,  p:2,  c:10, f:0,  fib:3 }
         ] },
 
       { id:'thu-3', time:'4–5pm · Snack', title:'Hung curd + fruit',
@@ -1581,13 +1580,13 @@ const MEAL_PLAN = {
         ] },
 
       { id:'sat-3', time:'1–1:30pm · Meal 1', title:'Dal + paneer + 1 dosa + hung curd',
-        desc:'Tadka yellow dal + paneer cubes + 1 small dosa with sambar + hung curd side. Protein-forward.',
-        quantities:'Arhar/toor dal (40g dry / ~100g cooked) · Paneer (60g, cubed) · Dosa batter (40g) · Sambar (20g) · Hung curd (80g) · 1 tsp ghee · Lemon',
+        desc:'Tadka yellow dal + paneer cubes + 1 small dosa with chutney + hung curd side. Protein-forward.',
+        quantities:'Arhar/toor dal (40g dry / ~100g cooked) · Paneer (60g, cubed) · Dosa batter (40g) · Coconut chutney (20g) · Hung curd (80g) · 1 tsp ghee · Lemon',
         items:[
           { n:'Yellow dal',     cal:140, p:11, c:18, f:3,  fib:5 },
           { n:'Paneer cubes',   cal:160, p:12, c:3,  f:11, fib:0 },
           { n:'Small dosa (1)', cal:115, p:3,  c:23, f:1,  fib:1 },
-          { n:'Sambar',         cal:30,  p:1,  c:6,  f:0,  fib:1 },
+          { n:'Coconut chutney',cal:30,  p:1,  c:3,  f:2,  fib:1 },
           { n:'Hung curd',      cal:70,  p:6,  c:3,  f:3,  fib:0 },
           { n:'Ghee + lemon',   cal:20,  p:0,  c:0,  f:2,  fib:0 }
         ] },
@@ -1601,13 +1600,13 @@ const MEAL_PLAN = {
           { n:'Seeds mix',       cal:50, p:2, c:3,  f:4, fib:2 }
         ] },
 
-      { id:'sat-5', time:'8–8:30pm · Meal 2', title:'Paneer pasta + sautéed veg',
-        desc:'Whole wheat pasta (40g dry) with paneer cubes (100g), tomato-basil sauce, sautéed broccoli + capsicum.',
-        quantities:'Whole wheat pasta (40g dry / ~100g cooked) · Paneer (100g, cubed) · Tomato (60g) · Onion (40g) · Garlic · Basil · Broccoli (80g) · Capsicum (40g) · Cucumber (60g) · Olive oil (5ml) · Spices',
+      { id:'sat-5', time:'8–8:30pm · Meal 2', title:'Moong dal chilla + paneer + salad',
+        desc:'2 moong dal chillas with paneer-capsicum filling + cucumber-tomato salad.',
+        quantities:'Moong dal batter (140g) · Paneer (80g, crumbled) · Capsicum (40g) · Onion (40g) · Cucumber (80g) · Tomato (60g) · 1 tsp oil · Lemon · Spices',
         items:[
-          { n:'Paneer pasta',                cal:310, p:22, c:32, f:11, fib:5 },
-          { n:'Sautéed broccoli + capsicum', cal:80,  p:4,  c:12, f:2,  fib:5 },
-          { n:'Cucumber salad',              cal:30,  p:1,  c:6,  f:0,  fib:2 }
+          { n:'Moong dal chilla (x2)',  cal:230, p:16, c:28, f:6,  fib:7 },
+          { n:'Paneer-capsicum filling',cal:200, p:16, c:5,  f:13, fib:2 },
+          { n:'Cucumber-tomato salad',  cal:40,  p:1,  c:6,  f:0,  fib:3 }
         ] }
     ],
     note:'Dance day. Paneer + dal carry protein. No rice today.'
