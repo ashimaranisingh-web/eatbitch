@@ -940,6 +940,240 @@
       color: #f48fb1;
     }
   }
+
+  /* ── Cycle calendar ── */
+  .cycle-section {
+    margin-bottom: 16px;
+  }
+  .cycle-setup {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .cycle-setup p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+  }
+  .cycle-setup-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+  }
+  .cycle-setup input[type="date"] {
+    font-size: 13px;
+    padding: 8px 10px;
+    border: 1px solid var(--border-secondary);
+    border-radius: 8px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: inherit;
+  }
+  .cycle-setup-btn {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    background: var(--accent);
+    color: white;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .cycle-calendar-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    border-radius: var(--radius-lg);
+  }
+  .cycle-calendar-wrap::-webkit-scrollbar { display: none; }
+  .cycle-calendar {
+    display: flex;
+    gap: 6px;
+    padding: 12px 4px;
+    min-width: max-content;
+  }
+  .cycle-day-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 40px;
+    cursor: pointer;
+    padding: 6px 4px;
+    border-radius: 10px;
+    transition: background 0.15s;
+  }
+  .cycle-day-cell.today {
+    background: var(--bg-secondary);
+  }
+  .cycle-day-name {
+    font-size: 10px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .cycle-day-num {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .cycle-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border-secondary);
+  }
+  .cycle-dot.menstrual  { background: #ef5350; }
+  .cycle-dot.follicular { background: #43a047; }
+  .cycle-dot.ovulation  { background: #42a5f5; }
+  .cycle-dot.luteal     { background: #ffd600; }
+
+  /* ── Smart insights ── */
+  .insight-card {
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .insight-card.menstrual  { background: #fde8e8; }
+  .insight-card.follicular { background: #e8f5e9; }
+  .insight-card.ovulation  { background: #e3f2fd; }
+  .insight-card.luteal     { background: #fffde7; }
+  @media (prefers-color-scheme: dark) {
+    .insight-card.menstrual  { background: #3b0f0f; }
+    .insight-card.follicular { background: #0d2e10; }
+    .insight-card.ovulation  { background: #0d2a3b; }
+    .insight-card.luteal     { background: #2e2800; }
+  }
+  .insight-emoji { font-size: 22px; flex-shrink: 0; }
+  .insight-body  { flex: 1; min-width: 0; }
+  .insight-phase {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 2px;
+    opacity: 0.6;
+  }
+  .insight-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .insight-text {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .insight-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .insight-pill {
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    background: rgba(0,0,0,0.06);
+    color: var(--text-primary);
+  }
+  @media (prefers-color-scheme: dark) {
+    .insight-pill { background: rgba(255,255,255,0.1); }
+  }
+  .cycle-reset-btn {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 0;
+    display: block;
+    margin: 4px auto 0;
+    font-family: inherit;
+  }
+
+  /* ── Phase popup ── */
+  .phase-popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 1000;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0 0 env(safe-area-inset-bottom);
+    animation: fadeIn 0.15s ease;
+  }
+  @keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+  .phase-popup {
+    background: var(--bg-primary);
+    border-radius: 20px 20px 0 0;
+    padding: 20px 20px 32px;
+    width: 100%;
+    max-width: 480px;
+    animation: slideUp 0.2s ease;
+  }
+  @keyframes slideUp { from { transform: translateY(40px); opacity:0 } to { transform: translateY(0); opacity:1 } }
+  .phase-popup-handle {
+    width: 36px; height: 4px;
+    background: var(--border-secondary);
+    border-radius: 2px;
+    margin: 0 auto 16px;
+  }
+  .phase-popup-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .phase-popup-emoji { font-size: 28px; }
+  .phase-popup-title { font-size: 17px; font-weight: 600; }
+  .phase-popup-phase {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+    margin-bottom: 2px;
+  }
+  .phase-popup-body {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .phase-popup-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .phase-popup-pill {
+    font-size: 12px;
+    padding: 5px 11px;
+    border-radius: 20px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+  .phase-popup-close {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 12px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 15px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+  }
 </style>
 </head>
 <body>
@@ -949,6 +1183,12 @@
   <h1>Daily meal plan</h1>
   <p class="subtitle" id="modeSubtitle">1,200 cal · 110g protein · 100g carbs · 40g fat · fiber-rich</p>
 </header>
+
+<div class="cycle-section" id="cycleSection">
+  <!-- populated by renderCycleCalendar() -->
+</div>
+
+<div id="insightSection"></div>
 
 <div class="mode-toggle-bar" id="modeToggleBar">
   <button type="button" class="mode-btn active" id="btnNormal" onclick="setMode(false)">Normal</button>
@@ -1978,6 +2218,7 @@ function setSkippedItems(day, data) {
 const ACTIVITY_PRESETS = [
   { name: 'Weight training', cal: 250 },
   { name: 'Dance class',     cal: 350 },
+  { name: 'Badminton (2hr)', cal: 600 },
   { name: '30-min walk',     cal: 120 },
   { name: '5k run',          cal: 350 },
   { name: '10k steps',       cal: 400 }
@@ -2873,11 +3114,12 @@ function addActivity(name, cal) {
 
 /* ---------- fitness goals (weekly tracker) ---------- */
 const FITNESS_GOALS = [
-  { key: 'strength', name: 'Strength training', min: 3, max: 4 },
-  { key: 'pilates',  name: 'Pilates',           min: 1, max: 2 },
-  { key: 'dance',    name: 'Dance',             min: 2, max: 2 },
-  { key: 'running',  name: 'Running',           min: 3, max: 3 },
-  { key: 'steps10k', name: '10k steps',         min: 5, max: 7 }
+  { key: 'strength',  name: 'Strength training', min: 3, max: 4 },
+  { key: 'pilates',   name: 'Pilates',           min: 1, max: 2 },
+  { key: 'dance',     name: 'Dance',             min: 2, max: 2 },
+  { key: 'running',   name: 'Running',           min: 3, max: 3 },
+  { key: 'badminton', name: 'Badminton',         min: 2, max: 3 },
+  { key: 'steps10k',  name: '10k steps',         min: 5, max: 7 }
 ];
 
 // Week starts Monday. Returns a stable string like "2026-W18" so counts auto-reset on Monday rollover.
@@ -3140,6 +3382,242 @@ DAY_ORDER.forEach(day => {
   } catch {}
 });
 
+/* ═══════════════════════════════════════════════════════
+   CYCLE TRACKER
+   ═══════════════════════════════════════════════════════ */
+
+const CYCLE_LENGTH = 28; // default
+
+function getCycleStart() {
+  try { return localStorage.getItem('mealPlan_cycleStart') || null; } catch { return null; }
+}
+function setCycleStart(dateStr) {
+  try { localStorage.setItem('mealPlan_cycleStart', dateStr); } catch {}
+}
+function clearCycleStart() {
+  try { localStorage.removeItem('mealPlan_cycleStart'); } catch {}
+}
+
+function getCyclePhase(dayNum) {
+  // dayNum = 1-based day of cycle
+  if (dayNum <= 5)  return 'menstrual';
+  if (dayNum <= 13) return 'follicular';
+  if (dayNum <= 16) return 'ovulation';
+  return 'luteal';
+}
+
+function getPhaseForDate(dateStr, cycleStartStr) {
+  const start = new Date(cycleStartStr);
+  const date  = new Date(dateStr);
+  start.setHours(0,0,0,0);
+  date.setHours(0,0,0,0);
+  const diffDays = Math.round((date - start) / 86400000);
+  if (diffDays < 0) return null; // before cycle started
+  const dayInCycle = (diffDays % CYCLE_LENGTH) + 1;
+  return { phase: getCyclePhase(dayInCycle), dayNum: dayInCycle };
+}
+
+const PHASE_META = {
+  menstrual:  { dot: 'menstrual',  emoji: '🔴', label: 'Menstrual',  color: '#ef5350' },
+  follicular: { dot: 'follicular', emoji: '💚', label: 'Follicular', color: '#43a047' },
+  ovulation:  { dot: 'ovulation',  emoji: '💙', label: 'Ovulation',  color: '#42a5f5' },
+  luteal:     { dot: 'luteal',     emoji: '🌙', label: 'PMS',        color: '#ffd600' },
+};
+
+const PHASE_INSIGHTS = {
+  menstrual: {
+    title: 'Rest & restore',
+    text: 'Energy returns by Day 2-3. Iron-rich foods now replenish what you\'re losing. Warm, comforting meals. No pressure to hit the gym.',
+    pills: ['Iron-rich foods', 'Warm meals', 'Rest', 'Hydrate'],
+    autoMode: false,
+  },
+  follicular: {
+    title: 'Your best phase — use it',
+    text: 'Estrogen rising = high energy, low cravings, love for chicken + veggies + black coffee. Crush your workouts. Meal prep now for the luteal phase.',
+    pills: ['Chicken OK', 'High energy', 'Weight training', 'Meal prep'],
+    autoMode: false,
+  },
+  ovulation: {
+    title: 'Cravings creeping in',
+    text: 'Sugar + fat cravings starting but still manageable. Stock your fridge now — dates, hung curd, aloo tikki, bananas. Don\'t wait till luteal hits.',
+    pills: ['Stock fridge', 'Dates ready', 'Chocolate ok (2sq)', 'Cravings starting'],
+    autoMode: false,
+  },
+  luteal: {
+    title: 'PMS mode — switch now',
+    text: 'No chicken, more carbs, comfort foods. Serotonin is low — this is biology, not weakness. Eat every 3-4 hrs. Electrolytes every morning. Take your iron.',
+    pills: ['No chicken', 'More carbs', 'Electrolytes AM', 'Take iron', 'Protein shake'],
+    autoMode: true,
+  },
+};
+
+const WEEK_DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function dateToStr(d) {
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+function renderCycleCalendar() {
+  const section = document.getElementById('cycleSection');
+  const cycleStart = getCycleStart();
+
+  if (!cycleStart) {
+    section.innerHTML = `
+      <div class="cycle-setup">
+        <p>Track your cycle for phase-aware meal switching + smart insights</p>
+        <div class="cycle-setup-row">
+          <input type="date" id="cycleStartInput" placeholder="First day of last period">
+          <button class="cycle-setup-btn" onclick="saveCycleStart()">Start tracking</button>
+        </div>
+      </div>`;
+    document.getElementById('insightSection').innerHTML = '';
+    return;
+  }
+
+  // Build 5-week window centred on today
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  const todayStr = dateToStr(today);
+
+  // Start from 3 cycles back so past is always coloured
+  const windowStart = new Date(today);
+  windowStart.setDate(today.getDate() - 21);
+
+  const days = [];
+  for (let i = 0; i < 56; i++) {
+    const d = new Date(windowStart);
+    d.setDate(windowStart.getDate() + i);
+    days.push(d);
+  }
+
+  const cells = days.map(d => {
+    const ds = dateToStr(d);
+    const isToday = ds === todayStr;
+    const info = getPhaseForDate(ds, cycleStart);
+    const meta = info ? PHASE_META[info.phase] : null;
+    const dotClass = meta ? meta.dot : '';
+    const clickAttr = info ? `onclick="showPhasePopup('${ds}','${cycleStart}')"` : '';
+    return `<div class="cycle-day-cell${isToday ? ' today' : ''}" ${clickAttr} style="${info ? 'cursor:pointer' : ''}">
+      <span class="cycle-day-name">${WEEK_DAYS[d.getDay()]}</span>
+      <span class="cycle-day-num">${d.getDate()}</span>
+      <span class="cycle-dot ${dotClass}"></span>
+    </div>`;
+  }).join('');
+
+  section.innerHTML = `
+    <div class="cycle-calendar-wrap" id="cycleCalWrap">
+      <div class="cycle-calendar">${cells}</div>
+    </div>
+    <button class="cycle-reset-btn" onclick="resetCycle()">Change period start date</button>`;
+
+  // Scroll so today is roughly centred
+  requestAnimationFrame(() => {
+    const wrap = document.getElementById('cycleCalWrap');
+    if (!wrap) return;
+    const todayIdx = 21; // today is 21st cell (0-indexed)
+    const cellW = 46;
+    const offset = todayIdx * cellW - (wrap.clientWidth / 2) + cellW / 2;
+    wrap.scrollLeft = Math.max(0, offset);
+  });
+
+  renderInsight(cycleStart, todayStr);
+}
+
+function renderInsight(cycleStart, todayStr) {
+  const section = document.getElementById('insightSection');
+  const info = getPhaseForDate(todayStr, cycleStart);
+  if (!info) { section.innerHTML = ''; return; }
+
+  const { phase, dayNum } = info;
+  const meta = PHASE_META[phase];
+  const ins  = PHASE_INSIGHTS[phase];
+
+  // Days until next phase
+  let daysLeft = 0;
+  if (phase === 'menstrual')  daysLeft = 5  - dayNum;
+  if (phase === 'follicular') daysLeft = 13 - dayNum;
+  if (phase === 'ovulation')  daysLeft = 16 - dayNum;
+  if (phase === 'luteal')     daysLeft = CYCLE_LENGTH - dayNum;
+
+  const pillsHtml = ins.pills.map(p => `<span class="insight-pill">${p}</span>`).join('');
+
+  // Auto-switch mode if luteal
+  if (ins.autoMode && !isPMSMode()) {
+    setMode(true);
+  } else if (!ins.autoMode && isPMSMode() && phase !== 'luteal') {
+    setMode(false);
+  }
+
+  section.innerHTML = `
+    <div class="insight-card ${phase}">
+      <span class="insight-emoji">${meta.emoji}</span>
+      <div class="insight-body">
+        <div class="insight-phase">Day ${dayNum} · ${meta.label} phase · ${daysLeft} day${daysLeft !== 1 ? 's' : ''} left</div>
+        <div class="insight-title">${ins.title}</div>
+        <div class="insight-text">${ins.text}</div>
+        <div class="insight-pills">${pillsHtml}</div>
+      </div>
+    </div>`;
+}
+
+function saveCycleStart() {
+  const input = document.getElementById('cycleStartInput');
+  if (!input || !input.value) return;
+  setCycleStart(input.value);
+  renderCycleCalendar();
+}
+
+function resetCycle() {
+  clearCycleStart();
+  if (isPMSMode()) setMode(false);
+  renderCycleCalendar();
+}
+
+
+
+function showPhasePopup(dateStr, cycleStart) {
+  const info = getPhaseForDate(dateStr, cycleStart);
+  if (!info) return;
+  const { phase, dayNum } = info;
+  const meta = PHASE_META[phase];
+  const ins  = PHASE_INSIGHTS[phase];
+
+  // Parse date for display
+  const d = new Date(dateStr + 'T00:00:00');
+  const MONTH_NAMES_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const dateLabel = `${WEEK_DAYS[d.getDay()]} ${d.getDate()} ${MONTH_NAMES_SHORT[d.getMonth()]}`;
+
+  let daysLeft = 0;
+  if (phase === 'menstrual')  daysLeft = 5  - dayNum;
+  if (phase === 'follicular') daysLeft = 13 - dayNum;
+  if (phase === 'ovulation')  daysLeft = 16 - dayNum;
+  if (phase === 'luteal')     daysLeft = CYCLE_LENGTH - dayNum;
+
+  const pillsHtml = ins.pills.map(p => `<span class="phase-popup-pill">${p}</span>`).join('');
+
+  const overlay = document.createElement('div');
+  overlay.className = 'phase-popup-overlay';
+  overlay.innerHTML = `
+    <div class="phase-popup">
+      <div class="phase-popup-handle"></div>
+      <div class="phase-popup-header">
+        <span class="phase-popup-emoji">${meta.emoji}</span>
+        <div>
+          <div class="phase-popup-phase">${dateLabel} · Day ${dayNum} · ${daysLeft} day${daysLeft !== 1 ? 's' : ''} left</div>
+          <div class="phase-popup-title">${meta.label} — ${ins.title}</div>
+        </div>
+      </div>
+      <div class="phase-popup-body">${ins.text}</div>
+      <div class="phase-popup-pills">${pillsHtml}</div>
+      <button class="phase-popup-close" onclick="this.closest('.phase-popup-overlay').remove()">Done</button>
+    </div>`;
+
+  // Close on overlay tap
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+  document.body.appendChild(overlay);
+}
+
 function setMode(pms) {
   setPMSMode(pms);
   document.getElementById('btnNormal').classList.toggle('active', !pms);
@@ -3161,6 +3639,7 @@ function setMode(pms) {
     '🌙 PMS mode · Hormone-balanced meals · No chicken · Comfort carbs · Anti-bloat';
 })();
 
+renderCycleCalendar();
 renderTabs();
 renderPanels();
 renderTracker();
