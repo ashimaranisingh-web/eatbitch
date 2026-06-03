@@ -418,7 +418,7 @@
   }
 
   /* Lazy mode toggle banner */
-  .lazy-toggle {
+  .cycle-toggle {
     display: flex; align-items: center; gap: 12px;
     padding: 12px 14px; margin-bottom: 12px;
     background: var(--bg-secondary);
@@ -426,31 +426,31 @@
     border-radius: var(--radius-lg);
     transition: all 0.2s;
   }
-  .lazy-toggle.on {
-    background: var(--bg-info);
-    border-color: #b39ddb;
+  .cycle-toggle.post {
+    background: var(--bg-warning);
+    border-color: var(--partial);
   }
   @media (prefers-color-scheme: dark) {
-    .lazy-toggle.on { border-color: #9575cd; }
+    .cycle-toggle.post { border-color: #D97E4A; }
   }
-  .lazy-toggle-info {
+  .cycle-toggle-info {
     flex: 1; min-width: 0;
     display: flex; flex-direction: column; gap: 2px;
   }
-  .lazy-toggle-title {
+  .cycle-toggle-title {
     font-size: 13px; font-weight: 500;
     color: var(--text-primary);
   }
-  .lazy-toggle-sub {
+  .cycle-toggle-sub {
     font-size: 11px; color: var(--text-secondary);
     line-height: 1.4;
   }
-  .lazy-toggle-btn {
+  .cycle-toggle-btn {
     flex: 0 0 auto;
     background: none; border: none; padding: 0;
     cursor: pointer; font-family: inherit;
   }
-  .lazy-toggle-track {
+  .cycle-toggle-track {
     display: block;
     width: 44px; height: 24px;
     background: var(--border-secondary);
@@ -458,10 +458,10 @@
     position: relative;
     transition: background 0.2s;
   }
-  .lazy-toggle.on .lazy-toggle-track {
-    background: #9575cd;
+  .cycle-toggle.post .cycle-toggle-track {
+    background: var(--partial);
   }
-  .lazy-toggle-thumb {
+  .cycle-toggle-thumb {
     position: absolute;
     top: 2px; left: 2px;
     width: 20px; height: 20px;
@@ -470,7 +470,7 @@
     transition: transform 0.2s;
     box-shadow: 0 1px 3px rgba(0,0,0,0.15);
   }
-  .lazy-toggle.on .lazy-toggle-thumb {
+  .cycle-toggle.post .cycle-toggle-thumb {
     transform: translateX(20px);
   }
   .meal-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 6px; }
@@ -888,6 +888,58 @@
   .day-tab.has-partial .progress-dot { background: var(--partial); }
   .day-tab.active { background: var(--bg-info); color: var(--text-info); border-color: var(--border-info); }
   .day-tab.active.has-checks .progress-dot { background: var(--text-info); }
+  /* ── Mode toggle (Normal / PMS) ── */
+  .mode-toggle-bar {
+    display: flex;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 4px;
+    margin: 0 0 16px;
+    gap: 4px;
+  }
+  .mode-btn {
+    flex: 1;
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: transparent;
+    color: var(--text-secondary);
+    transition: all 0.2s;
+  }
+  .mode-btn.active {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+  }
+  .mode-btn#btnPMS.active {
+    background: #f9e4f0;
+    color: #c2185b;
+  }
+  @media (prefers-color-scheme: dark) {
+    .mode-btn#btnPMS.active {
+      background: #4a1030;
+      color: #f48fb1;
+    }
+  }
+  .pms-mode-banner {
+    background: #fce4ec;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    font-size: 12px;
+    color: #880e4f;
+    line-height: 1.5;
+  }
+  @media (prefers-color-scheme: dark) {
+    .pms-mode-banner {
+      background: #3b0a20;
+      color: #f48fb1;
+    }
+  }
 </style>
 </head>
 <body>
@@ -895,8 +947,13 @@
 
 <header>
   <h1>Daily meal plan</h1>
-  <p class="subtitle">1,200 cal · 110g protein · 100g carbs · 40g fat · fiber-rich</p>
+  <p class="subtitle" id="modeSubtitle">1,200 cal · 110g protein · 100g carbs · 40g fat · fiber-rich</p>
 </header>
+
+<div class="mode-toggle-bar" id="modeToggleBar">
+  <button type="button" class="mode-btn active" id="btnNormal" onclick="setMode(false)">Normal</button>
+  <button type="button" class="mode-btn" id="btnPMS" onclick="setMode(true)">PMS</button>
+</div>
 
 <div class="tracker" id="tracker">
   <div class="tracker-head">
@@ -1092,150 +1149,332 @@
 <script>
 const TARGETS = { cal: 1200, p: 110, c: 100, f: 40, fib: 25 };
 
-// Lazy mode: per-meal alternatives matched to the macros of the regular meal.
-// Indexed by meal id. When lazy mode is on for a day, getMealsForDay swaps the
-// regular meal item for the lazy item with the same id. Macros match within ±25 cal
-// and ±3g protein so daily totals stay essentially identical.
-const LAZY_MEALS = {
-  // === MON ===
-  'mon-2': { time:'1–1:30pm · Meal 1', title:'Pre-cooked chicken + 1 dosa',
-    desc:'Lazy version. Pre-cooked chicken from fridge / rotisserie + 1 dosa with sambar. Same protein, no grilling.',
-    quantities:'Pre-cooked chicken (120g) · Dosa batter (40g) or ready dosa · Sambar (20g) · Cucumber (100g) · Tomato (60g) · Onion (30g) · Lemon',
-    items:[
-      { n:'Pre-cooked chicken', cal:200, p:38, c:0,  f:5,  fib:0 },
-      { n:'Small dosa (1)',     cal:115, p:3,  c:23, f:1,  fib:1 },
-      { n:'Sambar or chutney',  cal:30,  p:1,  c:6,  f:0,  fib:1 },
-      { n:'Cuc-tom-onion side', cal:50,  p:2,  c:10, f:0,  fib:3 }
-    ] },
-  'mon-5': { time:'8–8:30pm · Meal 2', title:'Microwave paneer bhurji + hung curd + veg',
-    desc:'Lazy dinner. Crumbled paneer microwaved with chopped tomato+onion (4 min) + hung curd + cucumber-carrot sticks.',
-    quantities:'Paneer (140g, crumbled) · Tomato (60g) · Onion (40g) · Hung curd (100g) · Cucumber (60g) · Carrot (30g) · 1 tsp ghee · Spices',
-    items:[
-      { n:'Microwave paneer bhurji', cal:320, p:24, c:6,  f:22, fib:1 },
-      { n:'Hung curd',               cal:85,  p:8,  c:4,  f:4,  fib:0 },
-      { n:'Cucumber-carrot side',    cal:25,  p:1,  c:5,  f:0,  fib:2 }
-    ] },
+// PMS PLAN — hormone-balanced meals for luteal phase (post-ovulation → period)
+// Same structure as MEAL_PLAN. No chicken. More comfort carbs. Anti-bloat foods.
+// Junk substitutes baked in: paratha=pizza, stuffed chilla=momos, khichdi=pasta, egg pav=burger
+const PMS_MEAL_PLAN = {
+  mon: { totals:{}, meals:[
+    { id:'mon-1', time:'7–8am · Wake-up', title:'Coffee with milk',
+      desc:'Coffee with 60ml slim milk + chia water.',
+      quantities:'Black coffee (1 cup) · Slim milk (60ml) · Chia seeds (5g) · Water (250ml)',
+      items:[
+        { n:'Coffee + slim milk', cal:25, p:2, c:3, f:0, fib:0 },
+        { n:'Chia water',         cal:30, p:1, c:2, f:2, fib:4 }
+      ] },
+    { id:'mon-2', time:'9–10am · Breakfast', title:'Paneer paratha + hung curd + mint chutney',
+      desc:'🍕 Pizza substitute. Chewy hot paratha + melted paneer filling + mint chutney + cool hung curd. Hits every pizza note without the junk.',
+      quantities:'Paneer paratha (1 medium, paneer 60g inside) · Hung curd (80g) · Mint chutney (20g) · Cucumber (60g)',
+      items:[
+        { n:'Paneer paratha (1)',   cal:280, p:18, c:30, f:11, fib:3 },
+        { n:'Hung curd',           cal:70,  p:6,  c:3,  f:3,  fib:0 },
+        { n:'Mint chutney',        cal:15,  p:1,  c:2,  f:0,  fib:0 },
+        { n:'Cucumber',            cal:15,  p:1,  c:3,  f:0,  fib:1 }
+      ] },
+    { id:'mon-3', time:'1–1:30pm · Lunch', title:'Rajma rice + cucumber raita + ghee',
+      desc:'Comfort carbs your body needs for serotonin. Rajma = magnesium for cramps. Raita fights bloat.',
+      quantities:'Rajma (120g cooked) · Rice (80g cooked) · Cucumber raita (100g) · 1 tsp ghee · Jeera · Lemon',
+      items:[
+        { n:'Rajma (cooked)',      cal:170, p:12, c:26, f:1, fib:8 },
+        { n:'Rice (cooked)',       cal:105, p:2,  c:23, f:0, fib:0 },
+        { n:'Cucumber raita',      cal:50,  p:3,  c:5,  f:2, fib:1 },
+        { n:'Ghee',                cal:40,  p:0,  c:0,  f:5, fib:0 }
+      ] },
+    { id:'mon-4', time:'4–5pm · Snack', title:'Aloo tikki chaat',
+      desc:'🥟 Momo substitute. Street food energy — spicy, tangy, crunchy, satisfying. You will forget momos exist.',
+      quantities:'Aloo tikki (1 / 80g) · Kala chana (30g cooked, topping) · Mint chutney (15g) · Onion (20g) · Pomegranate (20g) · Hung curd (40g)',
+      items:[
+        { n:'Aloo tikki (1)',      cal:120, p:3,  c:18, f:4, fib:2 },
+        { n:'Kala chana topping',  cal:50,  p:4,  c:8,  f:1, fib:3 },
+        { n:'Chutneys + toppings', cal:40,  p:1,  c:8,  f:0, fib:1 },
+        { n:'Hung curd dollop',    cal:35,  p:3,  c:2,  f:2, fib:0 }
+      ] },
+    { id:'mon-5', time:'7–8pm · Dinner', title:'3-egg curry + palak + protein shake',
+      desc:'High protein post-workout. No chicken needed — 3 eggs + protein shake hits 100g P for the day. Palak for iron (period coming).',
+      quantities:'Eggs (3, curry) · Tomato (60g) · Onion (40g) · Spinach/palak (100g) · Protein shake (1 scoop + 100ml milk) · 1 tsp oil · Ginger · Spices',
+      items:[
+        { n:'3-egg curry',         cal:280, p:21, c:6,  f:18, fib:2 },
+        { n:'Sautéed palak',       cal:60,  p:4,  c:6,  f:2,  fib:4 },
+        { n:'Tomato-onion gravy',  cal:50,  p:2,  c:10, f:1,  fib:2 },
+        { n:'Protein shake + milk',cal:130, p:25, c:4,  f:2,  fib:0 }
+      ] }
+  ]},
 
-  // === TUE ===
-  'tue-2': { time:'1–1:30pm · Meal 1', title:'Hummus + paneer + cucumber bowl',
-    desc:'No-cook. Store-bought hummus + paneer cubes + canned chickpeas + cucumber + hung curd.',
-    quantities:'Hummus (40g) · Paneer cubes (60g) · Canned chickpeas (80g) · Cucumber (100g) · Hung curd (100g) · Olive oil (5ml) · Lemon',
-    items:[
-      { n:'Hummus',           cal:80,  p:3,  c:8,  f:4, fib:2 },
-      { n:'Paneer cubes',     cal:160, p:12, c:3,  f:11, fib:0 },
-      { n:'Canned chickpeas', cal:130, p:7,  c:22, f:2, fib:6 },
-      { n:'Cucumber + lemon', cal:35,  p:2,  c:8,  f:0, fib:3 },
-      { n:'Hung curd',        cal:85,  p:8,  c:4,  f:4, fib:0 }
-    ] },
-  'tue-5': { time:'8–8:30pm · Meal 2', title:'Microwave paneer + hung curd',
-    desc:'Lazy dinner. Paneer crumbled and microwaved with onion+tomato (3 min) + hung curd. No chilla.',
-    quantities:'Paneer (90g, crumbled) · Onion (40g) · Tomato (50g) · Hung curd (150g) · 1 tsp oil · Spices',
-    items:[
-      { n:'Microwave paneer',  cal:220, p:16, c:5,  f:15, fib:1 },
-      { n:'Hung curd',         cal:130, p:12, c:6,  f:6,  fib:0 },
-      { n:'Tomato-onion sauté',cal:30,  p:1,  c:6,  f:0,  fib:2 }
-    ] },
+  tue: { totals:{}, meals:[
+    { id:'tue-1', time:'7–8am · Wake-up', title:'Coffee with milk + soaked almonds',
+      desc:'Coffee with milk + 8 soaked almonds (magnesium for PMS cramps).',
+      quantities:'Black coffee · Slim milk (60ml) · Almonds (8, soaked overnight)',
+      items:[
+        { n:'Coffee + slim milk',  cal:25, p:2, c:3, f:0, fib:0 },
+        { n:'Soaked almonds (8)',   cal:60, p:3, c:2, f:5, fib:1 }
+      ] },
+    { id:'tue-2', time:'9–10am · Breakfast', title:'2 moong dal chillas + paneer filling + mint chutney',
+      desc:'🥟 Momo substitute. Soft chilla = dumpling wrapper. Paneer-onion filling = juicy inside. Mint chutney = momo chutney. Roll and eat.',
+      quantities:'Moong dal batter (140g) · Paneer (80g, crumbled) · Onion (40g) · Capsicum (30g) · Mint chutney (15g)',
+      items:[
+        { n:'Moong dal chilla (x2)', cal:230, p:16, c:28, f:6, fib:7 },
+        { n:'Paneer-onion filling',  cal:200, p:16, c:5,  f:13, fib:1 },
+        { n:'Mint chutney',    cal:20,  p:1,  c:3,  f:0,  fib:1 }
+      ] },
+    { id:'tue-3', time:'1–1:30pm · Lunch', title:'Aloo tikki + kala chana + raita + paneer',
+      desc:'🍝 Pasta substitute — same satisfaction, way better nutrition. Aloo tikki = comfort carb. Kala chana = magnesium + iron. Paneer = protein. Raita = anti-bloat.',
+      quantities:'Aloo tikki (2 / 80g each) · Kala chana (60g cooked) · Paneer cubes (50g) · Cucumber raita (80g) · Mint chutney (15g)',
+      items:[
+        { n:'Aloo tikki (x2)',      cal:240, p:6,  c:36, f:8, fib:4 },
+        { n:'Kala chana (cooked)',  cal:100, p:7,  c:15, f:2, fib:5 },
+        { n:'Paneer cubes (50g)',   cal:130, p:10, c:2,  f:9, fib:0 },
+        { n:'Cucumber raita',       cal:50,  p:3,  c:5,  f:2, fib:1 },
+        { n:'Mint chutney',         cal:15,  p:1,  c:2,  f:0, fib:1 }
+      ] },
+    { id:'tue-4', time:'4–5pm · Snack', title:'Banana + peanut butter + dark chocolate',
+      desc:'Kills sugar craving instantly. Banana = serotonin. PB = fat that satiates. Dark choc (2 squares 85%) = magnesium. You will not touch junk after this.',
+      quantities:'Banana (1 medium) · Peanut butter (1 tsp, natural) · Dark chocolate 85% (2 squares / 10g)',
+      items:[
+        { n:'Banana',               cal:80,  p:1,  c:20, f:0, fib:2 },
+        { n:'Peanut butter (1 tsp)',cal:50,  p:2,  c:2,  f:4, fib:1 },
+        { n:'Dark choc 85% (2 sq)', cal:60,  p:1,  c:4,  f:5, fib:1 }
+      ] },
+    { id:'tue-5', time:'7–8pm · Dinner', title:'Paneer tikka + sautéed veggies + dal',
+      desc:'High protein, satisfying, no chicken needed. Paneer tikka with hung curd marinade = juicy and filling. Dal for extra protein.',
+      quantities:'Paneer (100g, cubed) · Hung curd marinade (20g) · Capsicum (40g) · Broccoli (80g) · Yellow dal (50g cooked) · Mint chutney · Spices',
+      items:[
+        { n:'Paneer tikka',         cal:230, p:20, c:5,  f:15, fib:1 },
+        { n:'Grilled veggies',      cal:80,  p:4,  c:10, f:3,  fib:4 },
+        { n:'Small dal',            cal:70,  p:6,  c:9,  f:1,  fib:3 },
+        { n:'Mint chutney',         cal:20,  p:1,  c:2,  f:0,  fib:1 }
+      ] }
+  ]},
 
-  // === WED ===
-  'wed-2': { time:'1–1:30pm · Meal 1', title:'Pre-cooked chicken + 2-egg omelette',
-    desc:'Lazy. Pre-cooked/rotisserie chicken + 2-egg omelette + cucumber salad.',
-    quantities:'Pre-cooked chicken (100g) · Eggs (2, omelette) · Cucumber (100g) · Tomato (60g) · Onion (30g) · Olive oil (5ml) · Lemon',
-    items:[
-      { n:'Pre-cooked chicken',  cal:170, p:32, c:0,  f:4,  fib:0 },
-      { n:'2-egg omelette',      cal:180, p:14, c:2,  f:12, fib:0 },
-      { n:'Cuc-tom-onion side',  cal:50,  p:2,  c:10, f:0,  fib:3 },
-      { n:'Olive oil + lemon',   cal:50,  p:0,  c:1,  f:5,  fib:0 }
-    ] },
-  'wed-5': { time:'8–8:30pm · Meal 2', title:'Pan-fried paneer + microwaved veg',
-    desc:'Lazy. Pan-fried paneer cubes with spices (5 min) + microwaved broccoli/capsicum (3 min) + mint chutney.',
-    quantities:'Paneer (120g, cubed) · Hung curd marinade (30g) · Broccoli (80g, microwaved) · Capsicum (40g) · Onion (30g) · Olive oil (5ml) · Mint chutney (15g)',
-    items:[
-      { n:'Pan-fried paneer',  cal:280, p:24, c:6,  f:18, fib:1 },
-      { n:'Hung curd dollop',  cal:25,  p:2,  c:1,  f:1,  fib:0 },
-      { n:'Microwaved veggies',cal:110, p:5,  c:14, f:5,  fib:5 },
-      { n:'Mint chutney',      cal:20,  p:1,  c:2,  f:0,  fib:1 }
-    ] },
+  wed: { totals:{}, meals:[
+    { id:'wed-1', time:'7–8am · Wake-up', title:'Coffee with milk',
+      desc:'Coffee with 60ml slim milk + chia water.',
+      quantities:'Black coffee · Slim milk (60ml) · Chia seeds (5g) · Water (250ml)',
+      items:[
+        { n:'Coffee + slim milk',  cal:25, p:2, c:3, f:0, fib:0 },
+        { n:'Chia water',          cal:30, p:1, c:2, f:2, fib:4 }
+      ] },
+    { id:'wed-2', time:'9–10am · Breakfast', title:'1 paratha + aloo tikki + paneer bhurji',
+      desc:'The meal that actually worked. Warm, filling, carbs for serotonin. Auntie can make all of this easily without guidance.',
+      quantities:'Paratha (1 medium) · Aloo tikki (1 / 80g) · Paneer bhurji (60g paneer, onion-tomato) · Hung curd (50g)',
+      items:[
+        { n:'Paratha (1)',          cal:160, p:4,  c:21, f:7, fib:2 },
+        { n:'Aloo tikki (1)',       cal:120, p:3,  c:18, f:4, fib:2 },
+        { n:'Paneer bhurji (60g)', cal:160, p:12, c:3,  f:11, fib:1 },
+        { n:'Hung curd',            cal:40,  p:4,  c:2,  f:2,  fib:0 }
+      ] },
+    { id:'wed-3', time:'1–1:30pm · Lunch', title:'Kala chana rice + raita + ghee',
+      desc:'Kala chana = highest magnesium of all your legumes. Kills cramps. Complex carbs keep serotonin stable all afternoon.',
+      quantities:'Kala chana (100g cooked) · Rice (70g cooked) · Cucumber raita (100g) · 1 tsp ghee · Coriander + lemon',
+      items:[
+        { n:'Kala chana (cooked)', cal:170, p:11, c:25, f:3, fib:8 },
+        { n:'Rice (cooked)',       cal:90,  p:2,  c:20, f:0, fib:0 },
+        { n:'Cucumber raita',      cal:50,  p:3,  c:5,  f:2, fib:1 },
+        { n:'Ghee',                cal:40,  p:0,  c:0,  f:5, fib:0 }
+      ] },
+    { id:'wed-4', time:'4–5pm · Snack', title:'Protein shake + cocoa + banana + milk',
+      desc:'The one that satiates you most. Non-negotiable on PMS days. Cocoa = magnesium. Banana = serotonin + potassium (fights bloat).',
+      quantities:'Protein powder (2 scoops) · Unsweetened cocoa (1 tsp) · Banana (1 small) · Milk (150ml)',
+      items:[
+        { n:'Protein + cocoa + milk', cal:200, p:40, c:10, f:4, fib:1 },
+        { n:'Banana',                 cal:80,  p:1,  c:20, f:0, fib:2 }
+      ] },
+    { id:'wed-5', time:'7–8pm · Dinner', title:'Egg bhurji stuffed roti wrap + onion + green chutney',
+      desc:'🍔 Burger substitute. Spiced egg bhurji = juicy protein filling. Roti = the bun. Raw onion = crunch. Green chutney = the sauce. Handheld, messy, satisfying.',
+      quantities:'Eggs (3, bhurji with onion-tomato-capsicum) · Roti (1, soft) · Onion (30g, raw sliced) · Green chutney (15g) · Capsicum (30g) · Tomato (30g)',
+      items:[
+        { n:'3-egg bhurji',        cal:250, p:21, c:5,  f:16, fib:1 },
+        { n:'Roti wrap (1)',        cal:100, p:3,  c:20, f:1,  fib:2 },
+        { n:'Raw onion + chutney', cal:35,  p:1,  c:7,  f:0,  fib:2 }
+      ] }
+  ]},
 
-  // === THU ===
-  'thu-2': { time:'1–1:30pm · Meal 1', title:'Pre-cooked chicken + 1 dosa',
-    desc:'Lazy. Pre-cooked/rotisserie chicken + 1 dosa with chutney + cucumber salad.',
-    quantities:'Pre-cooked chicken (120g) · Dosa batter (40g) or ready dosa · Coconut chutney (20g) · Cucumber (80g) · Tomato (50g) · Onion (30g) · Lemon',
-    items:[
-      { n:'Pre-cooked chicken', cal:200, p:38, c:0,  f:5,  fib:0 },
-      { n:'Small dosa (1)',     cal:115, p:3,  c:23, f:1,  fib:1 },
-      { n:'Coconut chutney',    cal:30,  p:1,  c:3,  f:2,  fib:1 },
-      { n:'Cuc-tom-onion side', cal:50,  p:2,  c:10, f:0,  fib:3 }
-    ] },
-  'thu-5': { time:'8–8:30pm · Meal 2', title:'Canned chickpeas + 2-egg omelette',
-    desc:'Lazy. Canned chickpeas + 2-egg omelette + cucumber sticks + olive oil + lemon. Zero chopping.',
-    quantities:'Canned chickpeas (100g, drained) · Eggs (2, omelette) · Cucumber (80g) · Olive oil (5ml) · Pomegranate (30g) · Lemon',
-    items:[
-      { n:'Canned chickpeas',    cal:160, p:9,  c:27, f:3,  fib:7 },
-      { n:'2-egg omelette',      cal:180, p:14, c:2,  f:12, fib:0 },
-      { n:'Cucumber + olive oil',cal:70,  p:1,  c:5,  f:5,  fib:2 },
-      { n:'Pomegranate',         cal:30,  p:1,  c:7,  f:0,  fib:2 }
-    ] },
+  thu: { totals:{}, meals:[
+    { id:'thu-1', time:'7–8am · Wake-up', title:'Coffee with milk',
+      desc:'Coffee with 60ml slim milk + chia water.',
+      quantities:'Black coffee · Slim milk (60ml) · Chia seeds (5g) · Water (250ml)',
+      items:[
+        { n:'Coffee + slim milk',  cal:25, p:2, c:3, f:0, fib:0 },
+        { n:'Chia water',          cal:30, p:1, c:2, f:2, fib:4 }
+      ] },
+    { id:'thu-2', time:'9–10am · Breakfast', title:'1 dosa + sambar + paneer bhurji',
+      desc:'Easy, no guidance needed for auntie. Sambar = protein + fiber. Paneer bhurji = protein without chicken.',
+      quantities:'Dosa (1, 100g cooked) · Sambar (60g) · Paneer bhurji (60g paneer, onion-tomato) · Mint chutney (20g)',
+      items:[
+        { n:'1 dosa (100g cooked)', cal:115, p:3,  c:23, f:1, fib:1 },
+        { n:'Sambar (60g)',         cal:45,  p:3,  c:6,  f:1, fib:2 },
+        { n:'Paneer bhurji (60g)', cal:160, p:12, c:3,  f:11, fib:1 },
+        { n:'Mint chutney',         cal:15,  p:1,  c:2,  f:0,  fib:0 }
+      ] },
+    { id:'thu-3', time:'1–1:30pm · Lunch', title:'Rajma rice + cucumber raita + ghee',
+      desc:'Running day carb load. Rajma = iron + magnesium (getting close to period). Rice = fuel. Raita = probiotics to fight PMS bloat.',
+      quantities:'Rajma (130g cooked) · Rice (80g cooked) · Cucumber raita (100g) · 1 tsp ghee · Pickle (small) · Lemon',
+      items:[
+        { n:'Rajma (cooked)',       cal:180, p:13, c:28, f:1, fib:9 },
+        { n:'Rice (cooked)',        cal:105, p:2,  c:23, f:0, fib:0 },
+        { n:'Cucumber raita',       cal:50,  p:3,  c:5,  f:2, fib:1 },
+        { n:'Ghee',                 cal:40,  p:0,  c:0,  f:5, fib:0 }
+      ] },
+    { id:'thu-4', time:'4–5pm · Snack', title:'Aloo tikki + protein shake',
+      desc:'Pre-run fuel. Aloo tikki = complex carbs for sustained energy. Protein shake = hits protein target for the day.',
+      quantities:'Aloo tikki (1 / 80g) · Protein shake (1 scoop + 100ml milk) · Banana (half)',
+      items:[
+        { n:'Aloo tikki (1)',       cal:120, p:3,  c:18, f:4, fib:2 },
+        { n:'Protein shake + milk', cal:130, p:25, c:4,  f:2, fib:0 },
+        { n:'Half banana',          cal:40,  p:0,  c:10, f:0, fib:1 }
+      ] },
+    { id:'thu-5', time:'7–8pm · Dinner', title:'Dal makhani + roti + sautéed veggies',
+      desc:'🍝 Pasta substitute (creamy version). Dal makhani = same richness as cream pasta. Slow-cooked, buttery, deeply satisfying. Roti = the pasta. Veggies on the side.',
+      quantities:'Dal makhani (150g, slow-cooked rajma + urad dal) · Roti (1) · Sautéed capsicum + beans (100g) · 1 tsp butter',
+      items:[
+        { n:'Dal makhani',          cal:220, p:12, c:28, f:8,  fib:8 },
+        { n:'Roti (1)',             cal:100, p:3,  c:20, f:1,  fib:2 },
+        { n:'Sautéed veggies',      cal:70,  p:3,  c:10, f:2,  fib:4 },
+        { n:'Butter (1 tsp)',       cal:35,  p:0,  c:0,  f:4,  fib:0 }
+      ] }
+  ]},
 
-  // === FRI ===
-  'fri-2': { time:'1–1:30pm · Meal 1', title:'Pre-cooked chicken + cucumber salad',
-    desc:'Lazy. Pre-cooked chicken from fridge + cucumber-tomato-onion salad. Same as chicken tikka, no marinating.',
-    quantities:'Pre-cooked chicken (120g) · Cucumber (80g) · Tomato (60g) · Onion (30g) · Olive oil (5ml) · Lemon · Spices',
-    items:[
-      { n:'Pre-cooked chicken',    cal:210, p:38, c:1,  f:5, fib:0 },
-      { n:'Hung curd dollop',      cal:25,  p:2,  c:1,  f:1, fib:0 },
-      { n:'Cuc-tom-onion salad',   cal:50,  p:2,  c:10, f:0, fib:3 },
-      { n:'Olive oil + lemon',     cal:50,  p:0,  c:1,  f:5, fib:0 }
-    ] },
-  'fri-5': { time:'8–8:30pm · Meal 2', title:'Canned chana chaat + hung curd',
-    desc:'Lazy. Canned/boxed chana + chopped salad veg + hung curd + tamarind chutney.',
-    quantities:'Canned chana (~120g drained) · Cucumber (80g) · Tomato (60g) · Onion (40g) · Hung curd (80g) · Tamarind-mint chutney (15g) · Lemon',
-    items:[
-      { n:'Canned chana',       cal:180, p:11, c:26, f:3, fib:8 },
-      { n:'Cuc-tom-onion mix',  cal:60,  p:2,  c:12, f:0, fib:4 },
-      { n:'Hung curd',          cal:70,  p:6,  c:3,  f:3, fib:0 },
-      { n:'Chutney + lemon',    cal:40,  p:1,  c:9,  f:0, fib:1 }
-    ] },
+  fri: { totals:{}, meals:[
+    { id:'fri-1', time:'7–8am · Wake-up', title:'Coffee with milk',
+      desc:'Coffee with 60ml slim milk + chia water.',
+      quantities:'Black coffee · Slim milk (60ml) · Chia seeds (5g) · Water (250ml)',
+      items:[
+        { n:'Coffee + slim milk',  cal:25, p:2, c:3, f:0, fib:0 },
+        { n:'Chia water',          cal:30, p:1, c:2, f:2, fib:4 }
+      ] },
+    { id:'fri-2', time:'9–10am · Breakfast', title:'Moong dal chilla (2) + scrambled eggs + coffee',
+      desc:'High protein start. Chillas = your favourite, quick for auntie to make. Eggs = easy protein without chicken.',
+      quantities:'Moong dal batter (140g) · Eggs (2, scrambled) · Tomato (30g) · Onion (20g) · Green chutney (15g)',
+      items:[
+        { n:'Moong dal chilla (x2)', cal:230, p:16, c:28, f:6, fib:7 },
+        { n:'2 scrambled eggs',      cal:180, p:14, c:2,  f:12, fib:0 },
+        { n:'Green chutney',         cal:15,  p:1,  c:2,  f:0,  fib:1 }
+      ] },
+    { id:'fri-3', time:'1–1:30pm · Lunch', title:'Chole + 1 roti + onion-cucumber salad',
+      desc:'Chickpeas = highest potassium of all your foods. Fights water retention hard. With roti = complete meal. Comfort carbs that also fight bloat.',
+      quantities:'Chole/kabuli chana (100g cooked) · Roti (1) · Onion (40g, raw) · Cucumber (80g) · Lemon · Green chutney (15g)',
+      items:[
+        { n:'Chole (cooked)',        cal:160, p:10, c:24, f:3, fib:8 },
+        { n:'Roti (1)',              cal:100, p:3,  c:20, f:1, fib:2 },
+        { n:'Onion-cucumber salad',  cal:30,  p:1,  c:6,  f:0, fib:2 },
+        { n:'Green chutney',         cal:15,  p:1,  c:2,  f:0, fib:1 }
+      ] },
+    { id:'fri-4', time:'4–5pm · Snack', title:'Protein shake + cocoa + banana + milk',
+      desc:'Pre-dance fuel. The shake that satiates you most. Non-negotiable. Banana = potassium for muscle cramps during dance.',
+      quantities:'Protein powder (2 scoops) · Unsweetened cocoa (1 tsp) · Banana (1) · Milk (150ml)',
+      items:[
+        { n:'Protein + cocoa + milk', cal:200, p:40, c:10, f:4, fib:1 },
+        { n:'Banana',                 cal:80,  p:1,  c:20, f:0, fib:2 }
+      ] },
+    { id:'fri-5', time:'7–8pm · Dinner', title:'Egg curry + palak + jeera rice',
+      desc:'Post-dance recovery. 3-egg curry = high protein, easy to make. Palak = iron (getting close to period). Small jeera rice = comfort + serotonin.',
+      quantities:'Eggs (3, curry) · Spinach/palak (100g) · Jeera rice (60g cooked) · Tomato-onion gravy · 1 tsp oil',
+      items:[
+        { n:'3-egg curry',         cal:280, p:21, c:6,  f:18, fib:2 },
+        { n:'Sautéed palak',       cal:60,  p:4,  c:6,  f:2,  fib:4 },
+        { n:'Jeera rice (small)',  cal:80,  p:1,  c:17, f:1,  fib:0 },
+        { n:'Tomato-onion gravy',  cal:50,  p:2,  c:10, f:1,  fib:2 }
+      ] }
+  ]},
 
-  // === SAT ===
-  'sat-3': { time:'1–1:30pm · Meal 1', title:'Microwave dal + paneer + 1 dosa',
-    desc:'Lazy. Pre-cooked/leftover dal warmed in microwave + paneer cubes (pan-tossed 3 min) + 1 dosa with sambar.',
-    quantities:'Pre-cooked dal (~100g) · Paneer cubes (60g) · Dosa batter (40g) or ready dosa · Sambar (20g) · Hung curd (80g) · 1 tsp ghee · Lemon',
-    items:[
-      { n:'Pre-cooked dal',  cal:140, p:11, c:18, f:3,  fib:5 },
-      { n:'Paneer cubes',    cal:160, p:12, c:3,  f:11, fib:0 },
-      { n:'Small dosa (1)',  cal:115, p:3,  c:23, f:1,  fib:1 },
-      { n:'Sambar',          cal:30,  p:1,  c:6,  f:0,  fib:1 },
-      { n:'Hung curd',       cal:70,  p:6,  c:3,  f:3,  fib:0 },
-      { n:'Ghee + lemon',    cal:20,  p:0,  c:0,  f:2,  fib:0 }
-    ] },
-  'sat-5': { time:'8–8:30pm · Meal 2', title:'Microwave paneer + ready chilla',
-    desc:'Lazy. Microwave paneer with onion+capsicum (4 min) + store-bought ready chilla + salad.',
-    quantities:'Paneer (80g, crumbled) · Capsicum (40g) · Onion (40g) · Ready moong dal chilla (store-bought) · Cucumber (80g) · Tomato (60g) · 1 tsp oil',
-    items:[
-      { n:'Microwave paneer',       cal:200, p:16, c:5,  f:13, fib:2 },
-      { n:'Ready chilla (x2)',      cal:230, p:16, c:28, f:6,  fib:7 },
-      { n:'Cucumber-tomato salad',  cal:40,  p:1,  c:6,  f:0,  fib:3 }
-    ] },
+  sat: { totals:{}, meals:[
+    { id:'sat-1', time:'7–8am · Wake-up', title:'Coffee with milk',
+      desc:'Coffee with 60ml slim milk. Saturday — no chia needed, keep it simple.',
+      quantities:'Black coffee · Slim milk (60ml)',
+      items:[
+        { n:'Coffee + slim milk',  cal:25, p:2, c:3, f:0, fib:0 }
+      ] },
+    { id:'sat-2', time:'9–10am · Breakfast', title:'Protein shake + cocoa + banana + milk',
+      desc:'Quick Saturday breakfast. Post-light-cardio fuel. Cocoa = magnesium. This satiates you most.',
+      quantities:'Protein powder (2 scoops) · Unsweetened cocoa (1 tsp) · Banana (1) · Milk (150ml)',
+      items:[
+        { n:'Protein + cocoa + milk', cal:200, p:40, c:10, f:4, fib:1 },
+        { n:'Banana',                 cal:80,  p:1,  c:20, f:0, fib:2 }
+      ] },
+    { id:'sat-3', time:'1–1:30pm · Lunch', title:'Dalia with paneer + tomato masala + raita',
+      desc:'🍝 Pasta substitute (Indian version). Dalia (broken wheat) = same soft chewy texture as pasta. Tomato masala = pasta sauce. Paneer cubes = cheese chunks. Same satisfaction, way better nutrition.',
+      quantities:'Dalia (50g dry, cooked) · Paneer cubes (80g) · Tomato (60g) · Onion (40g) · Capsicum (40g) · Raita (80g) · 1 tsp ghee · Spices',
+      items:[
+        { n:'Dalia (cooked)',       cal:180, p:6,  c:34, f:2, fib:5 },
+        { n:'Paneer cubes (80g)',   cal:210, p:16, c:4,  f:15, fib:0 },
+        { n:'Tomato-onion masala',  cal:60,  p:2,  c:10, f:2,  fib:2 },
+        { n:'Cucumber raita',       cal:50,  p:3,  c:5,  f:2,  fib:1 }
+      ] },
+    { id:'sat-4', time:'4–5pm · Snack', title:'Aloo tikki chaat',
+      desc:'🥟 Momo substitute. Street food at home. Spicy, tangy, crunchy. Zero junk needed after this.',
+      quantities:'Aloo tikki (1) · Kala chana topping (30g) · Mint chutney (15g) · Hung curd (40g) · Onion (20g) · Pomegranate (15g)',
+      items:[
+        { n:'Aloo tikki (1)',       cal:120, p:3,  c:18, f:4, fib:2 },
+        { n:'Kala chana topping',   cal:50,  p:4,  c:8,  f:1, fib:3 },
+        { n:'Chutneys + toppings',  cal:35,  p:1,  c:7,  f:0, fib:1 },
+        { n:'Hung curd',            cal:35,  p:3,  c:2,  f:2, fib:0 }
+      ] },
+    { id:'sat-5', time:'7–8pm · Dinner', title:'Moong dal chilla (2) + paneer filling + salad',
+      desc:'Light but satisfying. Dance day dinner. Chilla = easy protein + fiber. Paneer filling = satiating fat + protein. No heavy food before bed.',
+      quantities:'Moong dal batter (140g) · Paneer (80g, crumbled) · Capsicum (40g) · Onion (40g) · Cucumber (80g) · Tomato (60g) · Mint chutney',
+      items:[
+        { n:'Moong dal chilla (x2)',  cal:230, p:16, c:28, f:6,  fib:7 },
+        { n:'Paneer-capsicum filling',cal:200, p:16, c:5,  f:13, fib:2 },
+        { n:'Cucumber-tomato salad', cal:40,  p:1,  c:6,  f:0,  fib:3 }
+      ] }
+  ]},
 
-  // === SUN ===
-  'sun-3': { time:'1–1:30pm · Meal 1', title:'Pre-cooked chicken + salad',
-    desc:'Lazy. Rotisserie/pre-cooked chicken + big salad bowl. No grilling.',
-    quantities:'Pre-cooked chicken (120g) · Cucumber (80g) · Cherry tomato (40g) · Lettuce (40g) · Onion (30g) · Lemon',
-    items:[
-      { n:'Pre-cooked chicken', cal:200, p:38, c:0,  f:5, fib:0 },
-      { n:'Big salad bowl',     cal:60,  p:2,  c:10, f:0, fib:4 }
-    ] },
-  'sun-5': { time:'8–8:30pm · Meal 2', title:'Boiled eggs + microwave dal + palak',
-    desc:'Lazy. 3 boiled eggs + pre-cooked dal warmed + microwaved palak. Skip curry-making.',
-    quantities:'Boiled eggs (3) · Pre-cooked dal (~50g cooked) · Spinach (100g, microwaved) · 1 tsp ghee · Lemon',
-    items:[
-      { n:'Boiled eggs (x3)',    cal:240, p:21, c:2,  f:16, fib:0 },
-      { n:'Pre-cooked dal',      cal:70,  p:5,  c:10, f:1,  fib:2 },
-      { n:'Microwaved palak',    cal:60,  p:4,  c:6,  f:2,  fib:4 },
-      { n:'Tomato-onion side',   cal:50,  p:2,  c:10, f:1,  fib:2 },
-      { n:'Ghee + lemon',        cal:40,  p:0,  c:4,  f:2,  fib:0 }
-    ] }
+  sun: { totals:{}, meals:[
+    { id:'sun-1', time:'7–8am · Wake-up', title:'Coffee with milk',
+      desc:'Sunday slow morning. Coffee with milk only. Ease into the day.',
+      quantities:'Black coffee · Slim milk (60ml)',
+      items:[
+        { n:'Coffee + slim milk',  cal:25, p:2, c:3, f:0, fib:0 }
+      ] },
+    { id:'sun-2', time:'9–10am · Breakfast', title:'Avocado toast + 1 scrambled egg + coffee',
+      desc:'Your favourite Sunday breakfast. Full avocado (whole — otherwise it gets ruined). Hormones need the healthy fats today. This is medicine, not indulgence.',
+      quantities:'Multigrain bread (1 slice) · Full avocado (150g) · 1 scrambled egg · Salt + pepper + chilli flakes · Lemon',
+      items:[
+        { n:'Multigrain toast',    cal:110, p:5,  c:18, f:2,  fib:3 },
+        { n:'Full avocado',        cal:240, p:3,  c:12, f:22, fib:10 },
+        { n:'1 scrambled egg',     cal:90,  p:7,  c:1,  f:6,  fib:0 }
+      ] },
+    { id:'sun-3', time:'1–1:30pm · Lunch', title:'Rajma rice + cucumber raita + ghee',
+      desc:'🍝 Pasta substitute — same comfort, same warmth, same heaviness. Rajma = magnesium for cramps. Rice = silky carbs like pasta. Ghee = butter. Raita = cooling creamy side like cream sauce.',
+      quantities:'Rajma (100g cooked) · Rice (70g cooked) · Cucumber raita (80g) · 1 tsp ghee · Mint chutney (10g)',
+      items:[
+        { n:'Rajma (cooked)',       cal:140, p:10, c:22, f:1, fib:7 },
+        { n:'Rice (cooked)',        cal:90,  p:2,  c:20, f:0, fib:0 },
+        { n:'Cucumber raita',       cal:50,  p:3,  c:5,  f:2, fib:1 },
+        { n:'Ghee (1 tsp)',         cal:40,  p:0,  c:0,  f:5, fib:0 },
+        { n:'Mint chutney',         cal:15,  p:1,  c:2,  f:0, fib:1 }
+      ] },
+    { id:'sun-4', time:'4–5pm · Snack', title:'Protein shake + dates + almonds',
+      desc:'The one that satiates you most. Dates = kills sugar craving immediately. Protein shake = hits protein target. Almonds = magnesium for cramps.',
+      quantities:'Protein shake (1 scoop + 100ml milk) · Dates (2) · Almonds (5)',
+      items:[
+        { n:'Protein shake + milk', cal:130, p:25, c:4,  f:2, fib:0 },
+        { n:'Dates (2)',            cal:55,  p:1,  c:14, f:0, fib:2 },
+        { n:'Almonds (5)',          cal:35,  p:1,  c:1,  f:3, fib:1 }
+      ] },
+    { id:'sun-5', time:'7–8pm · Dinner', title:'Paneer paratha (1) + egg bhurji + raita',
+      desc:'🍕 Pizza + 🍔 Burger in one meal. Paratha = pizza base. Paneer = melted cheese. Egg bhurji = juicy protein filling. Raita = cooling creamy side. Hot, filling, zero pizza/burger thoughts.',
+      quantities:'Paneer paratha (1, with 60g paneer inside) · Egg bhurji (2 eggs, onion-tomato-capsicum) · Cucumber raita (80g)',
+      items:[
+        { n:'Paneer paratha (1)',   cal:280, p:18, c:30, f:11, fib:3 },
+        { n:'2-egg bhurji',        cal:180, p:14, c:3,  f:12, fib:1 },
+        { n:'Cucumber raita',      cal:50,  p:3,  c:5,  f:2,  fib:1 }
+      ] }
+  ]}
 };
+
+// Auto-compute totals for PMS plan
+function applyPMSDayTotals() {
+  Object.values(PMS_MEAL_PLAN).forEach(day => {
+    const t = {cal:0,p:0,c:0,f:0,fib:0};
+    day.meals.forEach(m => {
+      m.items.forEach(it => {
+        t.cal+=it.cal; t.p+=it.p; t.c+=it.c; t.f+=it.f; t.fib+=it.fib;
+      });
+    });
+    day.totals = t;
+  });
+}
+applyPMSDayTotals();
+
 
 // Aggregated grocery list for the whole 7-day plan. Quantities computed from each meal's
 // quantities field. Round up where it makes sense for shopping (you can't buy 600g of chicken).
@@ -1262,6 +1501,7 @@ const WEEKLY_GROCERY_LIST = [
     'Multigrain bread — 1 slice (Sun avocado toast)'
   ]},
   { section: 'Vegetables', items: [
+    'Aloo tikki — 2 pieces (~80g each, store-bought frozen or homemade for Mon + Thu)',
     'Cucumber — ~900g (used most meals)',
     'Tomato — ~500g',
     'Onion — ~360g',
@@ -1297,7 +1537,7 @@ const WEEKLY_GROCERY_LIST = [
     'Olive oil — small bottle (~50ml used)',
     'Cooking oil — ~50ml',
     'Mint chutney — small jar',
-    'Tamarind chutney — small jar (Fri)',
+    
     'Coconut chutney — for dosas (Mon, Thu, Sat)',
     'Cumin, black pepper, salt, rock salt, turmeric, chilli powder, basil — pantry'
   ]}
@@ -1327,7 +1567,7 @@ const MEAL_PLAN = {
 
       { id:'mon-2', time:'1–1:30pm · Meal 1', title:'Chicken + 1 dosa + salad',
         desc:'Grilled chicken breast (120g raw) + 1 small dosa with chutney + cucumber-tomato-onion salad.',
-        quantities:'Raw chicken breast (120g) · Dosa batter (40g) · Sambar or chutney (20g) · Cucumber (100g) · Tomato (60g) · Onion (30g) · Olive oil (5ml / 1 tsp) · Lemon · Salt + pepper',
+        quantities:'Raw chicken breast (120g) · Dosa (100g cooked) · Sambar or chutney (20g) · Cucumber (100g) · Tomato (60g) · Onion (30g) · Olive oil (5ml / 1 tsp) · Lemon · Salt + pepper',
         items:[
           { n:'Grilled chicken',    cal:200, p:38, c:0,  f:5,  fib:0 },
           { n:'Small dosa (1)',     cal:115, p:3,  c:23, f:1,  fib:1 },
@@ -1336,12 +1576,14 @@ const MEAL_PLAN = {
           { n:'Olive oil + lemon',  cal:50,  p:0,  c:1,  f:5,  fib:0 }
         ] },
 
-      { id:'mon-3', time:'4–5pm · Snack', title:'Hung curd + cucumber',
-        desc:'Thick hung curd with cucumber sticks, black salt, jeera powder.',
-        quantities:'Hung curd (100g) · Cucumber (100g, sliced) · Black salt · Jeera powder',
+      { id:'mon-3', time:'4–5pm · Snack', title:'Aloo tikki + hung curd',
+        desc:'1 air-fried or pan-fried aloo tikki with hung curd dip. Complex carbs for energy.',
+        quantities:'Aloo tikki (1 / ~80g) · Hung curd (80g) · Cucumber (50g) · Mint chutney (10g)',
         items:[
-          { n:'Hung curd',     cal:85,  p:8, c:4, f:4, fib:0 },
-          { n:'Cucumber',      cal:15,  p:1, c:3, f:0, fib:2 }
+          { n:'Aloo tikki (1)',  cal:120, p:3,  c:18, f:4, fib:2 },
+          { n:'Hung curd dip',   cal:70,  p:6,  c:3,  f:3, fib:0 },
+          { n:'Cucumber sticks', cal:10,  p:1,  c:2,  f:0, fib:1 },
+          { n:'Mint chutney',    cal:10,  p:0,  c:2,  f:0, fib:0 }
         ] },
 
       { id:'mon-4', time:'6–6:30pm · Pre-workout', title:'Protein + milk + banana',
@@ -1475,7 +1717,7 @@ const MEAL_PLAN = {
 
       { id:'thu-2', time:'1–1:30pm · Meal 1', title:'Chicken + small dosa + salad',
         desc:'Grilled chicken breast (120g) + 1 small dosa with chutney + cucumber-tomato salad.',
-        quantities:'Raw chicken (120g, grilled) · Dosa batter (40g) · Coconut chutney (20g) · Cucumber (80g) · Tomato (50g) · Onion (30g) · Lemon · Spices',
+        quantities:'Raw chicken (120g, grilled) · Dosa (100g cooked) · Coconut chutney (20g) · Cucumber (80g) · Tomato (50g) · Onion (30g) · Lemon · Spices',
         items:[
           { n:'Grilled chicken',    cal:200, p:38, c:0,  f:5,  fib:0 },
           { n:'Small dosa (1)',     cal:115, p:3,  c:23, f:1,  fib:1 },
@@ -1483,12 +1725,13 @@ const MEAL_PLAN = {
           { n:'Cuc-tom-onion side', cal:50,  p:2,  c:10, f:0,  fib:3 }
         ] },
 
-      { id:'thu-3', time:'4–5pm · Snack', title:'Hung curd + fruit',
-        desc:'Hung curd with chopped seasonal fruit.',
-        quantities:'Hung curd (100g) · Seasonal fruit (80g)',
+      { id:'thu-3', time:'4–5pm · Snack', title:'Aloo tikki + hung curd',
+        desc:'1 air-fried or pan-fried aloo tikki with hung curd. Carbs for running energy.',
+        quantities:'Aloo tikki (1 / ~80g) · Hung curd (100g) · Mint chutney (10g)',
         items:[
-          { n:'Hung curd',       cal:85, p:8, c:4,  f:4, fib:0 },
-          { n:'Seasonal fruit',  cal:40, p:1, c:10, f:0, fib:2 }
+          { n:'Aloo tikki (1)', cal:120, p:3,  c:18, f:4, fib:2 },
+          { n:'Hung curd',      cal:85,  p:8,  c:4,  f:4, fib:0 },
+          { n:'Mint chutney',   cal:10,  p:0,  c:2,  f:0, fib:0 }
         ] },
 
       { id:'thu-4', time:'6pm · Pre-dinner', title:'Protein + milk + apple',
@@ -1550,13 +1793,13 @@ const MEAL_PLAN = {
         ] },
 
       { id:'fri-5', time:'8–8:30pm · Meal 2', title:'Kala chana chaat + hung curd',
-        desc:'Boiled kala chana + chopped cucumber/tomato/carrot/onion + thick hung curd + tamarind chutney.',
-        quantities:'Kala chana (40g dry / ~100g boiled) · Cucumber (80g) · Tomato (60g) · Carrot (30g, grated) · Onion (40g) · Hung curd (80g, thick) · Tamarind-mint chutney (15g) · Lemon · Coriander',
+        desc:'Boiled kala chana + chopped cucumber/tomato/carrot/onion + thick hung curd + mint chutney.',
+        quantities:'Kala chana (40g dry / ~100g boiled) · Cucumber (80g) · Tomato (60g) · Carrot (30g, grated) · Onion (40g) · Hung curd (80g, thick) · Mint chutney (15g) · Lemon · Coriander',
         items:[
           { n:'Boiled kala chana',  cal:170, p:11, c:25, f:3, fib:8 },
           { n:'Cuc-tom-carrot mix', cal:70,  p:2,  c:14, f:0, fib:5 },
           { n:'Hung curd',          cal:70,  p:6,  c:3,  f:3, fib:0 },
-          { n:'Chutney + lemon',    cal:40,  p:1,  c:9,  f:0, fib:1 }
+          { n:'Mint chutney + lemon', cal:20, p:1,  c:3,  f:0, fib:1 }
         ] }
     ],
     note:'Dance day. Chana chaat with hung curd — no tikki.'
@@ -1581,7 +1824,7 @@ const MEAL_PLAN = {
 
       { id:'sat-3', time:'1–1:30pm · Meal 1', title:'Dal + paneer + 1 dosa + hung curd',
         desc:'Tadka yellow dal + paneer cubes + 1 small dosa with chutney + hung curd side. Protein-forward.',
-        quantities:'Arhar/toor dal (40g dry / ~100g cooked) · Paneer (60g, cubed) · Dosa batter (40g) · Coconut chutney (20g) · Hung curd (80g) · 1 tsp ghee · Lemon',
+        quantities:'Arhar/toor dal (40g dry / ~100g cooked) · Paneer (60g, cubed) · Dosa (100g cooked) · Coconut chutney (20g) · Hung curd (80g) · 1 tsp ghee · Lemon',
         items:[
           { n:'Yellow dal',     cal:140, p:11, c:18, f:3,  fib:5 },
           { n:'Paneer cubes',   cal:160, p:12, c:3,  f:11, fib:0 },
@@ -1750,52 +1993,27 @@ function totalBurned(day) {
 }
 
 /* ---------- lazy mode (PMS-friendly meal swaps) ---------- */
-function isLazyMode(day) {
-  try { return localStorage.getItem('mealPlan_lazy_' + day) === '1'; } catch { return false; }
+function isPMSMode() {
+  try { return localStorage.getItem('mealPlan_pms') === '1'; } catch { return false; }
 }
-function setLazyMode(day, on) {
+function setPMSMode(on) {
   try {
-    if (on) localStorage.setItem('mealPlan_lazy_' + day, '1');
-    else    localStorage.removeItem('mealPlan_lazy_' + day);
+    if (on) localStorage.setItem('mealPlan_pms', '1');
+    else    localStorage.removeItem('mealPlan_pms');
   } catch {}
 }
 
 function getMealsForDay(day) {
-  const base = MEAL_PLAN[day].meals;
-  const lazy = isLazyMode(day);
-  // When lazy mode is on, swap any meal that has a defined lazy alternative.
-  // Same id is used so check-off state and skip data carry over to the lazy version.
-  const transformed = base.map(meal => {
-    if (!lazy) return meal;
-    const alt = LAZY_MEALS[meal.id];
-    if (!alt) return meal;
-    // Spread base then alt, but recompute meal-level totals from the lazy items
-    // since `cal/p/c/f/fib` on the base meal are derived from the original items.
-    const merged = { ...meal, ...alt, id: meal.id, isLazy: true };
-    const t = (merged.items || []).reduce((s,it) => ({
-      cal: s.cal + (it.cal || 0),
-      p:   s.p   + (it.p   || 0),
-      c:   s.c   + (it.c   || 0),
-      f:   s.f   + (it.f   || 0),
-      fib: s.fib + (it.fib || 0)
-    }), { cal:0, p:0, c:0, f:0, fib:0 });
-    merged.cal = t.cal; merged.p = t.p; merged.c = t.c; merged.f = t.f; merged.fib = t.fib;
-    return merged;
-  });
-  // Re-derive day totals from the transformed item list when lazy mode is on,
-  // so the day-totals box at the bottom of the panel reflects the actual macros being eaten.
-  if (lazy) {
-    const t = { cal:0, p:0, c:0, f:0, fib:0 };
-    transformed.forEach(m => m.items.forEach(it => {
-      t.cal += it.cal; t.p += it.p; t.c += it.c; t.f += it.f; t.fib += it.fib;
-    }));
-    // Stash on the array for renderPanel to pick up
-    transformed.__lazyTotals = t;
-  }
+  const pms = isPMSMode();
+  const base = pms ? PMS_MEAL_PLAN[day].meals : MEAL_PLAN[day].meals;
   const custom = getCustomMeals(day);
-  const out = [...transformed, ...custom];
-  if (transformed.__lazyTotals) out.__lazyTotals = transformed.__lazyTotals;
-  return out;
+  return [...base, ...custom];
+}
+
+function getDayTotals(day) {
+  const pms = isPMSMode();
+  const plan = pms ? PMS_MEAL_PLAN[day] : MEAL_PLAN[day];
+  return plan.totals;
 }
 
 function escapeHtml(s) {
@@ -1912,31 +2130,16 @@ function renderMealRow(m, checkedIds, skippedData) {
 }
 
 function renderPanel(day) {
-  const plan = MEAL_PLAN[day];
+  const pms = isPMSMode();
+  const plan = pms ? PMS_MEAL_PLAN[day] : MEAL_PLAN[day];
   const checkedIds = getCheckedIds(day);
   const skippedData = getSkippedItems(day);
   const allMeals = getMealsForDay(day);
-  const lazy = isLazyMode(day);
 
   const mealsHtml = allMeals.map(m => renderMealRow(m, checkedIds, skippedData)).join('');
+  const totals = getDayTotals(day);
 
-  // Lazy mode toggle — sits at the top of the day. Always present so the user can flip it on
-  // when they wake up feeling rough. When ON, meals 2 and 5 swap to no/low-cook alternatives
-  // with matched macros (daily totals stay the same within ±20 cal).
-  const lazyBanner = `
-    <div class="lazy-toggle ${lazy ? 'on' : ''}">
-      <div class="lazy-toggle-info">
-        <span class="lazy-toggle-title">${lazy ? '💤 Lazy mode on' : '💤 Lazy mode'}</span>
-        <span class="lazy-toggle-sub">${lazy ? 'Showing low-cook swaps. Macros unchanged.' : 'For PMS / low-energy days. Swaps cooking-heavy meals for easy ones.'}</span>
-      </div>
-      <button type="button" class="lazy-toggle-btn" id="lazyToggleBtn" data-day="${day}" aria-pressed="${lazy}">
-        <span class="lazy-toggle-track"><span class="lazy-toggle-thumb"></span></span>
-      </button>
-    </div>`;
-
-  // Use lazy totals when lazy mode is on (re-derived from items so it reflects the swaps).
-  // Otherwise use the pre-computed plan.totals (which were derived at boot via applyDerivedDayTotals).
-  const totals = (lazy && allMeals.__lazyTotals) ? allMeals.__lazyTotals : plan.totals;
+  const pmsBanner = pms ? `<div class="pms-mode-banner">🌙 <strong>PMS mode</strong> — hormone-balanced meals. No chicken. More comfort carbs. Anti-bloat foods. Your body, your rules.</div>` : '';
 
   // Weekly grocery list shown only on Sunday (end-of-week shopping prep)
   const groceryHtml = day === 'sun' ? `
@@ -1962,8 +2165,8 @@ function renderPanel(day) {
     </details>
   ` : '';
 
-  return `<div class="day-panel active${lazy ? ' lazy-day' : ''}" id="panel-${day}">
-    ${lazyBanner}
+  return `<div class="day-panel active" id="panel-${day}">
+    ${pmsBanner}
     ${mealsHtml}
     <button type="button" class="add-meal-btn" id="addMealBtn">
       <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"/></svg>
@@ -1976,7 +2179,7 @@ function renderPanel(day) {
       <div><p class="tot-label">Fat</p><p class="tot-val">${totals.f}g</p></div>
       <div><p class="tot-label">Fiber</p><p class="tot-val">${totals.fib}g</p></div>
     </div>
-    <div class="note-box">${escapeHtml(plan.note)}</div>
+    <div class="note-box">${escapeHtml(plan.note || '')}</div>
     ${groceryHtml}
   </div>`;
 }
@@ -1987,16 +2190,7 @@ function renderPanels() {
 }
 
 function attachHandlers() {
-  // Lazy mode toggle (per day)
-  const lazyBtn = document.getElementById('lazyToggleBtn');
-  if (lazyBtn) {
-    lazyBtn.addEventListener('click', () => {
-      setLazyMode(currentDay, !isLazyMode(currentDay));
-      renderPanels();
-      renderTracker();
-      renderTabs();
-    });
-  }
+  // PMS mode toggle handled at top level (not per-day)
 
   document.querySelectorAll('input[type="checkbox"][data-meal-id]').forEach(cb => {
     cb.addEventListener('change', (e) => {
@@ -2945,6 +3139,27 @@ DAY_ORDER.forEach(day => {
     if (skipChanged) setSkippedItems(day, skipped);
   } catch {}
 });
+
+function setMode(pms) {
+  setPMSMode(pms);
+  document.getElementById('btnNormal').classList.toggle('active', !pms);
+  document.getElementById('btnPMS').classList.toggle('active', pms);
+  document.getElementById('modeSubtitle').textContent = pms
+    ? '🌙 PMS mode · Hormone-balanced meals · No chicken · Comfort carbs · Anti-bloat'
+    : '1,200 cal · 110g protein · 100g carbs · 40g fat · fiber-rich';
+  renderTabs();
+  renderPanels();
+  renderTracker();
+}
+
+// Sync toggle on load
+(function syncModeToggle() {
+  const pms = isPMSMode();
+  document.getElementById('btnNormal').classList.toggle('active', !pms);
+  document.getElementById('btnPMS').classList.toggle('active', pms);
+  if (pms) document.getElementById('modeSubtitle').textContent =
+    '🌙 PMS mode · Hormone-balanced meals · No chicken · Comfort carbs · Anti-bloat';
+})();
 
 renderTabs();
 renderPanels();
