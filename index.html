@@ -977,7 +977,7 @@
     padding: 8px 14px;
     border: none;
     border-radius: 8px;
-    background: var(--accent);
+    background: var(--success);
     color: white;
     cursor: pointer;
     font-family: inherit;
@@ -1174,6 +1174,604 @@
     font-family: inherit;
     cursor: pointer;
   }
+
+
+  /* ── Supplement tracker ── */
+  .supp-tracker {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .supp-row {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 12px 14px;
+  }
+  .supp-row-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .supp-name-tap {
+    flex: 1;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--text-tertiary);
+  }
+  .supp-count {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    min-width: 28px;
+    text-align: right;
+  }
+  .supp-count.complete { color: var(--success); }
+  .supp-dots {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+  .supp-dot {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--border-secondary);
+    background: var(--bg-primary);
+    cursor: pointer;
+    transition: all 0.15s;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+  .supp-dot.filled {
+    background: var(--success);
+    border-color: var(--success);
+  }
+  .supp-timing-inline {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-top: 2px;
+  }
+
+  /* Bedside snack drawer */
+  .supp-drawer {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .supp-drawer-item {
+    flex: 1;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 10px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    text-align: center;
+  }
+  .supp-drawer-note {
+    font-size: 10px;
+    color: var(--text-tertiary);
+  }
+  .supp-drawer-item .supp-name {
+    font-size: 12px;
+  }
+
+  /* ── Supplement drawer ── */
+  .supp-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .supp-card {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .supp-emoji { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+  .supp-info { flex: 1; min-width: 0; }
+  .supp-name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .supp-detail { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+  .supp-timing {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    white-space: nowrap;
+    margin-top: 6px;
+    display: inline-block;
+  }
+  .supp-section-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-tertiary);
+    margin: 14px 0 6px;
+  }
+  .supp-section-title:first-child { margin-top: 0; }
+
+  /* ── Meal prep jars ── */
+  .prep-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .prep-card {
+    background: var(--bg-secondary);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .prep-header {
+    padding: 14px 14px 10px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .prep-jar-emoji { font-size: 26px; flex-shrink: 0; }
+  .prep-title { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+  .prep-meta { font-size: 11px; color: var(--text-secondary); }
+  .prep-macros {
+    display: flex;
+    gap: 8px;
+    padding: 0 14px 10px;
+    flex-wrap: wrap;
+  }
+  .prep-macro {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+  .prep-steps {
+    border-top: 1px solid var(--border-tertiary);
+    padding: 10px 14px 14px;
+  }
+  .prep-step {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    padding: 3px 0;
+    display: flex;
+    gap: 8px;
+  }
+  .prep-step-num {
+    color: var(--success);
+    font-weight: 700;
+    flex-shrink: 0;
+    width: 16px;
+  }
+  .prep-shelf {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--success);
+    padding: 6px 14px 12px;
+  }
+  .prep-ingredients {
+    padding: 0 14px 10px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ── Daily message card ── */
+  .daily-msg-card {
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    margin-bottom: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .daily-msg-card.menstrual  { background: linear-gradient(135deg, #fde8e8, #fcd4d4); }
+  .daily-msg-card.follicular { background: linear-gradient(135deg, #e8f5e9, #d4edda); }
+  .daily-msg-card.ovulation  { background: linear-gradient(135deg, #e3f2fd, #d0e8fa); }
+  .daily-msg-card.luteal     { background: linear-gradient(135deg, #fffde7, #fff9c4); }
+  .daily-msg-card.default    { background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary,var(--bg-secondary))); }
+  @media (prefers-color-scheme: dark) {
+    .daily-msg-card.menstrual  { background: linear-gradient(135deg, #3b0f0f, #2a0808); }
+    .daily-msg-card.follicular { background: linear-gradient(135deg, #0d2e10, #071a09); }
+    .daily-msg-card.ovulation  { background: linear-gradient(135deg, #0d2a3b, #071520); }
+    .daily-msg-card.luteal     { background: linear-gradient(135deg, #2e2800, #1a1700); }
+  }
+  .daily-msg-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .daily-msg-emoji { font-size: 22px; }
+  .daily-msg-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+  }
+  .daily-msg-text {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--text-primary);
+  }
+  .daily-msg-sub {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 5px;
+    line-height: 1.5;
+  }
+  .daily-msg-refresh {
+    position: absolute;
+    top: 12px; right: 12px;
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    opacity: 0.5;
+    padding: 4px;
+  }
+
+  /* ── Talk to me button ── */
+  .talk-btn-wrap {
+    margin-bottom: 14px;
+  }
+  .talk-btn {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: var(--radius-lg);
+    border: 1.5px dashed var(--border-secondary);
+    background: var(--bg-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: inherit;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .talk-btn:active {
+    background: var(--bg-secondary);
+    border-color: var(--success);
+  }
+  .talk-btn-icon { font-size: 22px; flex-shrink: 0; }
+  .talk-btn-text { flex: 1; text-align: left; }
+  .talk-btn-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: block;
+  }
+  .talk-btn-sub {
+    font-size: 12px;
+    color: var(--text-secondary);
+    display: block;
+    margin-top: 1px;
+  }
+  .talk-btn-arrow { color: var(--text-tertiary); font-size: 14px; }
+
+  /* Talk to me popup */
+  .talk-popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    animation: fadeIn 0.15s ease;
+  }
+  .talk-popup {
+    background: var(--bg-primary);
+    border-radius: 20px 20px 0 0;
+    padding: 20px 20px 40px;
+    width: 100%;
+    max-width: 480px;
+    animation: slideUp 0.2s ease;
+  }
+  .talk-popup-handle {
+    width: 36px; height: 4px;
+    background: var(--border-secondary);
+    border-radius: 2px;
+    margin: 0 auto 18px;
+  }
+  .talk-popup-title {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .talk-popup-sub {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .talk-quick-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-tertiary);
+    margin-bottom: 10px;
+  }
+  .talk-quick-btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .talk-quick-btn {
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border-secondary);
+    background: var(--bg-secondary);
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    color: var(--text-primary);
+  }
+  .talk-quick-btn.selected {
+    background: var(--success);
+    color: white;
+    border-color: var(--success);
+  }
+  .talk-open-claude {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    background: var(--success);
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 4px;
+  }
+  .talk-cancel {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-family: inherit;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+
+  /* ── PMS Survival Badge ── */
+  .survival-badge {
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    margin-bottom: 14px;
+    background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    .survival-badge { background: linear-gradient(135deg, #3b0a20, #2a0518); }
+  }
+  .survival-badge-trophy { font-size: 36px; }
+  .survival-badge-body { flex: 1; }
+  .survival-badge-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+  .survival-badge-text {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .survival-badge-dismiss {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    opacity: 0.4;
+    padding: 4px;
+    align-self: flex-start;
+  }
+
+  /* ── Quote card ── */
+  .quote-card {
+    padding: 14px 16px;
+    margin-bottom: 14px;
+    cursor: pointer;
+    border-left: 3px solid var(--success);
+    background: var(--bg-secondary);
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    transition: opacity 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .quote-card:active { opacity: 0.7; }
+  .quote-text {
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-primary);
+    line-height: 1.5;
+    display: block;
+  }
+
+  /* ── Talk toast ── */
+  .talk-toast-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    animation: fadeIn 0.15s ease;
+  }
+  .talk-toast {
+    background: var(--bg-primary);
+    border-radius: 20px 20px 0 0;
+    padding: 20px 20px 40px;
+    width: 100%;
+    max-width: 480px;
+    animation: slideUp 0.2s ease;
+  }
+  .talk-toast-emoji { font-size: 28px; margin-bottom: 8px; }
+  .talk-toast-title {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .talk-toast-msg {
+    font-size: 13px;
+    color: var(--text-secondary);
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    font-style: italic;
+  }
+  .talk-toast-hint {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  /* ── Craving redirector ── */
+  .craving-wrap {
+    margin-bottom: 14px;
+  }
+  .craving-row {
+    display: flex;
+    gap: 8px;
+  }
+  .craving-input {
+    flex: 1;
+    padding: 12px 14px;
+    border-radius: var(--radius-lg);
+    border: 1.5px solid var(--border-secondary);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+  }
+  .craving-input:focus {
+    border-color: var(--success);
+    background: var(--bg-primary);
+  }
+  .craving-input::placeholder { color: var(--text-tertiary); }
+  .craving-btn {
+    padding: 12px 18px;
+    border-radius: var(--radius-lg);
+    border: none;
+    background: var(--success);
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    flex-shrink: 0;
+  }
+  .craving-result {
+    margin-top: 10px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .craving-result-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-tertiary);
+    padding: 12px 14px 8px;
+  }
+  .craving-option {
+    padding: 10px 14px;
+    border-top: 1px solid var(--border-tertiary);
+  }
+  .craving-option-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 3px;
+  }
+  .craving-option-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+  .craving-option-cal {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .craving-option-why {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .craving-clear {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: none;
+    color: var(--text-tertiary);
+    font-size: 12px;
+    font-family: inherit;
+    cursor: pointer;
+    border-top: 1px solid var(--border-tertiary);
+  }
+
+  /* ── Weekly deficit tracker ── */
+  .weekly-tracker {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .weekly-stat {
+    flex: 1;
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .weekly-stat-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--text-tertiary);
+  }
+  .weekly-stat-val {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.1;
+  }
+  .weekly-stat-sub {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    margin-top: 1px;
+  }
+  .weekly-stat.deficit .weekly-stat-val { color: var(--success); }
+  .weekly-stat.over    .weekly-stat-val { color: var(--danger,#e53e3e); }
+  .weekly-stat.on-track .weekly-stat-val { color: var(--success); }
 </style>
 </head>
 <body>
@@ -1181,7 +1779,7 @@
 
 <header>
   <h1>Daily meal plan</h1>
-  <p class="subtitle" id="modeSubtitle">1,200 cal · 110g protein · 100g carbs · 40g fat · fiber-rich</p>
+  <p class="subtitle" id="modeSubtitle">1,550 cal · 120g protein · 500 cal deficit · 0.5kg/week</p>
 </header>
 
 <div class="cycle-section" id="cycleSection">
@@ -1189,6 +1787,16 @@
 </div>
 
 <div id="insightSection"></div>
+<div id="dailyMsgSection"></div>
+<div class="craving-wrap" id="cravingWrap">
+  <div class="craving-row">
+    <input type="text" class="craving-input" id="cravingInput" placeholder="What are you craving? e.g. sweet, spicy, crunchy..." autocomplete="off" autocorrect="off">
+    <button class="craving-btn" onclick="handleCraving()">→</button>
+  </div>
+  <div id="cravingResult"></div>
+</div>
+<div id="survivalBadgeSection"></div>
+<div id="weeklyTrackerSection"></div>
 
 <div class="mode-toggle-bar" id="modeToggleBar">
   <button type="button" class="mode-btn active" id="btnNormal" onclick="setMode(false)">Normal</button>
@@ -1284,11 +1892,37 @@
   </div>
 </details>
 
+<!-- Supplement Drawer -->
+<details class="activity" id="supplementBlock">
+  <summary class="activity-summary">
+    <span class="activity-left">
+      <span class="activity-icon">💊</span>
+      <span>
+        <span class="activity-label">Supplement drawer</span>
+        <span class="activity-summary-text">Bedside stack · timing guide</span>
+      </span>
+    </span>
+    <span class="activity-caret">▾</span>
+  </summary>
+  <div class="activity-body" id="supplementBody"></div>
+</details>
+
+<!-- Meal Prep Jars -->
+<details class="activity" id="mealPrepBlock">
+  <summary class="activity-summary">
+    <span class="activity-left">
+      <span class="activity-icon">🫙</span>
+      <span>
+        <span class="activity-label">Meal prep jars</span>
+        <span class="activity-summary-text">3 recipes · prep every 3-4 days</span>
+      </span>
+    </span>
+    <span class="activity-caret">▾</span>
+  </summary>
+  <div class="activity-body" id="mealPrepBody"></div>
+</details>
+
 <div id="panels"></div>
-
-</div>
-
-<nav class="day-tabs">
   <div class="day-tabs-inner" id="tabs"></div>
 </nav>
 
@@ -1387,7 +2021,8 @@
 </div>
 
 <script>
-const TARGETS = { cal: 1200, p: 110, c: 100, f: 40, fib: 25 };
+const TARGETS = { cal: 1550, p: 120, c: 130, f: 50, fib: 28 };
+const PMS_TARGETS = { cal: 1700, p: 110, c: 155, f: 55, fib: 30 };
 
 // PMS PLAN — hormone-balanced meals for luteal phase (post-ovulation → period)
 // Same structure as MEAL_PLAN. No chicken. More comfort carbs. Anti-bloat foods.
@@ -1421,7 +2056,7 @@ const PMS_MEAL_PLAN = {
       ] },
     { id:'mon-4', time:'4–5pm · Snack', title:'Aloo tikki chaat',
       desc:'🥟 Momo substitute. Street food energy — spicy, tangy, crunchy, satisfying. You will forget momos exist.',
-      quantities:'Aloo tikki (1 / 80g) · Kala chana (30g cooked, topping) · Mint chutney (15g) · Onion (20g) · Pomegranate (20g) · Hung curd (40g)',
+      quantities:'Aloo tikki (1 / 80g) · Kala chana (30g cooked) · Onion (20g, raw) · Pomegranate (20g) · Hung curd (40g) · Tamarind chutney (10g) + mint chutney (10g)',
       items:[
         { n:'Aloo tikki (1)',      cal:120, p:3,  c:18, f:4, fib:2 },
         { n:'Kala chana topping',  cal:50,  p:4,  c:8,  f:1, fib:3 },
@@ -1440,16 +2075,18 @@ const PMS_MEAL_PLAN = {
   ]},
 
   tue: { totals:{}, meals:[
-    { id:'tue-1', time:'7–8am · Wake-up', title:'Coffee with milk + soaked almonds',
+    { id:'tue-1', time:'7–8am · Wake-up', title:'Coffee + protein shake + almonds',
       desc:'Coffee with milk + 8 soaked almonds (magnesium for PMS cramps).',
-      quantities:'Black coffee · Slim milk (60ml) · Almonds (8, soaked overnight)',
+      quantities:'Black coffee · Slim milk (60ml) · Protein powder (1 scoop) · Almonds (8, soaked overnight)',
       items:[
         { n:'Coffee + slim milk',  cal:25, p:2, c:3, f:0, fib:0 },
-        { n:'Soaked almonds (8)',   cal:60, p:3, c:2, f:5, fib:1 }
+        { n:'Soaked almonds (8)',   cal:60, p:3, c:2, f:5, fib:1 },
+
+        { n:'Protein shake (1 scoop)',cal:120, p:25, c:3, f:1, fib:0 },
       ] },
     { id:'tue-2', time:'9–10am · Breakfast', title:'2 moong dal chillas + paneer filling + mint chutney',
       desc:'🥟 Momo substitute. Soft chilla = dumpling wrapper. Paneer-onion filling = juicy inside. Mint chutney = momo chutney. Roll and eat.',
-      quantities:'Moong dal batter (140g) · Paneer (80g, crumbled) · Onion (40g) · Capsicum (30g) · Mint chutney (15g)',
+      quantities:'Moong dal batter (140g) · Paneer (80g, crumbled) · Onion (40g) · Capsicum (30g) · Mint chutney (15g) · 1 tsp oil · Salt + spices',
       items:[
         { n:'Moong dal chilla (x2)', cal:230, p:16, c:28, f:6, fib:7 },
         { n:'Paneer-onion filling',  cal:200, p:16, c:5,  f:13, fib:1 },
@@ -1475,7 +2112,7 @@ const PMS_MEAL_PLAN = {
       ] },
     { id:'tue-5', time:'7–8pm · Dinner', title:'Paneer tikka + sautéed veggies + dal',
       desc:'High protein, satisfying, no chicken needed. Paneer tikka with hung curd marinade = juicy and filling. Dal for extra protein.',
-      quantities:'Paneer (100g, cubed) · Hung curd marinade (20g) · Capsicum (40g) · Broccoli (80g) · Yellow dal (50g cooked) · Mint chutney · Spices',
+      quantities:'Paneer (100g, cubed) · Hung curd (20g, marinade) · Capsicum (40g) · Broccoli (80g) · Yellow dal (50g cooked) · Mint chutney (15g) · 1 tsp oil · Spices',
       items:[
         { n:'Paneer tikka',         cal:230, p:20, c:5,  f:15, fib:1 },
         { n:'Grilled veggies',      cal:80,  p:4,  c:10, f:3,  fib:4 },
@@ -1485,12 +2122,14 @@ const PMS_MEAL_PLAN = {
   ]},
 
   wed: { totals:{}, meals:[
-    { id:'wed-1', time:'7–8am · Wake-up', title:'Coffee with milk',
+    { id:'wed-1', time:'7–8am · Wake-up', title:'Coffee + protein shake',
       desc:'Coffee with 60ml slim milk + chia water.',
-      quantities:'Black coffee · Slim milk (60ml) · Chia seeds (5g) · Water (250ml)',
+      quantities:'Black coffee · Slim milk (60ml) · Protein powder (1 scoop) · Chia seeds (5g) · Water (250ml)',
       items:[
         { n:'Coffee + slim milk',  cal:25, p:2, c:3, f:0, fib:0 },
-        { n:'Chia water',          cal:30, p:1, c:2, f:2, fib:4 }
+        { n:'Chia water',          cal:30, p:1, c:2, f:2, fib:4 },
+
+        { n:'Protein shake (1 scoop)',cal:120, p:25, c:3, f:1, fib:0 },
       ] },
     { id:'wed-2', time:'9–10am · Breakfast', title:'1 paratha + aloo tikki + paneer bhurji',
       desc:'The meal that actually worked. Warm, filling, carbs for serotonin. Auntie can make all of this easily without guidance.',
@@ -1528,12 +2167,13 @@ const PMS_MEAL_PLAN = {
   ]},
 
   thu: { totals:{}, meals:[
-    { id:'thu-1', time:'7–8am · Wake-up', title:'Coffee with milk',
-      desc:'Coffee with 60ml slim milk + chia water.',
-      quantities:'Black coffee · Slim milk (60ml) · Chia seeds (5g) · Water (250ml)',
+    { id:'thu-1', time:'7–8am · Wake-up', title:'Coffee + protein shake',
+      desc:'Coffee with milk + protein shake + chia water. Running day PMS — need protein early.',
+      quantities:'Black coffee · Slim milk (60ml) · Protein powder (1 scoop) · Chia seeds (5g) · Water (250ml)',
       items:[
-        { n:'Coffee + slim milk',  cal:25, p:2, c:3, f:0, fib:0 },
-        { n:'Chia water',          cal:30, p:1, c:2, f:2, fib:4 }
+        { n:'Coffee + slim milk',     cal:25,  p:2,  c:3, f:0, fib:0 },
+        { n:'Protein shake (1 scoop)', cal:120, p:25, c:3, f:1, fib:0 },
+        { n:'Chia water',             cal:30,  p:1,  c:2, f:2, fib:4 }
       ] },
     { id:'thu-2', time:'9–10am · Breakfast', title:'1 dosa + sambar + paneer bhurji',
       desc:'Easy, no guidance needed for auntie. Sambar = protein + fiber. Paneer bhurji = protein without chicken.',
@@ -1573,12 +2213,14 @@ const PMS_MEAL_PLAN = {
   ]},
 
   fri: { totals:{}, meals:[
-    { id:'fri-1', time:'7–8am · Wake-up', title:'Coffee with milk',
+    { id:'fri-1', time:'7–8am · Wake-up', title:'Coffee + protein shake',
       desc:'Coffee with 60ml slim milk + chia water.',
-      quantities:'Black coffee · Slim milk (60ml) · Chia seeds (5g) · Water (250ml)',
+      quantities:'Black coffee · Slim milk (60ml) · Protein powder (1 scoop) · Chia seeds (5g) · Water (250ml)',
       items:[
         { n:'Coffee + slim milk',  cal:25, p:2, c:3, f:0, fib:0 },
-        { n:'Chia water',          cal:30, p:1, c:2, f:2, fib:4 }
+        { n:'Chia water',          cal:30, p:1, c:2, f:2, fib:4 },
+
+        { n:'Protein shake (1 scoop)',cal:120, p:25, c:3, f:1, fib:0 },
       ] },
     { id:'fri-2', time:'9–10am · Breakfast', title:'Moong dal chilla (2) + scrambled eggs + coffee',
       desc:'High protein start. Chillas = your favourite, quick for auntie to make. Eggs = easy protein without chicken.',
@@ -1631,7 +2273,7 @@ const PMS_MEAL_PLAN = {
       ] },
     { id:'sat-3', time:'1–1:30pm · Lunch', title:'Dalia with paneer + tomato masala + raita',
       desc:'🍝 Pasta substitute (Indian version). Dalia (broken wheat) = same soft chewy texture as pasta. Tomato masala = pasta sauce. Paneer cubes = cheese chunks. Same satisfaction, way better nutrition.',
-      quantities:'Dalia (50g dry, cooked) · Paneer cubes (80g) · Tomato (60g) · Onion (40g) · Capsicum (40g) · Raita (80g) · 1 tsp ghee · Spices',
+      quantities:'Dalia (50g dry, cooked) · Paneer cubes (80g) · Tomato (60g) · Onion (40g) · Capsicum (40g) · Cucumber raita (80g) · 1 tsp ghee · Cumin + coriander + spices',
       items:[
         { n:'Dalia (cooked)',       cal:180, p:6,  c:34, f:2, fib:5 },
         { n:'Paneer cubes (80g)',   cal:210, p:16, c:4,  f:15, fib:0 },
@@ -1658,11 +2300,13 @@ const PMS_MEAL_PLAN = {
   ]},
 
   sun: { totals:{}, meals:[
-    { id:'sun-1', time:'7–8am · Wake-up', title:'Coffee with milk',
+    { id:'sun-1', time:'7–8am · Wake-up', title:'Coffee + protein shake',
       desc:'Sunday slow morning. Coffee with milk only. Ease into the day.',
-      quantities:'Black coffee · Slim milk (60ml)',
+      quantities:'Black coffee · Slim milk (60ml) · Protein powder (1 scoop)',
       items:[
-        { n:'Coffee + slim milk',  cal:25, p:2, c:3, f:0, fib:0 }
+        { n:'Coffee + slim milk',  cal:25, p:2, c:3, f:0, fib:0 },
+
+        { n:'Protein shake (1 scoop)',cal:120, p:25, c:3, f:1, fib:0 },
       ] },
     { id:'sun-2', time:'9–10am · Breakfast', title:'Avocado toast + 1 scrambled egg + coffee',
       desc:'Your favourite Sunday breakfast. Full avocado (whole — otherwise it gets ruined). Hormones need the healthy fats today. This is medicine, not indulgence.',
@@ -1706,9 +2350,13 @@ function applyPMSDayTotals() {
   Object.values(PMS_MEAL_PLAN).forEach(day => {
     const t = {cal:0,p:0,c:0,f:0,fib:0};
     day.meals.forEach(m => {
+      // Derive meal-level macros from items (same as applyDerivedMacros for normal plan)
+      const mt = {cal:0,p:0,c:0,f:0,fib:0};
       m.items.forEach(it => {
-        t.cal+=it.cal; t.p+=it.p; t.c+=it.c; t.f+=it.f; t.fib+=it.fib;
+        mt.cal+=it.cal; mt.p+=it.p; mt.c+=it.c; mt.f+=it.f; mt.fib+=it.fib;
       });
+      m.cal=mt.cal; m.p=mt.p; m.c=mt.c; m.f=mt.f; m.fib=mt.fib;
+      t.cal+=mt.cal; t.p+=mt.p; t.c+=mt.c; t.f+=mt.f; t.fib+=mt.fib;
     });
     day.totals = t;
   });
@@ -1849,12 +2497,13 @@ const MEAL_PLAN = {
 
   tue: {
     meals: [
-      { id:'tue-1', time:'7–8am · Wake-up', title:'Coffee with milk + soaked almonds',
+      { id:'tue-1', time:'7–8am · Wake-up', title:'Coffee + protein shake + almonds',
         desc:'Black coffee with 60ml slim milk + 8 soaked almonds (skinned).',
         quantities:'Black coffee (1 cup) · Slim milk (60ml) · Soaked almonds (8 / ~10g)',
         items:[
           { n:'Coffee + slim milk', cal:25, p:2, c:3, f:0, fib:0 },
-          { n:'Soaked almonds',     cal:60, p:3, c:2, f:5, fib:1 }
+          { n:'Soaked almonds',     cal:60, p:3, c:2, f:5, fib:1 },
+          { n:'Protein shake (1 scoop)', cal:120, p:25, c:3, f:1, fib:0 },
         ] },
 
       { id:'tue-2', time:'1–1:30pm · Meal 1', title:'Kala chana + paneer + salad',
@@ -1890,6 +2539,7 @@ const MEAL_PLAN = {
         items:[
           { n:'Moong dal chilla (1)',      cal:130, p:9,  c:18, f:3,  fib:4 },
           { n:'Paneer-veg filling',        cal:200, p:16, c:6,  f:13, fib:2 },
+          { n:'Roti (1)',                  cal:100, p:3,  c:20, f:1,  fib:2 },
           { n:'Cucumber-tomato salad',     cal:40,  p:1,  c:6,  f:0,  fib:3 }
         ] }
     ],
@@ -1898,12 +2548,13 @@ const MEAL_PLAN = {
 
   wed: {
     meals: [
-      { id:'wed-1', time:'7–8am · Wake-up', title:'Coffee with milk',
+      { id:'wed-1', time:'7–8am · Wake-up', title:'Coffee + protein shake',
         desc:'Black coffee with 60ml slim milk + 250ml chia water.',
         quantities:'Black coffee (1 cup) · Slim milk (60ml) · Chia seeds (5g / 1 tsp) · Water (250ml)',
         items:[
           { n:'Coffee + slim milk', cal:25, p:2, c:3, f:0, fib:0 },
-          { n:'Chia water',         cal:30, p:1, c:2, f:2, fib:4 }
+          { n:'Chia water',         cal:30, p:1, c:2, f:2, fib:4 },
+          { n:'Protein shake (1 scoop)', cal:120, p:25, c:3, f:1, fib:0 },
         ] },
 
       { id:'wed-2', time:'1–1:30pm · Meal 1', title:'Chicken + 2-egg omelette + salad',
@@ -1982,12 +2633,13 @@ const MEAL_PLAN = {
           { n:'Apple',                cal:65,  p:1,  c:16, f:0, fib:3 }
         ] },
 
-      { id:'thu-5', time:'8–8:30pm · Meal 2', title:'Chickpea + 2-egg omelette bowl',
-        desc:'Boiled chickpeas + 2-egg omelette + chopped cucumber/tomato/onion + olive oil + lemon.',
-        quantities:'Boiled chickpeas (80g) · Eggs (2, omelette) · Cucumber (80g) · Tomato (60g) · Onion (30g) · Olive oil (5ml) · Pomegranate (30g) · Lemon · Salt + pepper',
+      { id:'thu-5', time:'8–8:30pm · Meal 2', title:'Chickpea + 2-egg omelette + roti',
+        desc:'Boiled chickpeas + 2-egg omelette + roti + salad. Running day needs more carbs at dinner.',
+        quantities:'Boiled chickpeas (80g) · Eggs (2, omelette) · Roti (1) · Cucumber (80g) · Tomato (60g) · Onion (30g) · Olive oil (5ml) · Pomegranate (30g)',
         items:[
           { n:'Boiled chickpeas',    cal:130, p:7,  c:22, f:2,  fib:6 },
           { n:'2-egg omelette',      cal:180, p:14, c:2,  f:12, fib:0 },
+          { n:'Roti (1)',            cal:100, p:3,  c:20, f:1,  fib:2 },
           { n:'Cuc-tom-onion side',  cal:50,  p:2,  c:10, f:0,  fib:3 },
           { n:'Olive oil + lemon',   cal:50,  p:0,  c:1,  f:5,  fib:0 },
           { n:'Pomegranate',         cal:30,  p:1,  c:7,  f:0,  fib:2 }
@@ -1998,12 +2650,13 @@ const MEAL_PLAN = {
 
   fri: {
     meals: [
-      { id:'fri-1', time:'7–8am · Wake-up', title:'Coffee with milk',
+      { id:'fri-1', time:'7–8am · Wake-up', title:'Coffee + protein shake',
         desc:'Black coffee with 60ml slim milk + 250ml chia water.',
         quantities:'Black coffee (1 cup) · Slim milk (60ml) · Chia seeds (5g) · Water (250ml)',
         items:[
           { n:'Coffee + slim milk', cal:25, p:2, c:3, f:0, fib:0 },
-          { n:'Chia water',         cal:30, p:1, c:2, f:2, fib:4 }
+          { n:'Chia water',         cal:30, p:1, c:2, f:2, fib:4 },
+          { n:'Protein shake (1 scoop)', cal:120, p:25, c:3, f:1, fib:0 },
         ] },
 
       { id:'fri-2', time:'1–1:30pm · Meal 1', title:'Chicken tikka + veggie salad',
@@ -2039,7 +2692,8 @@ const MEAL_PLAN = {
           { n:'Boiled kala chana',  cal:170, p:11, c:25, f:3, fib:8 },
           { n:'Cuc-tom-carrot mix', cal:70,  p:2,  c:14, f:0, fib:5 },
           { n:'Hung curd',          cal:70,  p:6,  c:3,  f:3, fib:0 },
-          { n:'Mint chutney + lemon', cal:20, p:1,  c:3,  f:0, fib:1 }
+          { n:'Mint chutney + lemon', cal:20, p:1,  c:3,  f:0, fib:1 },
+          { n:'Roti (1)',           cal:100, p:3,  c:20, f:1, fib:2 },
         ] }
     ],
     note:'Dance day. Chana chaat with hung curd — no tikki.'
@@ -2097,11 +2751,12 @@ const MEAL_PLAN = {
 
   sun: {
     meals: [
-      { id:'sun-1', time:'7–8am · Wake-up', title:'Coffee with milk',
+      { id:'sun-1', time:'7–8am · Wake-up', title:'Coffee + protein shake',
         desc:'Black coffee with 60ml slim milk.',
         quantities:'Black coffee (1 cup) · Slim milk (60ml)',
         items:[
-          { n:'Coffee + slim milk', cal:25, p:2, c:3, f:0, fib:0 }
+          { n:'Coffee + slim milk', cal:25, p:2, c:3, f:0, fib:0 },
+          { n:'Protein shake (1 scoop)', cal:120, p:25, c:3, f:1, fib:0 },
         ] },
 
       { id:'sun-2', time:'9am · Post-workout', title:'Avocado toast + 1 egg',
@@ -2492,6 +3147,7 @@ function attachHandlers() {
         }
       }
       renderTracker();
+      renderWeeklyTracker();
     });
   });
 
@@ -2745,6 +3401,7 @@ document.getElementById('addMealSave').addEventListener('click', () => {
   document.getElementById('addMealModal').classList.remove('open');
   renderPanels();
   renderTracker();
+  renderWeeklyTracker();
   renderTabs();
 });
 
@@ -2805,6 +3462,7 @@ document.getElementById('editMealResetOriginal').addEventListener('click', () =>
   editingMealId = null;
   renderPanels();
   renderTracker();
+  renderWeeklyTracker();
   renderTabs();
 });
 
@@ -3097,6 +3755,7 @@ function renderActivity() {
       setActivities(currentDay, current);
       renderActivity();
       renderTracker();
+      renderWeeklyTracker();
     });
   });
 }
@@ -3307,6 +3966,7 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   setCustomMeals(currentDay, []);
   renderPanels();
   renderTracker();
+  renderWeeklyTracker();
   renderTabs();
   renderActivity();
 });
@@ -3618,16 +4278,609 @@ function showPhasePopup(dateStr, cycleStart) {
   document.body.appendChild(overlay);
 }
 
+
+/* ── Supplement drawer ── */
+// Supplement tracker — weekly targets
+const SUPPLEMENTS = [
+  { key:'electrolytes', emoji:'⚡', name:'Electrolytes',    target:7, timing:'🌅 Before coffee',          detail:'Drop in water, drink before anything else. Replenishes sodium, potassium, magnesium lost during sleep.',  brand:'Electral sachets or any electrolyte tab' },
+  { key:'iron',         emoji:'🩸', name:'Iron (Ferrolic-XT)', target:7, timing:'🌅 30 min before coffee', detail:'Take with lemon water. NEVER with coffee or dairy — blocks absorption completely.',                      brand:'Ferrolic-XT (Ferrous Ascorbate + Folic Acid + Zinc)' },
+  { key:'b12',          emoji:'🧠', name:'B12 Sublingual',  target:7, timing:'🌅 Under tongue, first',    detail:'Dissolve under tongue — do NOT swallow. Sublingual absorbs 3x better than tablets.',                    brand:'Mebacol-OD (Methylcobalamin 1500mcg by UNO Organics)' },
+  { key:'vitd',         emoji:'☀️', name:'Vitamin D3 + K2', target:1, timing:'🍽️ With fattiest meal',     detail:'Fat-soluble — needs fat to absorb. Take with paneer, ghee, or avocado. Once a week is enough.',        brand:'Wellbeing Nutrition D3+K2 or HealthKart D3' },
+
+];
+
+const DRAWER_SNACKS = [
+  { emoji:'🎃', name:'Pumpkin seeds', note:'10-15g' },
+  { emoji:'🌴', name:'Dates',         note:'4-5 pieces' },
+  { emoji:'🌰', name:'Almonds',       note:'10 pieces' },
+];
+
+// Supplement tracking storage
+function getSuppWeekKey() {
+  const d = new Date();
+  // Week key: YYYY-WW (ISO week)
+  const jan1 = new Date(d.getFullYear(), 0, 1);
+  const week = Math.ceil(((d - jan1) / 86400000 + jan1.getDay() + 1) / 7);
+  return `supp_${d.getFullYear()}_${week}`;
+}
+function getSuppLog() {
+  try { return JSON.parse(localStorage.getItem(getSuppWeekKey()) || '{}'); } catch { return {}; }
+}
+function setSuppLog(log) {
+  try { localStorage.setItem(getSuppWeekKey(), JSON.stringify(log)); } catch {} }
+function getSuppCount(key) { return getSuppLog()[key] || 0; }
+function toggleSuppDose(key) {
+  const log = getSuppLog();
+  const supp = SUPPLEMENTS.find(s => s.key === key);
+  if (!supp) return;
+  const cur = log[key] || 0;
+  // Tap to increment, tap again at max to reset to 0
+  log[key] = cur >= supp.target ? 0 : cur + 1;
+  setSuppLog(log);
+  renderSupplements();
+}
+
+// Popup with supplement detail
+function showSuppDetail(key) {
+  const s = SUPPLEMENTS.find(s => s.key === key);
+  if (!s) return;
+  const overlay = document.createElement('div');
+  overlay.className = 'phase-popup-overlay';
+  overlay.innerHTML = `
+    <div class="phase-popup">
+      <div class="phase-popup-handle"></div>
+      <div class="phase-popup-header">
+        <span class="phase-popup-emoji">${s.emoji}</span>
+        <div>
+          <div class="phase-popup-phase">${s.timing}</div>
+          <div class="phase-popup-title">${s.name}</div>
+        </div>
+      </div>
+      <div class="phase-popup-body">${s.detail}</div>
+      <div class="phase-popup-pills"><span class="phase-popup-pill">${s.brand}</span></div>
+      <button class="phase-popup-close" onclick="this.closest('.phase-popup-overlay').remove()">Got it</button>
+    </div>`;
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+  document.body.appendChild(overlay);
+}
+
+function renderSupplements() {
+  const el = document.getElementById('supplementBody');
+  if (!el) return;
+
+  const suppRows = SUPPLEMENTS.map(s => {
+    const count = getSuppCount(s.key);
+    const pct = Math.min(count / s.target, 1);
+    const dots = Array.from({length: s.target}, (_,i) => {
+      const filled = i < count;
+      return `<span class="supp-dot${filled ? ' filled' : ''}" onclick="toggleSuppDose('${s.key}')"></span>`;
+    }).join('');
+    const complete = count >= s.target;
+    return `
+      <div class="supp-row">
+        <div class="supp-row-top">
+          <span class="supp-emoji">${s.emoji}</span>
+          <span class="supp-name supp-name-tap" onclick="showSuppDetail('${s.key}')">${s.name}</span>
+          <span class="supp-count${complete ? ' complete' : ''}">${count}/${s.target}</span>
+        </div>
+        <div class="supp-dots">${dots}</div>
+        <div class="supp-timing-inline">${s.timing}</div>
+      </div>`;
+  }).join('');
+
+  const drawerItems = DRAWER_SNACKS.map(d => `
+    <div class="supp-drawer-item">
+      <span class="supp-emoji">${d.emoji}</span>
+      <span class="supp-name">${d.name}</span>
+      <span class="supp-drawer-note">${d.note}</span>
+    </div>`).join('');
+
+  el.innerHTML = `
+    <p class="activity-hint">Tap a dot to log a dose. Tap the supplement name for details. Resets every Monday.</p>
+    <div class="supp-tracker">${suppRows}</div>
+    <div class="supp-section-title" style="margin-top:16px">🗄️ Bedside snack drawer</div>
+    <div class="supp-drawer">${drawerItems}</div>`;
+}
+
+/* ── Meal prep jars ── */
+const MEAL_PREP_RECIPES = [
+  {
+    emoji: '🫙',
+    name: 'Hung curd + fruit + chia jar',
+    serves: '1 jar',
+    shelfLife: '✅ Lasts 3 days in fridge',
+    prepTime: '5 min to prep · no cooking',
+    macros: ['~280 cal', '18g protein', '32g carbs', '8g fat'],
+    ingredients: [
+      'Hung curd — 150g (thick, strain overnight from dahi)',
+      'Banana — 1 small, sliced (or mango, papaya, any soft fruit)',
+      'Chia seeds — 1 tsp (soaked in 2 tbsp water for 10 min first)',
+      'Honey — 1 tsp (optional, skip during PMS week)',
+      'Pumpkin seeds — 1 tsp on top (add fresh each time)',
+    ],
+    steps: [
+      'Soak chia seeds in 2 tbsp water, let sit 10 min until gel forms',
+      'Layer in jar: hung curd at bottom, then fruit, then chia gel on top',
+      'Drizzle honey. Seal jar tight.',
+      'Make 3 jars at once — grab from fridge whenever hungry',
+      'Add pumpkin seeds fresh each time (they go soggy if stored)',
+    ],
+    note: '🌙 PMS tip: skip honey, add extra banana. This kills morning sugar cravings instantly.',
+  },
+  {
+    emoji: '🥗',
+    name: 'Mexican-style protein bowl jar',
+    serves: '1 large jar',
+    shelfLife: '✅ Lasts 3 days in fridge (keep dressing separate)',
+    prepTime: '15 min · auntie can make this',
+    macros: ['~420 cal', '22g protein', '55g carbs', '10g fat'],
+    ingredients: [
+      'Rice — 80g cooked (jeera rice or plain) · MUST be fully cooled before jarring',
+      'Kala chana or rajma — 80g cooked (auntie can boil batch)',
+      'Sweet corn — 40g (frozen, microwaved 2 min) · YES this lasts 3 days',
+      'Cucumber — 80g, diced · stays fresh 3 days if jarred properly',
+      'Tomato — 50g, diced · add day-of if tomatoes are very ripe',
+      'Paneer — 60g, cubed and pan-tossed (add on day 1-2 only)',
+      'Mint chutney — 1 tbsp on side in small container',
+      'Lemon juice — squeeze over before eating',
+    ],
+    steps: [
+      'Let rice cool completely (minimum 30 min) — warm rice spoils faster',
+      'Layer from bottom: rice, then chana/rajma, then corn, then cucumber',
+      'Add tomato and paneer fresh each day (most perishable)',
+      'Store mint chutney separately in tiny container',
+      'When hungry: add tomato + paneer + chutney + squeeze lemon → eat straight from jar',
+    ],
+    note: '💡 Auntie tip: ask her to make a big batch of rice and chana on Sunday. You jar them. Done for 3 days.',
+  },
+  {
+    emoji: '🟤',
+    name: 'Protein oats + peanut butter overnight jar',
+    serves: '1 jar',
+    shelfLife: '✅ Lasts 2 days in fridge',
+    prepTime: '3 min · no cooking at all',
+    macros: ['~380 cal', '30g protein', '42g carbs', '10g fat'],
+    ingredients: [
+      'Rolled oats — 40g (NOT instant, use rolled/old-fashioned)',
+      'Milk — 150ml (slim milk works great)',
+      'Protein powder — 1 scoop (your cocoa flavoured one)',
+      'Peanut butter — 1 tsp (Alpino natural)',
+      'Banana — half, sliced (add fresh)',
+      'Chia seeds — 1 tsp',
+      'Honey — half tsp (optional)',
+    ],
+    steps: [
+      'Add oats, protein powder, chia seeds to jar',
+      'Pour milk over, stir well so no dry lumps',
+      'Add peanut butter on top (it melts in overnight = creamy)',
+      'Seal and refrigerate. Minimum 6 hours — overnight is best.',
+      'Morning: add banana slices on top. Eat cold straight from jar.',
+    ],
+    note: '⚡ Best emergency breakfast — 0 cooking, grab from fridge, done in 30 seconds. Make 2 jars Sunday night.',
+  },
+];
+
+function renderMealPrep() {
+  const el = document.getElementById('mealPrepBody');
+  if (!el) return;
+
+  const cards = MEAL_PREP_RECIPES.map(r => `
+    <div class="prep-card">
+      <div class="prep-header">
+        <span class="prep-jar-emoji">${r.emoji}</span>
+        <div>
+          <div class="prep-title">${r.name}</div>
+          <div class="prep-meta">${r.prepTime} · ${r.serves}</div>
+        </div>
+      </div>
+      <div class="prep-macros">
+        ${r.macros.map(m => `<span class="prep-macro">${m}</span>`).join('')}
+      </div>
+      <div class="prep-shelf">${r.shelfLife}</div>
+      <div class="prep-ingredients">
+        <strong style="font-size:11px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-tertiary)">Ingredients</strong><br>
+        ${r.ingredients.map(i => '· ' + i).join('<br>')}
+      </div>
+      <div class="prep-steps">
+        <strong style="font-size:11px;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-tertiary)">How to make</strong>
+        ${r.steps.map((s,i) => `<div class="prep-step"><span class="prep-step-num">${i+1}</span><span>${s}</span></div>`).join('')}
+      </div>
+      <div class="prep-shelf" style="padding-top:0">${r.note}</div>
+    </div>`).join('');
+
+  el.innerHTML = `
+    <p class="activity-hint">Ask auntie to batch-cook the base (rice, dal, chana) every Sunday. You jar it. Each recipe takes under 15 min total. Grab from fridge when hungry — no Swiggy needed.</p>
+    <div class="prep-grid">${cards}</div>`;
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   DAILY MESSAGE
+   ═══════════════════════════════════════════════════════ */
+
+const DAILY_MESSAGES = [
+  "Eating well is not a punishment. It's the kindest thing you can do for yourself.",
+  "One real meal today. That's the whole job.",
+  "You built this plan. You know what works. Trust it.",
+  "Cravings are information, not commands.",
+  "Your body is not your enemy. Work with it, not against it.",
+  "Progress isn't linear. Showing up is enough.",
+  "The version of you who eats well today is building the version who feels amazing next month.",
+  "You don't have to be perfect. You just have to be consistent enough.",
+  "Every meal you log is a vote for the person you're becoming.",
+  "Drink your electrolytes. Take your iron. Eat something real. Three things.",
+  "You've survived every hard PMS week so far. Your track record is 100%.",
+  "Auntie's cooking is always better than Swiggy.",
+  "The fridge is stocked. The plan is there. You just have to open it.",
+  "Hunger is not a crisis. But ignoring it creates one.",
+  "Protein first. Everything else after.",
+  "A good day starts with water before coffee. Try it today.",
+  "You understand your body better than most people ever will. That's your superpower.",
+  "Junk food satisfies for 20 minutes. Real food satisfies for hours.",
+  "Not every day has to be perfect. But every day deserves at least one real meal.",
+  "The supplement drawer is right there. Three minutes. Do it.",
+  "Your future self is rooting for the decision you make in the next five minutes.",
+  "Rest is not failure. Eating is not failure. You are not failing.",
+  "Small consistent wins beat perfect inconsistent days every single time.",
+  "Even on a junk food day, one good meal matters. It's never all or nothing.",
+  "The plan exists so you don't have to make decisions when your willpower is low. Use it.",
+  "Your cravings have patterns. You know them now. That changes everything.",
+  "Be as kind to yourself today as you would be to someone you love.",
+  "Hunger + stress + no food ready = Swiggy. Stock the fridge. Break the chain.",
+  "You logged your meals yesterday. Do it again today. That's a habit forming.",
+  "Not motivated? Eat anyway. Motivation follows action, not the other way around.",
+];
+
+let quoteIndex = -1; // -1 = use today's date seed
+
+function renderDailyMessage() {
+  const el = document.getElementById('dailyMsgSection');
+  if (!el) return;
+  if (quoteIndex === -1) {
+    const today = new Date();
+    quoteIndex = (today.getFullYear() * 10000 + (today.getMonth()+1) * 100 + today.getDate()) % DAILY_MESSAGES.length;
+  }
+  const msg = DAILY_MESSAGES[quoteIndex];
+  el.innerHTML = `<div class="quote-card" onclick="nextQuote()" title="Tap for another">
+    <span class="quote-text">${msg}</span>
+  </div>`;
+}
+
+function nextQuote() {
+  quoteIndex = (quoteIndex + 1) % DAILY_MESSAGES.length;
+  renderDailyMessage();
+}
+
+
+/* ═══════════════════════════════════════════════════════
+   TALK TO ME
+   ═══════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════
+   CRAVING REDIRECTOR
+   ═══════════════════════════════════════════════════════ */
+
+const CRAVING_MAP = [
+  {
+    tags: ['sweet','sugar','chocolate','dessert','ice cream','candy','mithai','gulab','halwa'],
+    emoji: '🍬',
+    label: 'Sweet craving',
+    options: [
+      { food: 'Dates (2-3)', why: 'Natural sugar + fiber = no spike. Kills craving in 5 min.', cal: '55 cal' },
+      { food: 'Hung curd + honey (1 tsp)', why: 'Sweet + creamy + protein. Satisfies without the crash.', cal: '100 cal' },
+      { food: 'Banana', why: 'Serotonin boost. Potassium. Your body actually needs this during PMS.', cal: '80 cal' },
+      { food: 'Dark chocolate 85% (2 squares)', why: 'Magnesium hit. Keeps you from eating the whole bar.', cal: '60 cal' },
+    ]
+  },
+  {
+    tags: ['savory','salty','namkeen','chips','crunchy','crispy','fried'],
+    emoji: '🥔',
+    label: 'Salty / crunchy craving',
+    options: [
+      { food: 'Aloo tikki chaat', why: 'Street food energy. Spicy, crunchy, tangy. Kills chips craving completely.', cal: '245 cal' },
+      { food: 'Pumpkin seeds (15g)', why: 'In your bedside drawer. Crunchy, salty, zinc + magnesium.', cal: '85 cal' },
+      { food: 'Cucumber + carrot + mint chutney', why: 'Crunch without the guilt. Cooling if bloated.', cal: '40 cal' },
+      { food: 'Roasted makhana (30g)', why: 'Light, crunchy, high protein. Feels like popcorn.', cal: '100 cal' },
+    ]
+  },
+  {
+    tags: ['spicy','hot','masala','tangy','chaat','sour'],
+    emoji: '🌶️',
+    label: 'Spicy / tangy craving',
+    options: [
+      { food: 'Kala chana chaat', why: 'Tamarind + green chutney + raw onion. Hits every spicy note.', cal: '220 cal' },
+      { food: 'Aloo tikki with both chutneys', why: 'The full chaat experience. Zero junk.', cal: '245 cal' },
+      { food: 'Cucumber + lemon + kala namak', why: '30 seconds to make. Tangy, refreshing, zero cal.', cal: '15 cal' },
+      { food: 'Paneer bhurji with extra spices', why: 'Spicy + protein. Ask auntie or 5 min on pan.', cal: '280 cal' },
+    ]
+  },
+  {
+    tags: ['pizza','cheesy','cheese','bread','dough','garlic bread','bready'],
+    emoji: '🍕',
+    label: 'Pizza / cheesy craving',
+    options: [
+      { food: 'Paneer paratha + mint chutney + hung curd', why: 'Chewy dough + melted paneer = pizza satisfaction. Exact same thing.', cal: '395 cal' },
+      { food: 'Moong dal chilla stuffed with paneer', why: 'Soft wrapper + cheesy filling + chutney. Roll and eat.', cal: '430 cal' },
+      { food: 'Toast + paneer + mint chutney', why: 'Quick open sandwich. 3 minutes.', cal: '280 cal' },
+    ]
+  },
+  {
+    tags: ['burger','sandwich','wrap','bread','pav','bun'],
+    emoji: '🍔',
+    label: 'Burger / sandwich craving',
+    options: [
+      { food: 'Egg bhurji stuffed in roti wrap + raw onion + chutney', why: 'Juicy filling, soft wrap, crunch from onion. Handheld. Exactly what you want.', cal: '385 cal' },
+      { food: 'Paneer paratha + hung curd', why: 'Same satisfaction — heavy, doughy, filling.', cal: '350 cal' },
+    ]
+  },
+  {
+    tags: ['pasta','noodles','creamy','heavy','comfort','warm','soup','khichdi'],
+    emoji: '🍝',
+    label: 'Comfort / pasta craving',
+    options: [
+      { food: 'Dal + rice + 1 tsp ghee', why: 'Same warmth, same heaviness, same comfort. Your serotonin is low — this fixes it.', cal: '310 cal' },
+      { food: 'Dalia with paneer + tomato masala', why: 'Same soft chewy texture as pasta. Tomato masala = pasta sauce.', cal: '500 cal' },
+      { food: 'Rajma rice + ghee', why: 'The ultimate comfort bowl. Iron + magnesium + serotonin boost.', cal: '365 cal' },
+    ]
+  },
+  {
+    tags: ['momo','dumpling','dim sum','street food'],
+    emoji: '🥟',
+    label: 'Momos / street food craving',
+    options: [
+      { food: 'Stuffed moong dal chilla + red mint chutney', why: 'Soft wrapper + juicy filling + spicy chutney. Roll it up = momo experience.', cal: '450 cal' },
+      { food: 'Aloo tikki chaat (full)', why: 'Street food energy. All the toppings. Zero momo guilt.', cal: '315 cal' },
+    ]
+  },
+  {
+    tags: ['hungry','starving','very hungry','so hungry','meal','food','eat','anything'],
+    emoji: '🍽️',
+    label: 'Just very hungry',
+    options: [
+      { food: 'Protein shake + banana', why: 'Ready in 2 minutes. 28g protein. Buys you time to make a real meal.', cal: '220 cal' },
+      { food: 'Hung curd bowl from meal prep jar', why: 'Already in fridge. Zero prep. Grab and eat.', cal: '280 cal' },
+      { food: 'Mexican bowl jar (if prepped)', why: 'Full meal, already made. Rice + chana + paneer + veg.', cal: '420 cal' },
+      { food: '2 boiled eggs + cucumber', why: 'Pre-made by auntie. 30 seconds. 14g protein.', cal: '190 cal' },
+    ]
+  },
+  {
+    tags: ['beer','drink','alcohol','wine','vodka'],
+    emoji: '🍺',
+    label: 'Alcohol craving',
+    options: [
+      { food: 'Nimbu paani with kala namak + jeera', why: 'Salty, sour, satisfying. Replaces the mineral craving behind beer.', cal: '20 cal' },
+      { food: 'Coconut water', why: 'Natural electrolytes. Kills the fizzy craving.', cal: '45 cal' },
+      { food: 'Dates + almonds + sparkling water', why: 'Something to snack + something bubbly. The social ritual without the alcohol.', cal: '120 cal' },
+    ]
+  },
+  {
+    tags: ['thirsty','dehydrated','water','dry','headache','dizzy','tired','fatigue','lazy','low energy','no energy','exhausted','sluggish','brain fog','foggy','dull'],
+    emoji: '💧',
+    label: 'Dehydrated / low energy',
+    options: [
+      { food: 'Electrolyte tablet in water — right now', why: 'Most tired/foggy feelings are dehydration. Fastest fix. In your bedside drawer.', cal: '5 cal' },
+      { food: 'Nimbu paani + kala namak + jeera', why: 'Sodium + potassium = rehydrates faster than plain water. Make it right now.', cal: '20 cal' },
+      { food: 'Coconut water', why: 'Natural electrolytes. Better than any sports drink.', cal: '45 cal' },
+      { food: 'Banana + water', why: 'Potassium replenishment. If sluggish, this is usually why.', cal: '80 cal' },
+      { food: 'Dates (2) + big glass of water', why: 'Quick natural sugar + minerals. Energy back in 10-15 min.', cal: '55 cal' },
+    ]
+  },
+];
+
+function handleCraving() {
+  const input = document.getElementById('cravingInput');
+  const val = input.value.trim().toLowerCase();
+  if (!val) return;
+  renderCravingResult(val);
+  input.blur();
+}
+
+// Also trigger on Enter
+document.addEventListener('DOMContentLoaded', () => {
+  const inp = document.getElementById('cravingInput');
+  if (inp) inp.addEventListener('keydown', e => { if (e.key === 'Enter') handleCraving(); });
+});
+
+function renderCravingResult(query) {
+  const el = document.getElementById('cravingResult');
+  if (!el) return;
+
+  // Find best match
+  let best = null;
+  let bestScore = 0;
+  CRAVING_MAP.forEach(c => {
+    const score = c.tags.filter(t => query.includes(t) || t.includes(query)).length;
+    if (score > bestScore) { bestScore = score; best = c; }
+  });
+
+  // Fallback — hungry
+  if (!best) best = CRAVING_MAP.find(c => c.tags.includes('hungry'));
+
+  const optionsHtml = best.options.map(o => `
+    <div class="craving-option">
+      <div class="craving-option-top">
+        <span class="craving-option-name">${o.food}</span>
+        <span class="craving-option-cal">${o.cal}</span>
+      </div>
+      <div class="craving-option-why">${o.why}</div>
+    </div>`).join('');
+
+  el.innerHTML = `
+    <div class="craving-result">
+      <div class="craving-result-label">${best.emoji} ${best.label}</div>
+      ${optionsHtml}
+      <button class="craving-clear" onclick="clearCraving()">Clear ✕</button>
+    </div>`;
+}
+
+function clearCraving() {
+  document.getElementById('cravingInput').value = '';
+  document.getElementById('cravingResult').innerHTML = '';
+}
+
+/* ═══════════════════════════════════════════════════════
+   PMS SURVIVAL BADGE
+   ═══════════════════════════════════════════════════════ */
+
+function getPMSSurvivalData() {
+  try { return JSON.parse(localStorage.getItem('mealPlan_pmsSurvival') || '{}'); } catch { return {}; }
+}
+function setPMSSurvivalData(data) {
+  try { localStorage.setItem('mealPlan_pmsSurvival', JSON.stringify(data)); } catch {} }
+
+function checkAndRenderSurvivalBadge() {
+  const el = document.getElementById('survivalBadgeSection');
+  if (!el) return;
+
+  const cycleStart = getCycleStart();
+  if (!cycleStart) { el.innerHTML = ''; return; }
+
+  const today = new Date();
+  const todayStr = dateToStr(today);
+  const info = getPhaseForDate(todayStr, cycleStart);
+  if (!info) { el.innerHTML = ''; return; }
+
+  const data = getPMSSurvivalData();
+
+  // Check if we just transitioned FROM luteal TO menstrual (period just started)
+  // That means yesterday was luteal and today is menstrual, day 1
+  if (info.phase === 'menstrual' && info.dayNum === 1) {
+    // Check if we haven't shown the badge for this cycle yet
+    const cycleKey = cycleStart;
+    if (data.lastBadgeCycle !== cycleKey) {
+      // Show the badge!
+      el.innerHTML = `
+        <div class="survival-badge" id="survivalBadge">
+          <span class="survival-badge-trophy">🏆</span>
+          <div class="survival-badge-body">
+            <div class="survival-badge-title">PMS Survival Badge 🌙</div>
+            <div class="survival-badge-text">You made it through another PMS week. The cravings, the fog, the mood drops — and you're still here. That's not nothing. That's actually everything.</div>
+          </div>
+          <button class="survival-badge-dismiss" onclick="dismissSurvivalBadge('${cycleKey}')">✕</button>
+        </div>`;
+      return;
+    }
+  }
+
+  // Also show badge if we're in early menstrual (day 2-3) and haven't dismissed yet
+  if (info.phase === 'menstrual' && info.dayNum <= 3) {
+    const cycleKey = cycleStart;
+    if (data.lastBadgeCycle !== cycleKey) {
+      el.innerHTML = `
+        <div class="survival-badge" id="survivalBadge">
+          <span class="survival-badge-trophy">🏆</span>
+          <div class="survival-badge-body">
+            <div class="survival-badge-title">PMS Survival Badge 🌙</div>
+            <div class="survival-badge-text">You made it through another PMS week. The cravings, the fog, the mood drops — and you're still here. That's not nothing. That's actually everything.</div>
+          </div>
+          <button class="survival-badge-dismiss" onclick="dismissSurvivalBadge('${cycleKey}')">✕</button>
+        </div>`;
+      return;
+    }
+  }
+
+  el.innerHTML = '';
+}
+
+function dismissSurvivalBadge(cycleKey) {
+  const data = getPMSSurvivalData();
+  data.lastBadgeCycle = cycleKey;
+  setPMSSurvivalData(data);
+  const badge = document.getElementById('survivalBadge');
+  if (badge) badge.closest('.survival-badge').remove();
+}
+
+/* ═══════════════════════════════════════════════════════
+   WEEKLY CALORIE TRACKER
+   ═══════════════════════════════════════════════════════ */
+
+function getWeeklyCalLog() {
+  // Returns { mon: 0, tue: 0, ... } — calories logged per day this week
+  // We derive from checked meals + skipped items stored in localStorage
+  const days = ['mon','tue','wed','thu','fri','sat','sun'];
+  const pms = isPMSMode();
+  const log = {};
+
+  days.forEach(day => {
+    const plan = pms ? PMS_MEAL_PLAN[day] : MEAL_PLAN[day];
+    const checked = getCheckedIds(day);
+    const skipped = getSkippedItems(day);
+    const custom = getCustomMeals(day);
+
+    let cal = 0;
+    // Sum checked meals
+    [...plan.meals, ...custom].forEach(m => {
+      if (checked.includes(m.id)) {
+        // Subtract skipped items
+        m.items.forEach(it => {
+          const skipData = skipped[m.id] || {};
+          if (!skipData[it.n]) cal += it.cal;
+        });
+      }
+    });
+    log[day] = cal;
+  });
+  return log;
+}
+
+function getWeeklyTarget() {
+  const pms = isPMSMode();
+  const dailyTarget = pms ? PMS_TARGETS.cal : TARGETS.cal;
+  return dailyTarget * 7;
+}
+
+function renderWeeklyTracker() {
+  const el = document.getElementById('weeklyTrackerSection');
+  if (!el) return;
+
+  const days = ['mon','tue','wed','thu','fri','sat','sun'];
+  const log = getWeeklyCalLog();
+  const weeklyTarget = getWeeklyTarget();
+  const pms = isPMSMode();
+  const dailyTarget = pms ? PMS_TARGETS.cal : TARGETS.cal;
+
+  // Total consumed this week
+  const consumed = Object.values(log).reduce((a,b) => a+b, 0);
+
+  // Remaining budget
+  const remaining = weeklyTarget - consumed;
+
+  // Format numbers nicely
+  const fmt = n => n >= 1000 ? (n/1000).toFixed(1) + 'k' : String(n);
+
+  // Deficit context
+  const tdee = 2072; // her TDEE
+  const weeklyBurn = tdee * 7;
+  const weeklyDeficit = weeklyBurn - consumed;
+  const deficitClass = weeklyDeficit >= 3500 ? 'on-track' : weeklyDeficit > 0 ? 'deficit' : 'over';
+  const deficitLabel = weeklyDeficit >= 3500 ? '🎯 On track for 0.5kg' : weeklyDeficit > 0 ? `${Math.round(weeklyDeficit/500)}% to goal` : 'Over budget';
+
+  el.innerHTML = `
+    <div class="weekly-tracker">
+      <div class="weekly-stat">
+        <span class="weekly-stat-label">Eaten this week</span>
+        <span class="weekly-stat-val">${fmt(consumed)}</span>
+        <span class="weekly-stat-sub">of ${fmt(weeklyTarget)} cal budget</span>
+      </div>
+      <div class="weekly-stat ${deficitClass}">
+        <span class="weekly-stat-label">Weekly deficit</span>
+        <span class="weekly-stat-val">${weeklyDeficit > 0 ? fmt(weeklyDeficit) : '−'+fmt(Math.abs(weeklyDeficit))}</span>
+        <span class="weekly-stat-sub">${deficitLabel}</span>
+      </div>
+    </div>`;
+}
+
 function setMode(pms) {
   setPMSMode(pms);
   document.getElementById('btnNormal').classList.toggle('active', !pms);
   document.getElementById('btnPMS').classList.toggle('active', pms);
   document.getElementById('modeSubtitle').textContent = pms
-    ? '🌙 PMS mode · Hormone-balanced meals · No chicken · Comfort carbs · Anti-bloat'
-    : '1,200 cal · 110g protein · 100g carbs · 40g fat · fiber-rich';
+    ? '🌙 PMS mode · 1,700 cal · Hormone-balanced · No chicken · Comfort carbs'
+    : '1,550 cal · 120g protein · 500 cal deficit · 0.5kg/week';
   renderTabs();
   renderPanels();
   renderTracker();
+  renderWeeklyTracker();
 }
 
 // Sync toggle on load
@@ -3640,9 +4893,15 @@ function setMode(pms) {
 })();
 
 renderCycleCalendar();
+renderDailyMessage();
+renderWeeklyTracker();
+checkAndRenderSurvivalBadge();
+renderSupplements();
+renderMealPrep();
 renderTabs();
 renderPanels();
 renderTracker();
+renderWeeklyTracker();
 
 /* ---------- activity handlers ---------- */
 document.getElementById('activityAddBtn').addEventListener('click', () => {
