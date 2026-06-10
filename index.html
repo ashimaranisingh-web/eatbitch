@@ -2447,10 +2447,10 @@ const MEAL_PLAN = {
         ] },
 
       { id:'mon-2', time:'1–1:30pm · Meal 1', title:'Chicken + 1 dosa + salad',
-        desc:'Grilled chicken breast (120g raw) + 1 small dosa with pickle + cucumber-tomato-onion salad.',
+        desc:'Chicken breast (120g raw, weigh before cooking) + 1 small dosa with pickle + cucumber-tomato-onion salad.',
         quantities:'Raw chicken breast (120g) · Dosa (100g cooked) · Sambar Cucumber (100g) · Tomato (60g) · Onion (30g) · Olive oil (5ml / 1 tsp) · Lemon · Salt + pepper',
         items:[
-          { n:'Grilled chicken',    cal:200, p:38, c:0,  f:5,  fib:0 },
+          { n:'Grilled chicken (120g raw)', cal:132, p:28, c:0, f:3, fib:0 },
           { n:'Small dosa (1)',     cal:115, p:3,  c:23, f:1,  fib:1 },
           { n:'Cucumber-tomato-onion', cal:50, p:2,  c:10, f:0, fib:3 },
           { n:'Olive oil + lemon',  cal:50,  p:0,  c:1,  f:5,  fib:0 }
@@ -2548,14 +2548,15 @@ const MEAL_PLAN = {
           { n:'Protein shake (1 scoop)', cal:120, p:25, c:3, f:1, fib:0 },
         ] },
 
-      { id:'wed-2', time:'1–1:30pm · Meal 1', title:'Chicken + 2-egg omelette + salad',
-        desc:'Grilled chicken breast (100g) + 2-egg omelette + chopped salad. High protein.',
-        quantities:'Raw chicken (100g, grilled) · Eggs (2) · Cucumber (100g) · Tomato (60g) · Onion (30g) · Lemon · 1 tsp oil · Spices',
+      { id:'wed-2', time:'1–1:30pm · Meal 1', title:'Chicken rice bowl + salad',
+        desc:'Chicken breast (100g raw) + jeera rice + cucumber-tomato salad + pickle. Warm, filling, actually enjoyable.',
+        quantities:'Raw chicken (100g, weigh before cooking) · Jeera rice (60g cooked) · Cucumber (80g) · Tomato (50g) · Onion (30g) · Pickle (small) · 1 tsp ghee · Lemon',
         items:[
-          { n:'Grilled chicken',     cal:170, p:32, c:0,  f:4,  fib:0 },
-          { n:'2-egg omelette',      cal:180, p:14, c:2,  f:12, fib:0 },
-          { n:'Cuc-tom-onion side',  cal:50,  p:2,  c:10, f:0,  fib:3 },
-          { n:'Olive oil + lemon',   cal:50,  p:0,  c:1,  f:5,  fib:0 }
+          { n:'Grilled chicken (100g raw)', cal:110, p:23, c:0,  f:2,  fib:0 },
+          { n:'Jeera rice (60g cooked)',    cal:80,  p:2,  c:17, f:1,  fib:0 },
+          { n:'Cuc-tom-onion salad',        cal:35,  p:1,  c:7,  f:0,  fib:3 },
+          { n:'Ghee (1 tsp)',               cal:40,  p:0,  c:0,  f:5,  fib:0 },
+          { n:'Pickle',                     cal:10,  p:0,  c:2,  f:0,  fib:0 }
         ] },
 
       { id:'wed-3', time:'4–5pm · Snack', title:'Hung curd + fruit',
@@ -2597,10 +2598,10 @@ const MEAL_PLAN = {
         ] },
 
       { id:'thu-2', time:'1–1:30pm · Meal 1', title:'Chicken + small dosa + salad',
-        desc:'Grilled chicken breast (120g) + 1 small dosa with pickle + cucumber-tomato salad.',
+        desc:'Chicken breast (120g raw, weigh before cooking) + 1 small dosa with pickle + cucumber-tomato salad.',
         quantities:'Raw chicken (120g, grilled) · Dosa (100g cooked) · Cucumber (80g) · Tomato (50g) · Onion (30g) · Lemon · Spices',
         items:[
-          { n:'Grilled chicken',    cal:200, p:38, c:0,  f:5,  fib:0 },
+          { n:'Grilled chicken (120g raw)', cal:132, p:28, c:0, f:3, fib:0 },
           { n:'Small dosa (1)',     cal:115, p:3,  c:23, f:1,  fib:1 },
           { n:'Cuc-tom-onion side', cal:50,  p:2,  c:10, f:0,  fib:3 }
         ] },
@@ -2651,7 +2652,7 @@ const MEAL_PLAN = {
         desc:'Hung-curd marinated chicken tikka (120g) with cucumber-tomato-carrot salad.',
         quantities:'Raw chicken (120g) · Hung curd marinade (30g) · Cucumber (80g) · Tomato (60g) · Carrot (40g, grated) · Onion (30g) · 1 tsp oil · Lemon · Spices',
         items:[
-          { n:'Chicken tikka',         cal:210, p:38, c:1,  f:5, fib:0 },
+          { n:'Chicken tikka (120g raw)', cal:132, p:28, c:1, f:3, fib:0 },
           { n:'Hung curd (marinade)',  cal:25,  p:2,  c:1,  f:1, fib:0 },
           { n:'Cuc-tom-carrot salad',  cal:60,  p:2,  c:12, f:0, fib:4 },
           { n:'Olive oil + lemon',     cal:50,  p:0,  c:1,  f:5, fib:0 }
@@ -2756,10 +2757,10 @@ const MEAL_PLAN = {
         ] },
 
       { id:'sun-3', time:'1–1:30pm · Meal 1', title:'Chicken + big salad bowl',
-        desc:'Grilled chicken breast (120g) with cucumber-cherry tomato-lettuce-onion salad + lemon.',
+        desc:'Chicken breast (120g raw, weigh before cooking) with cucumber-cherry tomato-lettuce-onion salad + lemon.',
         quantities:'Raw chicken (120g) · Cucumber (80g) · Cherry tomato (40g) · Lettuce (40g) · Onion (30g) · Lemon · Salt + pepper',
         items:[
-          { n:'Grilled chicken',  cal:200, p:38, c:0,  f:5, fib:0 },
+          { n:'Grilled chicken (120g raw)', cal:132, p:28, c:0, f:3, fib:0 },
           { n:'Big salad bowl',   cal:60,  p:2,  c:10, f:0, fib:4 }
         ] },
 
